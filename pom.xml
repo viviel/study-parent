@@ -12,6 +12,7 @@
 
     <modules>
         <module>jdk</module>
+        <module>algorithm</module>
     </modules>
 
     <properties>
