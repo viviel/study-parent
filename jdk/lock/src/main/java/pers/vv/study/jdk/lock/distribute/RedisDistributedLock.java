@@ -2,7 +2,8 @@ package pers.vv.study.jdk.lock.distribute;
 
 import redis.clients.jedis.Jedis;
 
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
@@ -12,26 +13,29 @@ import java.util.concurrent.locks.LockSupport;
 
 public class RedisDistributedLock implements Lock {
 
-    private static final long DEFAULT_REDIS_LOCK_TIMEOUT = 10000;//10秒
-    private static final String NX = "NX";
-    /**
-     * mills
-     */
-    private static final String PX = "PX";
-    private static final String OK = "OK";
+    private static final int DEFAULT_REDIS_LOCK_TIMEOUT = 10;//10秒
+
     private static final int RETRY_TIMES = 3;
+
     private static final long PARK_TIME = 200;
+
     private static final long SPIN_FOR_TIMEOUT_THRESHOLD = 1000L;
 
     private static final String UNLOCK_SCRIPT =
             "if redis.call('get', KEYS[1]) == ARGV[1] " +
             "then return redis.call('del', KEYS[1]) " +
             "else return 0 end";
-    private long redisLockTimeout = DEFAULT_REDIS_LOCK_TIMEOUT;
+
+    private int redisLockTimeout = DEFAULT_REDIS_LOCK_TIMEOUT;
+
     private final Sync sync = new Sync();
+
     private final UUID uuid = UUID.randomUUID();
+
     private final String valueFormat = "%d:" + uuid.toString();
+
     private final RedisHelper redisHelper;
+
     private final String lockKey;
 
     public RedisDistributedLock(RedisHelper redisHelper, String lockKey) {
@@ -39,13 +43,13 @@ public class RedisDistributedLock implements Lock {
         this.lockKey = lockKey;
     }
 
-    public RedisDistributedLock(RedisHelper redisHelper, String lockKey, long redisLockTimeout) {
+    public RedisDistributedLock(RedisHelper redisHelper, String lockKey, int redisLockTimeout) {
         this.redisHelper = redisHelper;
         this.lockKey = lockKey;
         this.redisLockTimeout = redisLockTimeout;
     }
 
-    public void setRedisLockTimeout(long redisLockTimeout) {
+    public void setRedisLockTimeout(int redisLockTimeout) {
         this.redisLockTimeout = redisLockTimeout;
     }
 
@@ -96,7 +100,8 @@ public class RedisDistributedLock implements Lock {
             int c = getState();
             if (c == 0) {
                 if (!hasQueuedPredecessors() &&
-                    compareAndSetState(0, 1)) {
+                    compareAndSetState(0, 1)
+                ) {
                     setExclusiveOwnerThread(current);
                     // 如果是线程被中断失败的话，返回false，如果超时失败的话，捕获异常
                     return tryAcquireRedisLock(TimeUnit.MILLISECONDS.toNanos(redisLockTimeout));
@@ -115,8 +120,6 @@ public class RedisDistributedLock implements Lock {
 
         /**
          * 不能挂起太久，因为没线程唤醒它,暂时让出时间片
-         *
-         * @return
          */
         final boolean parkAndCheckInterrupt() {
             LockSupport.parkNanos(TimeUnit.NANOSECONDS.toNanos(PARK_TIME));
@@ -125,11 +128,8 @@ public class RedisDistributedLock implements Lock {
 
         /**
          * 获取redis锁
-         *
-         * @param nanosTimeout
-         * @return
          */
-        private final boolean tryAcquireRedisLock(long nanosTimeout) {
+        private boolean tryAcquireRedisLock(long nanosTimeout) {
             if (nanosTimeout <= 0L) {
                 return false;
             }
@@ -147,14 +147,17 @@ public class RedisDistributedLock implements Lock {
                     }
                     String value = String.format(valueFormat, Thread.currentThread().getId());
                     //避免系统宕机锁不释放，设置过期时间
-//                    String response = jedis.set(lockKey, value, NX, PX, redisLockTimeout);
-                    String response = "dd";
-                    if (OK.equals(response)) {
+                    if (Objects.equals(jedis.setnx(lockKey, value), 1L)) {
+                        jedis.expire(lockKey, redisLockTimeout);
+
                         //如果线程被中断同时也是失败的
                         return !interrupted;
                     }
                     // 超过尝试次数
-                    if (count > RETRY_TIMES && nanosTimeout > SPIN_FOR_TIMEOUT_THRESHOLD && parkAndCheckInterrupt()) {
+                    if (count > RETRY_TIMES &&
+                        nanosTimeout > SPIN_FOR_TIMEOUT_THRESHOLD &&
+                        parkAndCheckInterrupt()
+                    ) {
                         interrupted = true;
                     }
                     count++;
@@ -179,7 +182,7 @@ public class RedisDistributedLock implements Lock {
                 try {
                     jedis = redisHelper.getJedisInstance();
                     String value = String.format(valueFormat, Thread.currentThread().getId());
-                    jedis.eval(UNLOCK_SCRIPT, Arrays.asList(lockKey), Arrays.asList(value));
+                    jedis.eval(UNLOCK_SCRIPT, Collections.singletonList(lockKey), Collections.singletonList(value));
                 } finally {
                     redisHelper.returnResource(jedis);
                 }
@@ -187,6 +190,7 @@ public class RedisDistributedLock implements Lock {
                 setExclusiveOwnerThread(null);
             }
             setState(c);
+
             return free;
         }
 
