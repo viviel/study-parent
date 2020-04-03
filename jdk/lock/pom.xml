@@ -12,4 +12,18 @@
 
     <artifactId>lock</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>3.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
+            <version>3.12.4</version>
+        </dependency>
+    </dependencies>
+
 </project>
