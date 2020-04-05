@@ -10,7 +10,7 @@ public class RedisHelper {
     private JedisPool pool;
 
     private RedisHelper() {
-        pool = new JedisPool("10.17.1.61", 6506);
+        pool = new JedisPool("::1", 6379);
     }
 
     public Jedis getJedisInstance() {
