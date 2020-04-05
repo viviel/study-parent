@@ -6,9 +6,10 @@ import redis.clients.jedis.JedisPool;
 public class RedisHelper {
 
     public static final RedisHelper instance = new RedisHelper();
+
     private JedisPool pool;
 
-    {
+    private RedisHelper() {
         pool = new JedisPool("10.17.1.61", 6506);
     }
 
@@ -21,4 +22,5 @@ public class RedisHelper {
             jedis.close();
         }
     }
+
 }
