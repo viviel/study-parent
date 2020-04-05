@@ -129,11 +129,11 @@ public class RedisDistributedLock implements Lock {
         /**
          * 获取redis锁
          */
-        private boolean tryAcquireRedisLock(long nanoTimeout) {
-            if (nanoTimeout <= 0L) {
+        private boolean tryAcquireRedisLock(long nanosTimeout) {
+            if (nanosTimeout <= 0L) {
                 return false;
             }
-            final long deadline = System.nanoTime() + nanoTimeout;
+            final long deadline = System.nanoTime() + nanosTimeout;
             int count = 0;
             boolean interrupted = false;
 
@@ -141,8 +141,8 @@ public class RedisDistributedLock implements Lock {
             try {
                 jedis = redisHelper.getJedisInstance();
                 while (true) {
-                    nanoTimeout = deadline - System.nanoTime();
-                    if (nanoTimeout <= 0L) {
+                    nanosTimeout = deadline - System.nanoTime();
+                    if (nanosTimeout <= 0L) {
                         throw new AcquireLockTimeoutException();
                     }
                     String value = String.format(valueFormat, Thread.currentThread().getId());
@@ -155,7 +155,7 @@ public class RedisDistributedLock implements Lock {
                     }
                     // 超过尝试次数
                     if (count > RETRY_TIMES &&
-                        nanoTimeout > SPIN_FOR_TIMEOUT_THRESHOLD &&
+                        nanosTimeout > SPIN_FOR_TIMEOUT_THRESHOLD &&
                         parkAndCheckInterrupt()
                     ) {
                         interrupted = true;
