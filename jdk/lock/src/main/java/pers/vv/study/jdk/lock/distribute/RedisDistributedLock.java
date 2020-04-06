@@ -15,7 +15,7 @@ public class RedisDistributedLock implements Lock {
 
     private static final int DEFAULT_REDIS_LOCK_TIMEOUT = 10;//10秒
 
-    private static final int RETRY_TIMES = 3;
+    private static final int MAX_RETRY_TIMES = 3;
 
     private static final long PARK_TIME = 200;
 
@@ -134,7 +134,7 @@ public class RedisDistributedLock implements Lock {
                 return false;
             }
             final long deadline = System.nanoTime() + nanosTimeout;
-            int count = 0;
+            int retryTimes = 0;
             boolean interrupted = false;
 
             Jedis jedis = null;
@@ -154,13 +154,13 @@ public class RedisDistributedLock implements Lock {
                         return !interrupted;
                     }
                     // 超过尝试次数
-                    if (count > RETRY_TIMES &&
+                    if (retryTimes > MAX_RETRY_TIMES &&
                         nanosTimeout > SPIN_FOR_TIMEOUT_THRESHOLD &&
                         parkAndCheckInterrupt()
                     ) {
                         interrupted = true;
                     }
-                    count++;
+                    retryTimes++;
                 }
             } finally {
                 redisHelper.returnResource(jedis);

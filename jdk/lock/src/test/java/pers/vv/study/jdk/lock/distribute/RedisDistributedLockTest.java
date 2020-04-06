@@ -7,13 +7,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RedisDistributedLockTest {
 
-    private final String lockKey = "test.lockKey";
-
-    private RedisDistributedLock lock;
+    private static RedisDistributedLock lock;
 
     @BeforeAll
-    void init() {
-        lock = new RedisDistributedLock(RedisHelper.instance, lockKey);
+    static void init() {
+        String lockKey = "test.lockKey";
+        lock = new RedisDistributedLock(RedisHelper.instance, lockKey, 1000_10);
     }
 
     @Test
