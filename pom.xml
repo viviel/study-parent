@@ -14,6 +14,7 @@
         <module>jdk</module>
         <module>algorithm</module>
         <module>db</module>
+        <module>redis</module>
     </modules>
 
     <properties>
