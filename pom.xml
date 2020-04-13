@@ -15,6 +15,7 @@
         <module>algorithm</module>
         <module>db</module>
         <module>redis</module>
+        <module>monitor</module>
     </modules>
 
     <properties>
