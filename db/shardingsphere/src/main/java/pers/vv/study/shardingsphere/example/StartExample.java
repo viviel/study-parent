@@ -51,7 +51,7 @@ public class StartExample {
 
     private void insert(Connection connection) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.execute("insert into user0(name) values ('vv')");
+        stmt.execute("insert into user(name) values ('vv')");
     }
 
     private void select(Connection connection) throws SQLException {
