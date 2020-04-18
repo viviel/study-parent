@@ -34,10 +34,13 @@ public class StartExample {
 
         ShardingRuleConfiguration shardingRuleConfig = new ShardingRuleConfiguration();
 
-        TableRuleConfiguration userTableRuleConfig =new TableRuleConfiguration(
+        TableRuleConfiguration userTableRuleConfig = new TableRuleConfiguration(
                 "user", "test.user${0..1}"
         );
-        userTableRuleConfig.setTableShardingStrategyConfig(new InlineShardingStrategyConfiguration("id", "{id % 2}"));
+        userTableRuleConfig.setTableShardingStrategyConfig(new InlineShardingStrategyConfiguration(
+                "id", "user{id % 2}"
+        ));
+
         shardingRuleConfig.getTableRuleConfigs().add(userTableRuleConfig);
 
         Properties props = new Properties();
@@ -51,7 +54,7 @@ public class StartExample {
 
     private void insert(Connection connection) throws SQLException {
         Statement stmt = connection.createStatement();
-        stmt.execute("insert into user(name) values ('vv')");
+        stmt.execute("insert into user(id, name) values (1, 'vv')");
     }
 
     private void select(Connection connection) throws SQLException {
