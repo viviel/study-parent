@@ -5,7 +5,7 @@ import java.util.concurrent.CountDownLatch;
 public class LatchStudy {
 
     public static void main(String[] args) {
-
+        new LatchStudy().test1();
     }
 
     private void test1() {
