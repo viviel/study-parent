@@ -10,3 +10,8 @@ gen
 
 # maven
 target/
+
+# eclipse
+.settings/
+.project
+.classpath
