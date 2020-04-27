@@ -14,7 +14,8 @@ public class Main {
     }
 
     public void test1() throws SQLException {
-        PreparedStatement ps = conn.prepareStatement("insert into user0(name) values ('jdbc')");
+        PreparedStatement ps = conn.prepareStatement("insert into user0(name) values (?)");
+        ps.setString(1, "setstring");
 
         ps.execute();
     }

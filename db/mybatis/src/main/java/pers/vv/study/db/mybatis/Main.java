@@ -19,10 +19,6 @@ public class Main {
         sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
     }
 
-    public static void main(String[] args) throws IOException {
-        new Main().test2();
-    }
-
     public void test1() {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             List<User> users = session.selectList("user.listAll");
@@ -30,11 +26,27 @@ public class Main {
         }
     }
 
+    /**
+     * 使用insert必须显示调用提交事务方法
+     */
     public void test2() {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             User user = new User();
             user.setName("test2");
             int count = session.insert("user.insert", user);
+            session.commit();
+
+            System.out.println(count);
+        }
+    }
+
+    public void test3() {
+        try (SqlSession session = sqlSessionFactory.openSession()) {
+            User user = new User();
+            user.setName("test2");
+            int count = session.insert("user.insertNotExist", user);
+            session.commit();
+
             System.out.println(count);
         }
     }
