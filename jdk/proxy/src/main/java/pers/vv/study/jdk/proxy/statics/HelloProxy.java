@@ -1,4 +1,4 @@
-package pers.vv.study.jdk.proxy.static1;
+package pers.vv.study.jdk.proxy.statics;
 
 import pers.vv.study.jdk.proxy.Hello;
 import pers.vv.study.jdk.proxy.HelloInterface;
