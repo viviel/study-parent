@@ -1,11 +1,11 @@
 package pers.vv.study.jdk.proxy.statics;
 
-import pers.vv.study.jdk.proxy.HelloInterface;
+import pers.vv.study.jdk.proxy.Hello;
 
 public class Main {
 
     public static void main(String[] args) {
-        HelloInterface helloProxy = new HelloProxy();
+        Hello helloProxy = new HelloProxy();
         helloProxy.sayHello();
     }
 

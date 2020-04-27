@@ -1,10 +1,7 @@
 package pers.vv.study.jdk.proxy;
 
-public class Hello implements HelloInterface {
+public interface Hello {
 
-    @Override
-    public void sayHello() {
-        System.out.println("Hello zhanghao!");
-    }
+    void sayHello();
 
 }
