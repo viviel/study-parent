@@ -16,6 +16,7 @@
         <module>nio</module>
         <module>lock</module>
         <module>concurrent</module>
+        <module>proxy</module>
     </modules>
 
 </project>
