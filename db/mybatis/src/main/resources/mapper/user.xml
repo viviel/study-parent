@@ -13,7 +13,12 @@
         from user0;
     </select>
 
-    <insert id="insertNotExist" parameterType="User" keyProperty="id" useGeneratedKeys="true">
+    <insert id="insert" parameterType="User" keyProperty="userId" useGeneratedKeys="true">
+        insert into user0 (name)
+        values (#{name})
+    </insert>
+
+    <insert id="insertNotExist" parameterType="User" keyProperty="user_id" useGeneratedKeys="true">
         insert into user0 (name)
         select #{name}
         from DUAL
@@ -22,11 +27,6 @@
                 from user0
                 where id = -1
             )
-    </insert>
-
-    <insert id="insert" parameterType="User" keyProperty="id" useGeneratedKeys="true">
-        insert into user0 (name)
-        values (#{name})
     </insert>
 
 </mapper>
