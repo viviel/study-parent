@@ -16,6 +16,7 @@
         <module>db</module>
         <module>redis</module>
         <module>monitor</module>
+        <module>mq</module>
     </modules>
 
     <properties>
