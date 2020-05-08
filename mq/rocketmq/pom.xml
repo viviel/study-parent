@@ -4,17 +4,20 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
-        <artifactId>study-parent</artifactId>
+        <artifactId>mq</artifactId>
         <groupId>pers.vv.study</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>mq</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>tubemq</module>
-        <module>rocketmq</module>
-    </modules>
+    <artifactId>rocketmq</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.rocketmq</groupId>
+            <artifactId>rocketmq-client</artifactId>
+            <version>4.7.0</version>
+        </dependency>
+    </dependencies>
 
 </project>
