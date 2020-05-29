@@ -17,6 +17,7 @@
         <module>redis</module>
         <module>monitor</module>
         <module>mq</module>
+        <module>log</module>
     </modules>
 
     <properties>
