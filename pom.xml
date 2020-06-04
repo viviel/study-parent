@@ -18,6 +18,7 @@
         <module>monitor</module>
         <module>mq</module>
         <module>log</module>
+        <module>serialize</module>
     </modules>
 
     <properties>
