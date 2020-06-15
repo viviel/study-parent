@@ -19,6 +19,7 @@
         <module>mq</module>
         <module>log</module>
         <module>serialize</module>
+        <module>netty</module>
     </modules>
 
     <properties>
