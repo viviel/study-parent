@@ -20,6 +20,7 @@
         <module>log</module>
         <module>serialize</module>
         <module>netty</module>
+        <module>common</module>
     </modules>
 
     <properties>
