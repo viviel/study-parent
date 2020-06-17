@@ -104,11 +104,11 @@ public class SocketOperator {
                         //获取后移除这个已经处理的请求！
                         iterator.remove();
                         //如果该key所在的channel或者selector关闭了，这里就会返回true
-                        if (key.isAcceptable()) {/*如果是接收请求操作*/
+                        if (key.isAcceptable()) {//如果是接收请求操作
                             accept(key);
-                        } else if (key.isWritable()) {/*如果是写操作*/
+                        } else if (key.isWritable()) {//如果是写操作
                             write(key);
-                        } else if (key.isReadable()) {/*如果是读取操作*/
+                        } else if (key.isReadable()) {//如果是读取操作
                             read(key);
                         }
                     }
