@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author guoshixiong
@@ -24,12 +23,12 @@ public class SocketOperator {
 
     private static final CountDownLatch latch = new CountDownLatch(1);
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         new Thread(new Server(), "server").start();
 
         new Thread(new Client(), "client-1").start();
-        new Thread(new Client(), "client-2").start();
-        new Thread(new Client(), "client-3").start();
+//        new Thread(new Client(), "client-2").start();
+//        new Thread(new Client(), "client-3").start();
     }
 
     private static class Client implements Runnable {
@@ -48,7 +47,7 @@ public class SocketOperator {
             SocketChannel socket = SocketChannel.open();
             socket.connect(new InetSocketAddress("127.0.0.1", PORT));
             socket.configureBlocking(false);
-            for (int i = 0; i < 10000; i++) {
+            for (int i = 0; i < 1; i++) {
                 String dateStr = LocalDateTime.now().toString();
                 ByteBuffer buff = ByteBuffer.wrap(dateStr.getBytes());
                 socket.write(buff);
@@ -93,7 +92,6 @@ public class SocketOperator {
             latch.countDown();
             //循环接受请求
             while (!Thread.currentThread().isInterrupted()) {
-                //等待三秒，如果没有请求就select方法返回0，运行else中的需要一部运行的代码
                 // 如果参数是0或没有参数的话就一直阻塞直到接收到请求
                 if (selector.select() != 0) {
                     //selectedKeys方法获取SelectionKey的集合
@@ -106,14 +104,11 @@ public class SocketOperator {
                         //获取后移除这个已经处理的请求！
                         iterator.remove();
                         //如果该key所在的channel或者selector关闭了，这里就会返回true
-                        //如果是接收请求操作
-                        if (key.isAcceptable()) {
+                        if (key.isAcceptable()) {//如果是接收请求操作
                             accept(key);
-                            //如果是写操作
-                        } else if (key.isWritable()) {
+                        } else if (key.isWritable()) {//如果是写操作
                             write(key);
-                            //如果是读取操作
-                        } else if (key.isReadable()) {
+                        } else if (key.isReadable()) {//如果是读取操作
                             read(key);
                         }
                     }
