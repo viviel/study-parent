@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author guoshixiong
@@ -24,7 +23,7 @@ public class SocketOperator {
 
     private static final CountDownLatch latch = new CountDownLatch(1);
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         new Thread(new Server(), "server").start();
 
         new Thread(new Client(), "client-1").start();
