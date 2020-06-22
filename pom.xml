@@ -21,6 +21,7 @@
         <module>serialize</module>
         <module>netty</module>
         <module>common</module>
+        <module>schedule</module>
     </modules>
 
     <properties>
