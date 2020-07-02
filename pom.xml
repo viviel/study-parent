@@ -22,6 +22,7 @@
         <module>netty</module>
         <module>common</module>
         <module>schedule</module>
+        <module>test</module>
     </modules>
 
     <properties>
