@@ -15,7 +15,7 @@
     <dependencies>
         <dependency>
             <groupId>org.apache.curator</groupId>
-            <artifactId>curator-client</artifactId>
+            <artifactId>curator-recipes</artifactId>
         </dependency>
     </dependencies>
 
