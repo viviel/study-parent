@@ -34,6 +34,8 @@
 <!--        <curator.version>5.1.0</curator.version>-->
         <curator.version>2.10.0</curator.version>
         <junit.jupiter.version>5.6.1</junit.jupiter.version>
+        <guava.version>29.0-jre</guava.version>
+        <common.version>1.14</common.version>
     </properties>
 
     <dependencyManagement>
@@ -42,6 +44,16 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${common.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
@@ -79,7 +91,10 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
