@@ -1,7 +1,7 @@
 package pers.vv.study.schedule.elasticjob;
 
 import org.apache.shardingsphere.elasticjob.lite.api.ShardingContext;
-import org.apache.shardingsphere.elasticjob.lite.api.simple.SimpleJob;
+import org.apache.shardingsphere.elasticjob.lite.api.type.simple.SimpleJob;
 
 public class MyElasticJob implements SimpleJob {
 

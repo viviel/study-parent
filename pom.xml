@@ -28,19 +28,32 @@
     </modules>
 
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
 
+        <springboot.version>2.3.1.RELEASE</springboot.version>
+        <!--        <springboot.version>1.5.6.RELEASE</springboot.version>-->
         <lombok.version>1.18.12</lombok.version>
-<!--        <curator.version>5.1.0</curator.version>-->
+        <!--        <curator.version>5.1.0</curator.version>-->
         <curator.version>2.10.0</curator.version>
         <junit.jupiter.version>5.6.1</junit.jupiter.version>
         <guava.version>29.0-jre</guava.version>
         <common.version>1.14</common.version>
+        <openjpa.version>3.1.2</openjpa.version>
+        <eclipselink.version>2.7.7</eclipselink.version>
+        <eclipselink.maven.plugin.version>2.7.5.1</eclipselink.maven.plugin.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
@@ -83,8 +96,92 @@
                 <version>${curator.version}</version>
                 <scope>test</scope>
             </dependency>
+            <dependency>
+                <groupId>org.apache.openjpa</groupId>
+                <artifactId>openjpa-all</artifactId>
+                <version>${openjpa.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.openjpa</groupId>
+                <artifactId>openjpa</artifactId>
+                <version>${openjpa.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.persistence</groupId>
+                <artifactId>org.eclipse.persistence.jpa</artifactId>
+                <version>${eclipselink.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.openjpa</groupId>
+                    <artifactId>openjpa-maven-plugin</artifactId>
+                    <version>${openjpa.version}</version>
+                    <executions>
+                        <execution>
+                            <id>enhancer</id>
+                            <phase>process-classes</phase>
+                            <goals>
+                                <goal>enhance</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.apache.openjpa</groupId>
+                            <artifactId>openjpa</artifactId>
+                            <!-- set the version to be the same as the level in your runtime -->
+                            <version>${openjpa.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>com.ethlo.persistence.tools</groupId>
+                    <artifactId>eclipselink-maven-plugin</artifactId>
+                    <version>${eclipselink.maven.plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>weave</id>
+                            <phase>process-classes</phase>
+                            <goals>
+                                <goal>weave</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>ddl</id>
+                            <phase>process-classes</phase>
+                            <goals>
+                                <goal>ddl</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>modelgen</id>
+                            <phase>generate-sources</phase>
+                            <goals>
+                                <goal>modelgen</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                    <configuration>
+                        <basePackage>symphony.bina</basePackage>
+                        <databaseProductName>oracle</databaseProductName>
+                        <logLevel>FINE</logLevel>
+                    </configuration>
+                    <dependencies>
+                        <dependency>
+                            <groupId>org.eclipse.persistence</groupId>
+                            <artifactId>org.eclipse.persistence.jpa</artifactId>
+                            <version>${eclipselink.version}</version>
+                        </dependency>
+                    </dependencies>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
     <dependencies>
         <dependency>

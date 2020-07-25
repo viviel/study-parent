@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <!-- 持久化单元 -->
+    <persistence-unit name="EmployeeService" transaction-type="RESOURCE_LOCAL">
+        <!-- OpenJPA 持久化实现 -->
+        <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+        <!-- 指定哪些实体需要持久化 -->
+        <class>pers.vv.study.jpa.common.domain.User</class>
+        <!-- 配置数据库连接信息 -->
+        <properties>
+            <property name="javax.persistence.jdbc.driver" value="org.h2.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"/>
+            <property name="javax.persistence.jdbc.user" value="sa"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
+            <!-- 可以自动生成数据库表 -->
+            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
+            <!--不使用openjpa增强-->
+            <property name="openjpa.ClassLoadEnhancement" value="true"/>
+            <property name="openjpa.DynamicEnhancementAgent" value="true"/>
+<!--            <property name="openjpa.RuntimeUnenhancedClasses" value="supported"/>-->
+        </properties>
+    </persistence-unit>
+</persistence>
