@@ -24,7 +24,6 @@
         <module>schedule</module>
         <module>test</module>
         <module>zookeeper</module>
-        <module>jpa</module>
     </modules>
 
     <properties>
@@ -34,6 +33,7 @@
 
         <springboot.version>2.3.1.RELEASE</springboot.version>
         <!--        <springboot.version>1.5.6.RELEASE</springboot.version>-->
+        <grpc.version>1.19.0</grpc.version>
         <lombok.version>1.18.12</lombok.version>
         <!--        <curator.version>5.1.0</curator.version>-->
         <curator.version>2.10.0</curator.version>
@@ -42,7 +42,13 @@
         <common.version>1.14</common.version>
         <openjpa.version>3.1.2</openjpa.version>
         <eclipselink.version>2.7.7</eclipselink.version>
-        <eclipselink.maven.plugin.version>2.7.5.1</eclipselink.maven.plugin.version>
+        <shardingsphere.version>4.0.1</shardingsphere.version>
+        <rocketmq.version>4.7.0</rocketmq.version>
+        <redission.version>3.12.4</redission.version>
+
+        <openjpa-plugin.version>3.1.2</openjpa-plugin.version>
+        <eclipselink-plugin.version>2.7.5.1</eclipselink-plugin.version>
+        <protobuf-plugin.version>0.6.1</protobuf-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -51,6 +57,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
                 <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.grpc</groupId>
+                <artifactId>grpc-bom</artifactId>
+                <version>${grpc.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
@@ -111,6 +124,21 @@
                 <artifactId>org.eclipse.persistence.jpa</artifactId>
                 <version>${eclipselink.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>sharding-jdbc-core</artifactId>
+                <version>${shardingsphere.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-client</artifactId>
+                <version>${rocketmq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redission.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -120,7 +148,7 @@
                 <plugin>
                     <groupId>org.apache.openjpa</groupId>
                     <artifactId>openjpa-maven-plugin</artifactId>
-                    <version>${openjpa.version}</version>
+                    <version>${openjpa-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>enhancer</id>
@@ -142,7 +170,7 @@
                 <plugin>
                     <groupId>com.ethlo.persistence.tools</groupId>
                     <artifactId>eclipselink-maven-plugin</artifactId>
-                    <version>${eclipselink.maven.plugin.version}</version>
+                    <version>${eclipselink-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>weave</id>
@@ -178,6 +206,11 @@
                             <version>${eclipselink.version}</version>
                         </dependency>
                     </dependencies>
+                </plugin>
+                <plugin>
+                    <groupId>org.xolstice.maven.plugins</groupId>
+                    <artifactId>protobuf-maven-plugin</artifactId>
+                    <version>${protobuf-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>

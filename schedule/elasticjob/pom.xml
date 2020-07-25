@@ -18,23 +18,22 @@
 
     <dependencies>
         <!-- import elastic-job lite core -->
-        <dependency>
-            <groupId>org.apache.shardingsphere.elasticjob</groupId>
-            <artifactId>elastic-job-lite-core</artifactId>
-            <version>${elasticjob.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shardingsphere.elasticjob</groupId>-->
+<!--            <artifactId>elastic-job-lite-core</artifactId>-->
+<!--            <version>${elasticjob.version}</version>-->
+<!--        </dependency>-->
 
         <!-- import other module if need -->
-        <dependency>
-            <groupId>org.apache.shardingsphere.elasticjob</groupId>
-            <artifactId>elastic-job-lite-spring</artifactId>
-            <version>${elasticjob.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.apache.shardingsphere.elasticjob</groupId>-->
+<!--            <artifactId>elastic-job-lite-spring</artifactId>-->
+<!--            <version>${elasticjob.version}</version>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>4.3.27.RELEASE</version>
         </dependency>
     </dependencies>
 

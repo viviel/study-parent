@@ -14,25 +14,12 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <grpc.version>1.19.0</grpc.version>
         <protobuf.version>3.6.1</protobuf.version>
         <protoc.version>2.5.0</protoc.version>
         <!-- required for jdk9 -->
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
     </properties>
-
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.grpc</groupId>
-                <artifactId>grpc-bom</artifactId>
-                <version>${grpc.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
 
     <dependencies>
 <!--        <dependency>-->
@@ -72,7 +59,6 @@
             <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
-                <version>0.6.1</version>
                 <extensions>true</extensions>
                 <configuration>
                     <protoSourceRoot>${project.basedir}/src/main/proto</protoSourceRoot>

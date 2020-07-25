@@ -15,7 +15,7 @@
 
     <modules>
         <module>elasticjob</module>
-<!--        <module>quartz</module>-->
+        <module>quartz</module>
     </modules>
 
 </project>
