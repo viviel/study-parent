@@ -24,6 +24,7 @@
         <module>schedule</module>
         <module>test</module>
         <module>zookeeper</module>
+        <module>spring</module>
     </modules>
 
     <properties>
