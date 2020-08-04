@@ -10,11 +10,15 @@ import java.io.InputStream;
 import java.util.List;
 
 public class Main {
-
+    
     private static final String resource = "mybatisConfig.xml";
-    private final SqlSessionFactory sqlSessionFactory;
-
+    private SqlSessionFactory sqlSessionFactory;
+    
     public Main() throws IOException {
+        init();
+    }
+    
+    private void init() throws IOException {
         InputStream inputStream = Resources.getResourceAsStream(resource);
         sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         createTable();
@@ -31,7 +35,7 @@ public class Main {
             users.forEach(System.out::println);
         }
     }
-
+    
     /**
      * 使用insert必须显示调用提交事务方法
      */
@@ -41,18 +45,18 @@ public class Main {
             user.setName("test2");
             int count = session.insert("user.insert", user);
             session.commit();
-
+            
             System.out.println(count);
         }
     }
-
+    
     public void test3() {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             User user = new User();
             user.setName("test2");
             int count = session.insert("user.insertNotExist", user);
             session.commit();
-
+            
             System.out.println(count);
         }
     }
@@ -60,13 +64,8 @@ public class Main {
     public void test4() {
         SqlSession sqlSession1 = sqlSessionFactory.openSession();
         SqlSession sqlSession2 = sqlSessionFactory.openSession();
-    }
-    
-    public void test5() {
-        SqlSession sqlSession1 = sqlSessionFactory.openSession();
-        SqlSession sqlSession2 = sqlSessionFactory.openSession();
         sqlSession1.selectList("user.listAll");
         sqlSession2.selectList("user.listAll");
     }
-
+    
 }

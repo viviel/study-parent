@@ -25,8 +25,8 @@ class MainTest {
     }
     
     @Test
-    void test5() {
-        main.test5();
+    void test4() {
+        main.test4();
     }
 
 }
