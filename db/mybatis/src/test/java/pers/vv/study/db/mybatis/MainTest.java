@@ -23,5 +23,10 @@ class MainTest {
     void test3() {
         main.test3();
     }
+    
+    @Test
+    void test5() {
+        main.test5();
+    }
 
 }

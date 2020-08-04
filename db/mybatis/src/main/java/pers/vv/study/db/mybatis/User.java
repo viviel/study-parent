@@ -5,12 +5,8 @@ import lombok.Data;
 @Data
 public class User {
 
-    private Long userId;
+    private Long id;
 
     private String name;
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
 }

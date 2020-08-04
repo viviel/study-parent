@@ -18,14 +18,7 @@ public class Main {
         InputStream inputStream = Resources.getResourceAsStream(resource);
         sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         createTable();
-    }
-    
-    public static void main(String[] args) {
-        try {
-            new Main().test4();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        test2();
     }
     
     private void createTable() {
@@ -67,6 +60,13 @@ public class Main {
     public void test4() {
         SqlSession sqlSession1 = sqlSessionFactory.openSession();
         SqlSession sqlSession2 = sqlSessionFactory.openSession();
+    }
+    
+    public void test5() {
+        SqlSession sqlSession1 = sqlSessionFactory.openSession();
+        SqlSession sqlSession2 = sqlSessionFactory.openSession();
+        sqlSession1.selectList("user.listAll");
+        sqlSession2.selectList("user.listAll");
     }
 
 }
