@@ -22,7 +22,7 @@ public class Main {
     
     public static void main(String[] args) {
         try {
-            new Main().test1();
+            new Main().t();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -32,6 +32,11 @@ public class Main {
         sqlSessionFactory.openSession().update("createTable");
     }
 
+    public void t() {
+        SqlSession sqlSession1 = sqlSessionFactory.openSession();
+        SqlSession sqlSession2 = sqlSessionFactory.openSession();
+    }
+    
     public void test1() {
         try (SqlSession session = sqlSessionFactory.openSession()) {
             List<User> users = session.selectList("user.listAll");
