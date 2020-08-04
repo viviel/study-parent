@@ -17,6 +17,19 @@ public class Main {
     public Main() throws IOException {
         InputStream inputStream = Resources.getResourceAsStream(resource);
         sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        createTable();
+    }
+    
+    public static void main(String[] args) {
+        try {
+            new Main().test1();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void createTable() {
+        sqlSessionFactory.openSession().update("createTable");
     }
 
     public void test1() {

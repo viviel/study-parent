@@ -8,6 +8,14 @@
         <result property="name" column="name"/>
     </resultMap>
 
+    <update id="createTable">
+        create table if not exists user0
+        (
+            id   int primary key auto_increment,
+            name varchar(20)
+        )
+    </update>
+
     <select id="listAll" resultMap="user">
         select *
         from user0;
