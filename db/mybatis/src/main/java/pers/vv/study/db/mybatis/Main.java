@@ -22,7 +22,7 @@ public class Main {
     
     public static void main(String[] args) {
         try {
-            new Main().t();
+            new Main().test4();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -30,11 +30,6 @@ public class Main {
     
     private void createTable() {
         sqlSessionFactory.openSession().update("createTable");
-    }
-
-    public void t() {
-        SqlSession sqlSession1 = sqlSessionFactory.openSession();
-        SqlSession sqlSession2 = sqlSessionFactory.openSession();
     }
     
     public void test1() {
@@ -67,6 +62,11 @@ public class Main {
 
             System.out.println(count);
         }
+    }
+    
+    public void test4() {
+        SqlSession sqlSession1 = sqlSessionFactory.openSession();
+        SqlSession sqlSession2 = sqlSessionFactory.openSession();
     }
 
 }
