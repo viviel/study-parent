@@ -65,6 +65,7 @@ public class Main {
         SqlSession sqlSession1 = sqlSessionFactory.openSession();
         SqlSession sqlSession2 = sqlSessionFactory.openSession();
         sqlSession1.selectList("user.listAll");
+        sqlSession1.commit();
         sqlSession2.selectList("user.listAll");
     }
     
