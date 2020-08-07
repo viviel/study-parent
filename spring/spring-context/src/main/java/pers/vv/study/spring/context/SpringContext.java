@@ -9,7 +9,7 @@ import java.util.Map;
 public class SpringContext {
     
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext("pers.vv.study.spring.context");
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(SpringConfig.class);
         Map<String, Converter> map = applicationContext.getBeansOfType(Converter.class);
     }
     
