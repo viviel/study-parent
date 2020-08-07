@@ -15,7 +15,7 @@ public class WebApplication {
     
     @Bean
     public Converter<String, Integer> converter() {
-        return source -> Integer.valueOf(source);
+        return Integer::valueOf;
     }
     
 }
