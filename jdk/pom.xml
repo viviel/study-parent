@@ -17,6 +17,7 @@
         <module>lock</module>
         <module>concurrent</module>
         <module>proxy</module>
+        <module>syntax</module>
     </modules>
 
     <dependencies>
