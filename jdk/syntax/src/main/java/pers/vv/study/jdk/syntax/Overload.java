@@ -7,7 +7,8 @@ import java.util.List;
 public class Overload {
 
     public static void main(String[] args) {
-        t(new ArrayList<>());
+        Collection<String> c = new ArrayList<>();
+        t(c);
     }
 
     public static void t(Collection<String> arg) {
