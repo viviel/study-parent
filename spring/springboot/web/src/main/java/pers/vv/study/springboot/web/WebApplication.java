@@ -12,9 +12,9 @@ public class WebApplication {
         SpringApplication.run(WebApplication.class, args);
     }
     
-    @Bean
-    public Converter<String, Integer> myConverter() {
-        return Integer::valueOf;
-    }
+//    @Bean
+//    public Converter<String, Integer> myConverter() {
+//        return Integer::valueOf;
+//    }
     
 }

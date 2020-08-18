@@ -9,9 +9,13 @@ public class Overload {
     public static void main(String[] args) {
         Collection<String> c = new ArrayList<>();
         t(c);
+        t(new ArrayList<>());
     }
 
     public static void t(Collection<String> arg) {
+        if (arg instanceof List) {
+            System.out.println("array");
+        }
         System.out.println("collection");
     }
 
