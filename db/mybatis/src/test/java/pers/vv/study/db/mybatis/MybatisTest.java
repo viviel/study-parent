@@ -5,28 +5,28 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 
-class MainTest {
+class MybatisTest {
 
-    private static Main main;
+    private static Mybatis mybatis;
 
     @BeforeAll
     static void init() throws IOException {
-        main = new Main();
+        mybatis = new Mybatis();
     }
 
     @Test
     void test2() {
-        main.test2();
+        mybatis.test2();
     }
 
     @Test
     void test3() {
-        main.test3();
+        mybatis.test3();
     }
     
     @Test
     void test4() {
-        main.test4();
+        mybatis.test4();
     }
 
 }

@@ -9,12 +9,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class Main {
+public class Mybatis {
     
     private static final String resource = "mybatisConfig.xml";
     private SqlSessionFactory sqlSessionFactory;
     
-    public Main() throws IOException {
+    public Mybatis() throws IOException {
         init();
     }
     
