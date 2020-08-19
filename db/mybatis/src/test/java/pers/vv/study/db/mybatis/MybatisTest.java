@@ -15,6 +15,11 @@ class MybatisTest {
     }
 
     @Test
+    void test1() {
+        mybatis.test1();
+    }
+
+    @Test
     void test2() {
         mybatis.test2();
     }
@@ -23,7 +28,7 @@ class MybatisTest {
     void test3() {
         mybatis.test3();
     }
-    
+
     @Test
     void test4() {
         mybatis.test4();
