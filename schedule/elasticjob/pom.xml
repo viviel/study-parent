@@ -12,28 +12,26 @@
 
     <artifactId>elasticjob</artifactId>
 
-    <properties>
-        <elasticjob.version>3.0.0.M1-SNAPSHOT</elasticjob.version>
-    </properties>
-
     <dependencies>
-        <!-- import elastic-job lite core -->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.shardingsphere.elasticjob</groupId>-->
-<!--            <artifactId>elastic-job-lite-core</artifactId>-->
-<!--            <version>${elasticjob.version}</version>-->
-<!--        </dependency>-->
-
-        <!-- import other module if need -->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.shardingsphere.elasticjob</groupId>-->
-<!--            <artifactId>elastic-job-lite-spring</artifactId>-->
-<!--            <version>${elasticjob.version}</version>-->
-<!--        </dependency>-->
-
+        <dependency>
+            <groupId>org.apache.shardingsphere.elasticjob</groupId>
+            <artifactId>elasticjob-lite-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.shardingsphere.elasticjob</groupId>
+            <artifactId>elasticjob-lite-spring-namespace</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.curator</groupId>
+            <artifactId>curator-recipes</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
         </dependency>
     </dependencies>
 
