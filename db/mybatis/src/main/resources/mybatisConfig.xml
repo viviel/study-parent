@@ -14,7 +14,7 @@
 
     <!-- 别名定义 -->
     <typeAliases>
-        <typeAlias type="pers.vv.study.db.mybatis.User" alias="User"/>
+        <typeAlias type="pers.vv.study.db.mybatis.mybatis.User" alias="User"/>
     </typeAliases>
 
     <environments default="development">

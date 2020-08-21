@@ -2,6 +2,7 @@ package pers.vv.study.db.mybatis;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import pers.vv.study.db.mybatis.mybatis.Mybatis;
 
 import java.io.IOException;
 

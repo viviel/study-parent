@@ -1,4 +1,4 @@
-package pers.vv.study.db.mybatis;
+package pers.vv.study.db.mybatis.mybatis;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;

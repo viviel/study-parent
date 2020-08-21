@@ -5,7 +5,7 @@
 
     <cache/>
 
-    <resultMap type="pers.vv.study.db.mybatis.User" id="user">
+    <resultMap type="pers.vv.study.db.mybatis.mybatis.User" id="user">
         <result property="id" column="id"/>
         <result property="name" column="name"/>
     </resultMap>

@@ -1,4 +1,4 @@
-package pers.vv.study.db.mybatis;
+package pers.vv.study.db.mybatis.mybatis;
 
 import lombok.Data;
 
