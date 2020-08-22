@@ -47,7 +47,7 @@ public class SocketOperator {
             SocketChannel socket = SocketChannel.open();
             socket.connect(new InetSocketAddress("127.0.0.1", PORT));
             socket.configureBlocking(false);
-            for (int i = 0; i < 1; i++) {
+            for (int i = 0; i < 10; i++) {
                 String dateStr = LocalDateTime.now().toString();
                 ByteBuffer buff = ByteBuffer.wrap(dateStr.getBytes());
                 socket.write(buff);
@@ -129,7 +129,7 @@ public class SocketOperator {
             //也给其设置非阻塞模式
             socketChannel.configureBlocking(false);
             //注册服务器端的socket！本地分拣员能为客户端的channel服务了！
-            socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+//            socketChannel.register(selector, SelectionKey.OP_READ);
             System.out.println("connect successfully");
         }
 
@@ -159,6 +159,7 @@ public class SocketOperator {
             SocketChannel channel = (SocketChannel) key.channel();
             channel.configureBlocking(false);
             channel.write(write);
+            channel.register(key.selector(), SelectionKey.OP_READ);
         }
 
         private void read(SelectionKey key) throws IOException {
@@ -170,6 +171,7 @@ public class SocketOperator {
             if ((num = channel.read(read)) == -1) {
                 System.out.println("未读到信息");
             } else {
+                channel.register(key.selector(), SelectionKey.OP_WRITE);
                 String getStr = new String(read.array(), 0, num);
                 System.out.println(getStr);
             }
