@@ -81,16 +81,16 @@ public class SocketOperator {
             //设置其为非阻塞模式
             serverSocketChannel.configureBlocking(false);
 
-            //获取有个selector对象
+            //获取一个selector对象
             Selector selector = Selector.open();
 
             //注册selector，第二个参数设置了其操作类型
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-            //绑定接受请求的端口
+            //绑定接收请求的端口
             serverSocketChannel.bind(new InetSocketAddress(PORT));
 
             latch.countDown();
-            //循环接受请求
+            //循环接收请求
             while (!Thread.currentThread().isInterrupted()) {
                 // 如果参数是0或没有参数的话就一直阻塞直到接收到请求
                 if (selector.select() != 0) {
@@ -129,7 +129,7 @@ public class SocketOperator {
             //也给其设置非阻塞模式
             socketChannel.configureBlocking(false);
             //注册服务器端的socket！本地分拣员能为客户端的channel服务了！
-            socketChannel.register(selector, SelectionKey.OP_READ);
+            socketChannel.register(selector, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
             System.out.println("connect successfully");
         }
 
@@ -159,10 +159,6 @@ public class SocketOperator {
             SocketChannel channel = (SocketChannel) key.channel();
             channel.configureBlocking(false);
             channel.write(write);
-
-            Selector selector = key.selector();
-            //更换下一步的操作类型
-            channel.register(selector, SelectionKey.OP_READ);
         }
 
         private void read(SelectionKey key) throws IOException {
@@ -174,9 +170,6 @@ public class SocketOperator {
             if ((num = channel.read(read)) == -1) {
                 System.out.println("未读到信息");
             } else {
-                Selector selector = key.selector();
-                channel.register(selector, SelectionKey.OP_WRITE);
-                //这是接收到的字符串
                 String getStr = new String(read.array(), 0, num);
                 System.out.println(getStr);
             }
