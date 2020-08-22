@@ -10,6 +10,7 @@ import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
@@ -37,22 +38,25 @@ public class SocketOperator {
         public void run() {
             try {
                 latch.await();
-                sendMsg();
+                process();
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
 
-        private void sendMsg() throws IOException, InterruptedException {
+        private void process() throws IOException, InterruptedException {
             SocketChannel socket = SocketChannel.open();
             socket.connect(new InetSocketAddress("127.0.0.1", PORT));
-            socket.configureBlocking(false);
-            for (int i = 0; i < 10; i++) {
-                String dateStr = LocalDateTime.now().toString();
-                ByteBuffer buff = ByteBuffer.wrap(dateStr.getBytes());
-                socket.write(buff);
-                Utils.sleep(1000);
-            }
+            socket.configureBlocking(true);
+//            for (int i = 0; i < 10; i++) {
+//                String dateStr = LocalDateTime.now().toString();
+//                ByteBuffer buff = ByteBuffer.wrap(dateStr.getBytes());
+//                socket.write(buff);
+//                Utils.sleep(1000);
+//            }
+            ByteBuffer b = ByteBuffer.allocate(1024);
+            socket.read(b);
+            System.out.println(Arrays.toString(b.array()));
         }
 
     }
@@ -80,14 +84,14 @@ public class SocketOperator {
             ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
             //设置其为非阻塞模式
             serverSocketChannel.configureBlocking(false);
+            //绑定接收请求的端口
+            serverSocketChannel.bind(new InetSocketAddress(PORT));
 
             //获取一个selector对象
             Selector selector = Selector.open();
 
             //注册selector，第二个参数设置了其操作类型
             serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
-            //绑定接收请求的端口
-            serverSocketChannel.bind(new InetSocketAddress(PORT));
 
             latch.countDown();
             //循环接收请求
@@ -106,10 +110,10 @@ public class SocketOperator {
                         //如果该key所在的channel或者selector关闭了，这里就会返回true
                         if (key.isAcceptable()) {//如果是接收请求操作
                             accept(key);
-                        } else if (key.isWritable()) {//如果是写操作
-                            write(key);
                         } else if (key.isReadable()) {//如果是读取操作
                             read(key);
+                        } else if (key.isWritable()) {//如果是写操作
+                            write(key);
                         }
                     }
                 } else {
@@ -129,49 +133,29 @@ public class SocketOperator {
             //也给其设置非阻塞模式
             socketChannel.configureBlocking(false);
             //注册服务器端的socket！本地分拣员能为客户端的channel服务了！
-//            socketChannel.register(selector, SelectionKey.OP_READ);
+            socketChannel.register(selector, SelectionKey.OP_READ);
             System.out.println("connect successfully");
         }
 
         private void write(SelectionKey key) throws IOException {
-            /*
-            clear方法中的内容，准备写入
-
-            capacity = 1024 初始化时给的大小就是1024
-            limit = capacity
-            position = 0
-            mark = -1
-
-            write.clear();
-            write.put(getStr.getBytes());
-
-            flip方法中的内容，准备读取
-
-            capacity = 1024
-            limit = getStr.getBytes()
-            position = 0
-            mark = -1
-            */
             write.flip();
 
             // selector已经注册了客户端的channel
             // channel（）方法获取到的是发送请求的SocketChannel对象
             SocketChannel channel = (SocketChannel) key.channel();
-            channel.configureBlocking(false);
             channel.write(write);
-            channel.register(key.selector(), SelectionKey.OP_READ);
+//            channel.register(key.selector(), SelectionKey.OP_READ);
         }
 
         private void read(SelectionKey key) throws IOException {
             read.clear();
 
             SocketChannel channel = (SocketChannel) key.channel();
-            channel.configureBlocking(false);
             int num;
             if ((num = channel.read(read)) == -1) {
                 System.out.println("未读到信息");
             } else {
-                channel.register(key.selector(), SelectionKey.OP_WRITE);
+//                channel.register(key.selector(), SelectionKey.OP_WRITE);
                 String getStr = new String(read.array(), 0, num);
                 System.out.println(getStr);
             }

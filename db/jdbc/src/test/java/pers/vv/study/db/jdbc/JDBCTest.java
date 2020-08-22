@@ -6,20 +6,22 @@ import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
 
-import static org.junit.jupiter.api.Assertions.*;
+class JDBCTest {
 
-class MainTest {
-
-    private static Main main;
+    private static JDBC JDBC;
 
     @BeforeAll
     static void before() throws SQLException {
-        main = new Main();
+        JDBC = new JDBC();
     }
 
     @Test
     void test1() {
-        Assertions.assertDoesNotThrow(main::test1);
+        Assertions.assertDoesNotThrow(JDBC::test1);
+    }
+
+    @Test
+    void test2() {
     }
 
 }

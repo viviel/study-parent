@@ -34,6 +34,7 @@
         <maven.compiler.target>${jdk.version}</maven.compiler.target>
         <maven.compiler.source>${jdk.version}</maven.compiler.source>
 
+        <!-- dependencies -->
         <springboot.version>2.3.1.RELEASE</springboot.version>
         <!--        <springboot.version>1.5.6.RELEASE</springboot.version>-->
         <grpc.version>1.19.0</grpc.version>
@@ -53,6 +54,7 @@
         <mybatis-spring.version>2.0.5</mybatis-spring.version>
         <elasticjob.version>3.0.0-alpha</elasticjob.version>
 
+        <!-- plugins -->
         <openjpa-plugin.version>3.1.2</openjpa-plugin.version>
         <eclipselink-plugin.version>2.7.5.1</eclipselink-plugin.version>
         <protobuf-plugin.version>0.6.1</protobuf-plugin.version>
