@@ -61,7 +61,7 @@ public class SocketOperator {
 
         private final int BUFFER_SIZE = 1024;
 
-        //nioSocket是通过缓流进行读写操作的，这里先初始化好读写的缓冲流！
+        //nioSocket是通过缓冲流进行读写操作的，这里先初始化好读写的缓冲流！
         private final ByteBuffer read = ByteBuffer.allocate(BUFFER_SIZE);
         private final ByteBuffer write = ByteBuffer.allocate(BUFFER_SIZE);
 
