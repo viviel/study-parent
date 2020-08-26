@@ -7,7 +7,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
-public class Server {
+public class NettyServer {
 
     public static void main(String[] args) {
         NioEventLoopGroup boss = new NioEventLoopGroup(1);
