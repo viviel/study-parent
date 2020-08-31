@@ -25,6 +25,7 @@
         <module>test</module>
         <module>zookeeper</module>
         <module>spring</module>
+        <module>socketio</module>
     </modules>
 
     <properties>
@@ -53,6 +54,7 @@
         <mybatis.version>3.4.6</mybatis.version>
         <mybatis-spring.version>2.0.5</mybatis-spring.version>
         <elasticjob.version>3.0.0-alpha</elasticjob.version>
+        <netty-socketio.version>1.7.18</netty-socketio.version>
 
         <!-- plugins -->
         <openjpa-plugin.version>3.1.2</openjpa-plugin.version>
@@ -172,6 +174,11 @@
                 <groupId>org.apache.shardingsphere.elasticjob</groupId>
                 <artifactId>elasticjob-lite-spring-namespace</artifactId>
                 <version>${elasticjob.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.corundumstudio.socketio</groupId>
+                <artifactId>netty-socketio</artifactId>
+                <version>${netty-socketio.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

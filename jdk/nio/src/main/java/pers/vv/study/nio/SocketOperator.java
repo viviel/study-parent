@@ -48,15 +48,15 @@ public class SocketOperator {
             SocketChannel socket = SocketChannel.open();
             socket.connect(new InetSocketAddress("127.0.0.1", PORT));
             socket.configureBlocking(true);
-//            for (int i = 0; i < 10; i++) {
-//                String dateStr = LocalDateTime.now().toString();
-//                ByteBuffer buff = ByteBuffer.wrap(dateStr.getBytes());
-//                socket.write(buff);
-//                Utils.sleep(1000);
-//            }
-            ByteBuffer b = ByteBuffer.allocate(1024);
-            socket.read(b);
-            System.out.println(Arrays.toString(b.array()));
+            for (int i = 0; i < 10; i++) {
+                String dateStr = LocalDateTime.now().toString();
+                ByteBuffer buff = ByteBuffer.wrap(dateStr.getBytes());
+                socket.write(buff);
+                Utils.sleep(1000);
+            }
+//            ByteBuffer b = ByteBuffer.allocate(1024);
+//            socket.read(b);
+//            System.out.println(Arrays.toString(b.array()));
         }
 
     }
