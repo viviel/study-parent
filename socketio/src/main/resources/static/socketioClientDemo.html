@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>websocket-java-socket-io</title>
+    <script src="https://cdn.bootcss.com/socket.io/2.2.0/socket.io.js"></script>
+</head>
+
+<body>
+<h1>Socket.io Test</h1>
+<div><p id="status">Waiting for input</p></div>
+<div><p id="message">hello world!</p></div>
+<button id="connect" onClick='connect()'>Connect</button>
+<button id="disconnect" onClick='disconnect()'>Disconnect</button>
+<button id="send" onClick='send()'>Send Message</button>
+</body>
+
+<script type="text/javascript">
+    let socket = io("http://localhost:8888/");
+    let connected = true;
+
+    function connect() {
+        if (connected) {
+            //socket.on('reconnect', function(){ status_update("Reconnected to Server"); });
+            //socket.on('reconnecting', function( nextRetry ){ status_update("Reconnecting in "
+            //+ nextRetry + " seconds"); });
+            //socket.on('reconnect_failed', function(){ message("Reconnect Failed"); });
+            //connected = false;
+        } else {
+            socket = io("http://localhost:8888/");
+            status_update('connected')
+        }
+    }
+
+    //监听服务器连接事件
+    socket.on('connect', function () {
+        status_update("Connected to Server");
+    });
+    //监听服务器关闭服务事件
+    socket.on('disconnect', function () {
+        status_update("Disconnected from Server");
+    });
+    //监听服务器端发送消息事件
+    socket.on('message', function (data) {
+        message(data);
+        console.log("服务器发送的消息是：" + data.toString());
+    });
+
+    //断开连接
+    function disconnect() {
+        socket.disconnect();
+        status_update('disconnect')
+        connected = false;
+    }
+
+    function message(data) {
+        document.getElementById('message').innerHTML = "Server says: " + data;
+    }
+
+    function status_update(txt) {
+        document.getElementById('status').innerHTML = txt;
+    }
+
+    /*  function esc(msg) {
+          return msg.replace(/</g, '<').replace(/>/g, '>');
+      }*/
+
+    //点击发送消息触发
+    function send() {
+        socket.emit('message', {
+            "id": 1,
+            "data": "hello"
+        }, function (message) {
+            console.log(message);
+        });
+    }
+</script>
+
+</html>
