@@ -13,7 +13,11 @@ public class NettySocketIO {
         Configuration config = new Configuration();
         config.setPort(8888);
         config.getSocketConfig().setReuseAddress(true);
-        new SocketIOServer(config).start();
+        SocketIOServer server = new SocketIOServer(config);
+        addListener(server);
+    }
+
+    private void addListener(SocketIOServer server) {
     }
 
 }
