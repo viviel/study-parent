@@ -56,6 +56,7 @@
         <mybatis-spring.version>2.0.5</mybatis-spring.version>
         <elasticjob.version>3.0.0-alpha</elasticjob.version>
         <netty-socketio.version>1.7.18</netty-socketio.version>
+        <fastjson.version>1.2.69</fastjson.version>
 
         <!-- plugins -->
         <maven-plugin-annotations.version>3.6.0</maven-plugin-annotations.version>
@@ -216,6 +217,11 @@
                 <artifactId>openjpa-maven-plugin</artifactId>
                 <version>${openjpa-plugin.version}</version>
                 <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

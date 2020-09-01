@@ -69,10 +69,13 @@
 
     //点击发送消息触发
     function send() {
-        socket.emit('message', {
-            "id": 1,
-            "data": "hello"
-        }, function (message) {
+        // socket.emit('message', {
+        //     "id": 1,
+        //     "data": "hello"
+        // }, function (message) {
+        //     console.log(message);
+        // });
+        socket.emit('message', 'vv', function (message) {
             console.log(message);
         });
     }
