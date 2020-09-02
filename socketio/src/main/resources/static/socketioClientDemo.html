@@ -18,7 +18,7 @@
 </body>
 
 <script type="text/javascript">
-    let socket = io("http://localhost:8888/");
+    let socket = io("http://localhost:8888/vv");
     let connected = true;
 
     function connect() {
@@ -29,7 +29,7 @@
             //socket.on('reconnect_failed', function(){ message("Reconnect Failed"); });
             //connected = false;
         } else {
-            socket = io("http://localhost:8888/");
+            socket = io("http://localhost:8888/vv");
             status_update('connected')
         }
     }
