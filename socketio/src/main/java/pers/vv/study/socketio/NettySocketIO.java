@@ -21,6 +21,7 @@ public class NettySocketIO {
         Configuration config = new Configuration();
         config.setPort(8888);
         config.getSocketConfig().setReuseAddress(true);
+        config.setPingInterval(20 * 1000);
         SocketIOServer server = new SocketIOServer(config);
         addListener(server);
         server.start();
