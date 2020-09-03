@@ -10,12 +10,12 @@ import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
 
-public class NettySocketIO {
+public class NettySocketIOServer {
 
-    Logger logger = LoggerFactory.getLogger(NettySocketIO.class);
+    Logger logger = LoggerFactory.getLogger(NettySocketIOServer.class);
 
     public static void main(String[] args) {
-        new NettySocketIO().start();
+        new NettySocketIOServer().start();
     }
 
     public void start() {
