@@ -39,6 +39,7 @@ public class MyReentrantLock {
         new Thread(() -> {
             try {
                 TimeUnit.SECONDS.sleep(5);
+                condition.signal();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
