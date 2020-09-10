@@ -22,7 +22,7 @@ public class NettySocketIOServer {
         Configuration config = new Configuration();
         config.setPort(8888);
         config.getSocketConfig().setReuseAddress(true);
-        config.setPingInterval(20 * 1000);
+        config.setPingInterval(1000 * 5);
         SocketIOServer server = new SocketIOServer(config);
         addListener(server);
         addNamespace(server);
@@ -33,12 +33,17 @@ public class NettySocketIOServer {
         SocketIONamespace namespace = server.addNamespace("/vv");
         namespace.addConnectListener(client -> logger.info("[vv] connected: {}", client.getSessionId()));
         namespace.addDisconnectListener(client -> logger.info("[vv] disconnect: {}", client.getSessionId()));
+        namespace.addPingListener(client -> logger.info(
+                "[vv] {} -- {} -- {}", LocalDateTime.now(), namespace.getName(), client.getSessionId()
+        ));
     }
 
     private void addListener(SocketIOServer server) {
         server.addConnectListener(client -> logger.info("[] connected: {}", client.getSessionId()));
         server.addDisconnectListener(client -> logger.info("[] disconnect: {}", client.getSessionId()));
-        server.addPingListener(client -> logger.info("{} -- {}", LocalDateTime.now(), client.getSessionId()));
+        server.addPingListener(client -> logger.info(
+                "[] {} -- {} -- {}", LocalDateTime.now(), client.getNamespace().getName(), client.getSessionId()
+        ));
         server.addEventListener("message", JSON.class, (client, data, ackSender) -> {
             Object d = JSON.toJSON(data);
             if (d instanceof JSONObject) {
