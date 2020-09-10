@@ -12,11 +12,11 @@
     <artifactId>db</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>shardingsphere</module>
-        <module>mybatis</module>
-        <module>jdbc</module>
-        <module>mybatisplus</module>
-        <module>jpa</module>
+        <module>db-shardingsphere</module>
+        <module>db-mybatis</module>
+        <module>db-jdbc</module>
+        <module>db-mybatisplus</module>
+        <module>db-jpa</module>
     </modules>
 
 </project>
