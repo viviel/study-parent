@@ -12,7 +12,7 @@
     <artifactId>monitor</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>prometheus</module>
+        <module>monitor-prometheus</module>
     </modules>
 
 

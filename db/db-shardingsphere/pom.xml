@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>shardingsphere</artifactId>
+    <artifactId>db-shardingsphere</artifactId>
 
     <dependencies>
         <dependency>

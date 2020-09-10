@@ -10,6 +10,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>tubemq</artifactId>
+    <artifactId>mq-tubemq</artifactId>
 
 </project>

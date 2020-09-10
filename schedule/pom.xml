@@ -14,8 +14,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>elasticjob</module>
-        <module>quartz</module>
+        <module>schedule-elasticjob</module>
+        <module>schedule-quartz</module>
     </modules>
 
 </project>

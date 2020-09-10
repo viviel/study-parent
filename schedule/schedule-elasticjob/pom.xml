@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>elasticjob</artifactId>
+    <artifactId>schedule-elasticjob</artifactId>
 
     <dependencies>
         <dependency>

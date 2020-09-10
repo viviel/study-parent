@@ -14,7 +14,7 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>protocol-buffer</module>
+        <module>serialize-protocol-buffer</module>
     </modules>
 
 </project>

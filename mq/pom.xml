@@ -13,8 +13,8 @@
     <artifactId>mq</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>tubemq</module>
-        <module>rocketmq</module>
+        <module>mq-tubemq</module>
+        <module>mq-rocketmq</module>
     </modules>
 
 </project>

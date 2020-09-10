@@ -13,7 +13,7 @@
     <artifactId>log</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>slf4j</module>
+        <module>log-slf4j</module>
     </modules>
 
 </project>
