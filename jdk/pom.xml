@@ -13,11 +13,11 @@
     <artifactId>jdk</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>nio</module>
-        <module>lock</module>
-        <module>concurrent</module>
-        <module>proxy</module>
-        <module>syntax</module>
+        <module>jdk-nio</module>
+        <module>jdk-lock</module>
+        <module>jdk-concurrent</module>
+        <module>jdk-proxy</module>
+        <module>jdk-syntax</module>
     </modules>
 
     <dependencies>
