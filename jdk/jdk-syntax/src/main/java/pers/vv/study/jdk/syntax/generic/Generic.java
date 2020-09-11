@@ -1,4 +1,4 @@
-package pers.vv.study.jdk.syntax;
+package pers.vv.study.jdk.syntax.generic;
 
 import java.util.ArrayList;
 import java.util.Collections;
