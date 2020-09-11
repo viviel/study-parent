@@ -6,10 +6,10 @@ import org.springframework.core.convert.converter.Converter;
 
 @Configuration
 public class SpringConfig {
-    
+
     @Bean
     public Converter<String, Integer> myConverter() {
         return Integer::valueOf;
     }
-    
+
 }
