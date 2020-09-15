@@ -27,6 +27,7 @@
         <module>spring</module>
         <module>socketio</module>
         <module>maven-plugin</module>
+        <module>rxjava</module>
     </modules>
 
     <properties>
