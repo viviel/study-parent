@@ -1,4 +1,4 @@
-package pers.vv.study.rxjava;
+package pers.vv.study.reactor.rxjava;
 
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
