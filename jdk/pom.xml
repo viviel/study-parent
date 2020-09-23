@@ -18,6 +18,7 @@
         <module>jdk-concurrent</module>
         <module>jdk-proxy</module>
         <module>jdk-syntax</module>
+        <module>jdk-map</module>
     </modules>
 
     <dependencies>
