@@ -13,7 +13,14 @@ public class MCompletableFuture {
         o.whenComplete();
     }
 
-    public void test() {
+    public void example() {
+        CompletableFuture.allOf();
+        CompletableFuture.anyOf();
+        CompletableFuture.runAsync(null);
+        CompletableFuture.runAsync(null, null);
+        CompletableFuture.supplyAsync(null);
+        CompletableFuture.supplyAsync(null, null);
+        CompletableFuture.completedFuture(null);
     }
 
     //无返回值
