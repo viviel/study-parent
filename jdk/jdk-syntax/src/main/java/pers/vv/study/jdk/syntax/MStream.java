@@ -15,7 +15,9 @@ public class MStream {
 
     private void test1() {
         Collection<Object> c = Collections.singletonList(this);
-        c.stream().map(Object::toString).forEach(System.out::println);
+        c.stream()
+         .map(Object::toString)
+         .forEach(System.out::println);
     }
 
 }
