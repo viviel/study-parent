@@ -2,7 +2,10 @@ package pers.vv.study.jdk.concurrent;
 
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 public class MCompletableFuture {
 
@@ -14,12 +17,17 @@ public class MCompletableFuture {
     }
 
     public void example() {
+        Runnable runnable = () -> {
+        };
+        Supplier<Integer> supplier = () -> 0;
+        Executor executor = ForkJoinPool.commonPool();
+
         CompletableFuture.allOf();
         CompletableFuture.anyOf();
-        CompletableFuture.runAsync(null);
-        CompletableFuture.runAsync(null, null);
-        CompletableFuture.supplyAsync(null);
-        CompletableFuture.supplyAsync(null, null);
+        CompletableFuture.runAsync(runnable);
+        CompletableFuture.runAsync(runnable, executor);
+        CompletableFuture.supplyAsync(supplier);
+        CompletableFuture.supplyAsync(supplier, executor);
         CompletableFuture.completedFuture(null);
     }
 
