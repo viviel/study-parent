@@ -10,7 +10,8 @@ import java.util.Collections;
 public class MStream {
 
     public static void main(String[] args) {
-
+        MStream m = new MStream();
+        m.test1();
     }
 
     private void test1() {
