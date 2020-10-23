@@ -1,7 +1,9 @@
 package pers.vv.study.jdk.syntax;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * java stream流原理：
@@ -9,16 +11,27 @@ import java.util.Collections;
  */
 public class MStream {
 
+    private final Collection<Integer> c;
+
     public static void main(String[] args) {
         MStream m = new MStream();
         m.test1();
+        m.test2();
+    }
+
+    public MStream() {
+        c = new ArrayList<>();
+        c.add(1);
+        c.add(2);
+        c.add(3);
     }
 
     private void test1() {
-        Collection<Object> c = Collections.singletonList(this);
-        c.stream()
-         .map(Object::toString)
-         .forEach(System.out::println);
+        c.stream().map(Object::toString).forEach(System.out::println);
+    }
+
+    private void test2() {
+        Set<String> list = c.stream().map(Object::toString).collect(Collectors.toSet());
     }
 
 }
