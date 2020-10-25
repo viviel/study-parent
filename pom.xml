@@ -65,6 +65,7 @@
         <tomcat-servlet-api.version>9.0.26</tomcat-servlet-api.version>
         <rxjava.version>3.0.6</rxjava.version>
         <pulsar-client.version>2.6.1</pulsar-client.version>
+        <bookkeeper.version>4.11.0</bookkeeper.version>
 
         <!-- plugins -->
         <maven-plugin-annotations.version>3.6.0</maven-plugin-annotations.version>
@@ -252,6 +253,11 @@
                 <groupId>org.apache.pulsar</groupId>
                 <artifactId>pulsar-client</artifactId>
                 <version>${pulsar-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.bookkeeper</groupId>
+                <artifactId>bookkeeper-server</artifactId>
+                <version>${bookkeeper.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
