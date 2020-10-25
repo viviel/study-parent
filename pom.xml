@@ -28,6 +28,7 @@
         <module>socketio</module>
         <module>maven-plugin</module>
         <module>reactor</module>
+        <module>bookkeeper</module>
     </modules>
 
     <properties>
