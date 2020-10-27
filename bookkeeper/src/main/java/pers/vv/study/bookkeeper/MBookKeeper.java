@@ -8,7 +8,7 @@ import org.apache.bookkeeper.client.LedgerHandle;
 import java.io.IOException;
 import java.util.Enumeration;
 
-public class MBookkeeper {
+public class MBookKeeper {
 
     public static void main(String[] args) throws InterruptedException, BKException, IOException {
         BookKeeper bk = new BookKeeper("localhost:2181");
