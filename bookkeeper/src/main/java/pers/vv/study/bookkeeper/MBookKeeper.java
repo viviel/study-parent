@@ -6,29 +6,53 @@ import org.apache.bookkeeper.client.LedgerEntry;
 import org.apache.bookkeeper.client.LedgerHandle;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.util.Enumeration;
 
 public class MBookKeeper {
 
     public static void main(String[] args) throws InterruptedException, BKException, IOException {
-        BookKeeper bk = new BookKeeper("localhost:2181");
+        MBookKeeper m = new MBookKeeper();
+        m.ledgerAPI();
+    }
+
+    private void ledgerAPI() throws InterruptedException, BKException, IOException {
+        // Create a client object for the local ensemble. This
+        // operation throws multiple exceptions, so make sure to
+        // use a try/catch block when instantiating client objects.
+        BookKeeper bkc = new BookKeeper("localhost:2181");
+
         // A password for the new ledger
         byte[] ledgerPassword = "test".getBytes();
         // Create a new ledger and fetch its identifier
-        LedgerHandle lh = bk.createLedger(BookKeeper.DigestType.MAC, ledgerPassword);
-        lh.addEntry("test".getBytes());
-        lh.close();
-        // Open a ledger
-        long ledgerId = 1000L;
-        lh = bk.openLedger(ledgerId, BookKeeper.DigestType.MAC, ledgerPassword);
-        // Read all available entries
-        Enumeration<LedgerEntry> entries = lh.readEntries(0, 1);
-        while (entries.hasMoreElements()) {
-            System.out.println(new String(entries.nextElement().getEntry()));
+        LedgerHandle lh = bkc.createLedger(BookKeeper.DigestType.MAC, ledgerPassword);
+        long ledgerId = lh.getId();
+
+        // Create a buffer for four-byte entries
+        ByteBuffer entry = ByteBuffer.allocate(4);
+        int numberOfEntries = 100;
+        // Add entries to the ledger, then close it
+        for (int i = 0; i < numberOfEntries; i++) {
+            entry.putInt(i);
+            entry.position(0);
+            lh.addEntry(entry.array());
         }
-        // close
         lh.close();
-        bk.close();
+
+        // Open the ledger for reading
+        lh = bkc.openLedger(ledgerId, BookKeeper.DigestType.MAC, ledgerPassword);
+        // Read all available entries
+        Enumeration<LedgerEntry> entries = lh.readEntries(0, numberOfEntries - 1);
+        while (entries.hasMoreElements()) {
+            ByteBuffer result = ByteBuffer.wrap(entries.nextElement().getEntry());
+            Integer retrEntry = result.getInt();
+            // Print the integer stored in each entry
+            System.out.printf("Result: %s%n", retrEntry);
+        }
+
+        // Close the ledger and the client
+        lh.close();
+        bkc.close();
     }
 
 }
