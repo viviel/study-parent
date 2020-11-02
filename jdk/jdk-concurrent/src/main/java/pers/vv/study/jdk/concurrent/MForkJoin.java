@@ -3,6 +3,11 @@ package pers.vv.study.jdk.concurrent;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveTask;
 
+/**
+ * 文档
+ * <li><a href="https://www.jianshu.com/p/32a15ef2f1bf">JUC源码分析-线程池篇：ForkJoinPool - 1</a></li>
+ * <li><a href="https://www.jianshu.com/p/6a14d0b54b8d">JUC源码分析-线程池篇：ForkJoinPool - 2</a></li>
+ */
 public class MForkJoin {
 
     private final ForkJoinPool forkJoinPool = new ForkJoinPool();
