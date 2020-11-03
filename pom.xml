@@ -81,6 +81,11 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
+                <groupId>pers.vv.study</groupId>
+                <artifactId>common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
                 <version>${springboot.version}</version>

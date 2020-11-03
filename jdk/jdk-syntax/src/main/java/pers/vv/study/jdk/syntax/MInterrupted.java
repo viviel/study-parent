@@ -1,12 +1,14 @@
 package pers.vv.study.jdk.syntax;
 
+import pers.vv.study.common.Utils;
+
 import java.util.concurrent.TimeUnit;
 
 public class MInterrupted {
 
     public static void main(String[] args) throws InterruptedException {
         MInterrupted m = new MInterrupted();
-        new Thread(m::testWait, "thread2").start();
+        Utils.cachedThreadPool().submit(m::testWait);
         synchronized (m) {
             TimeUnit.SECONDS.sleep(Integer.MAX_VALUE);
         }

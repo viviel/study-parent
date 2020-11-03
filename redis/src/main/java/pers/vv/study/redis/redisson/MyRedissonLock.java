@@ -3,6 +3,7 @@ package pers.vv.study.redis.redisson;
 import org.redisson.Redisson;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
+import pers.vv.study.common.Utils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -15,9 +16,8 @@ public class MyRedissonLock {
 
     public static void main(String[] args) {
         MyRedissonLock myRedissonLock = new MyRedissonLock();
-
-        new Thread(myRedissonLock::test1).start();
-        new Thread(myRedissonLock::test1).start();
+        Utils.cachedThreadPool().submit(myRedissonLock::test1);
+        Utils.cachedThreadPool().submit(myRedissonLock::test1);
     }
 
     private void test1() {

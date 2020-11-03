@@ -1,5 +1,7 @@
 package pers.vv.study.jdk.lock;
 
+import pers.vv.study.common.Utils;
+
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -11,13 +13,14 @@ import java.util.concurrent.locks.ReentrantLock;
 public class MyReentrantLock {
 
     public static void main(String[] args) {
-        new MyReentrantLock().condition();
+        MyReentrantLock m = new MyReentrantLock();
+        m.lock();
     }
 
     private void lock() {
         Lock lock = new ReentrantLock();
-        new Thread(runnable(lock), "thread1").start();
-        new Thread(runnable(lock), "thread2").start();
+        Utils.cachedThreadPool().submit(runnable(lock));
+        Utils.cachedThreadPool().submit(runnable(lock));
     }
 
     private Runnable runnable(Lock lock) {
@@ -36,22 +39,22 @@ public class MyReentrantLock {
     private void condition() {
         Lock lock = new ReentrantLock();
         Condition condition = lock.newCondition();
-        new Thread(() -> {
+        Utils.cachedThreadPool().submit(() -> {
             try {
                 TimeUnit.SECONDS.sleep(5);
                 condition.signal();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }, "thread1").start();
-        new Thread(() -> {
+        });
+        Utils.cachedThreadPool().submit(() -> {
             try {
                 condition.await();
                 System.out.println("thread2 down");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }, "thread2").start();
+        });
     }
 
 }
