@@ -25,7 +25,6 @@
         <dependency>
             <groupId>pers.vv.study</groupId>
             <artifactId>common</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
