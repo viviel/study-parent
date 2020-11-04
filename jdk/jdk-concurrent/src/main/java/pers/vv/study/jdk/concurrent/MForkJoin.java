@@ -42,7 +42,7 @@ public class MForkJoin {
                 SummationTask left = new SummationTask(middle + 1, end);
                 left.fork();//拆分，并压入线程队列
                 //合并
-                return right.join() + left.join();
+                return left.join() + right.join();
             }
         }
     }
@@ -54,8 +54,10 @@ public class MForkJoin {
 
     private void testSummationTask() {
         SummationTask task = new SummationTask(0L, 1000000000L);//参数为起始值与结束值
-        Long result = forkJoinPool.invoke(task);
-        System.out.println(result);
+        Long result1 = forkJoinPool.invoke(task);
+        Long result2 = forkJoinPool.invoke(task);
+        System.out.println(result1);
+        System.out.println(result2);
     }
 
 }

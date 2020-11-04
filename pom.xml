@@ -208,6 +208,32 @@
                 <artifactId>socket.io-client</artifactId>
                 <version>${socket.io-client.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-servlet-api</artifactId>
+                <version>${tomcat-servlet-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.reactivex.rxjava3</groupId>
+                <artifactId>rxjava</artifactId>
+                <version>${rxjava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.pulsar</groupId>
+                <artifactId>pulsar-client</artifactId>
+                <version>${pulsar-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.bookkeeper</groupId>
+                <artifactId>bookkeeper-server</artifactId>
+                <version>${bookkeeper.version}</version>
+            </dependency>
 
             <!-- maven plugins -->
             <dependency>
@@ -239,32 +265,6 @@
                 <artifactId>openjpa-maven-plugin</artifactId>
                 <version>${openjpa-plugin.version}</version>
                 <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>tomcat-servlet-api</artifactId>
-                <version>${tomcat-servlet-api.version}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>io.reactivex.rxjava3</groupId>
-                <artifactId>rxjava</artifactId>
-                <version>${rxjava.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.pulsar</groupId>
-                <artifactId>pulsar-client</artifactId>
-                <version>${pulsar-client.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.bookkeeper</groupId>
-                <artifactId>bookkeeper-server</artifactId>
-                <version>${bookkeeper.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
