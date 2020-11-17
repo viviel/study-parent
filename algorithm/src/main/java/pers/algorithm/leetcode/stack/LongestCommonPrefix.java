@@ -1,7 +1,6 @@
-package pers.algorithm.leetcode;
+package pers.algorithm.leetcode.stack;
 
 import java.util.Arrays;
-import java.util.OptionalInt;
 
 /**
  * 编写一个函数来查找字符串数组中的最长公共前缀。

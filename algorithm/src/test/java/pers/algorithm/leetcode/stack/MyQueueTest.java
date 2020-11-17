@@ -1,6 +1,7 @@
-package pers.algorithm.leetcode;
+package pers.algorithm.leetcode.stack;
 
 import org.junit.jupiter.api.Test;
+import pers.algorithm.leetcode.stack.MyQueue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

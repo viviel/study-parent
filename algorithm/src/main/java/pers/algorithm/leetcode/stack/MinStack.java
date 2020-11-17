@@ -1,4 +1,4 @@
-package pers.algorithm.leetcode;
+package pers.algorithm.leetcode.stack;
 
 import java.util.Arrays;
 
