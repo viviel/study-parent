@@ -133,7 +133,7 @@ class MinStack {
         return entities[top];
     }
 
-    public int getMin() {
+    public int min() {
         if (getSize() == 0) {
             throw new RuntimeException();
         }

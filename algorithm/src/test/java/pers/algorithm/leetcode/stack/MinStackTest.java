@@ -2,7 +2,6 @@ package pers.algorithm.leetcode.stack;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pers.algorithm.leetcode.stack.MinStack;
 
 class MinStackTest {
 
@@ -12,10 +11,10 @@ class MinStackTest {
         minStack.push(-2);
         minStack.push(0);
         minStack.push(-3);
-        Assertions.assertEquals(minStack.getMin(), -3);
+        Assertions.assertEquals(minStack.min(), -3);
         minStack.pop();
         Assertions.assertEquals(minStack.top(), 0);
-        Assertions.assertEquals(minStack.getMin(), -2);
+        Assertions.assertEquals(minStack.min(), -2);
     }
 
     /**
@@ -30,13 +29,13 @@ class MinStackTest {
         minStack.push(0);
         minStack.push(3);
         minStack.push(0);
-        Assertions.assertEquals(minStack.getMin(), 0);
+        Assertions.assertEquals(minStack.min(), 0);
         minStack.pop();
-        Assertions.assertEquals(minStack.getMin(), 0);
+        Assertions.assertEquals(minStack.min(), 0);
         minStack.pop();
-        Assertions.assertEquals(minStack.getMin(), 0);
+        Assertions.assertEquals(minStack.min(), 0);
         minStack.pop();
-        Assertions.assertEquals(minStack.getMin(), 2);
+        Assertions.assertEquals(minStack.min(), 2);
     }
 
 }
