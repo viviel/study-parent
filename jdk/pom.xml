@@ -19,6 +19,7 @@
         <module>jdk-proxy</module>
         <module>jdk-syntax</module>
         <module>jdk-map</module>
+        <module>jdk-io</module>
     </modules>
 
     <dependencies>
