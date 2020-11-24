@@ -34,5 +34,4 @@ public class MStream {
     private void test2() {
         Set<String> list = c.stream().map(Object::toString).collect(Collectors.toSet());
     }
-
 }
