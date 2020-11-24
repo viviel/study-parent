@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 /**
  * java stream流原理：
+ * <li><a href="http://cmsblogs.com/?p=15701">Java基础系列-Stream</a></li>
  * <li><a href="https://blog.csdn.net/lcgoing/article/details/87918010">深入理解Java8中Stream的实现原理</a></li>
  */
 public class MStream {
