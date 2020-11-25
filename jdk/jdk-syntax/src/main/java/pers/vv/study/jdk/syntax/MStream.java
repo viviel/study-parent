@@ -1,7 +1,8 @@
 package pers.vv.study.jdk.syntax;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,12 +13,13 @@ import java.util.stream.Collectors;
  */
 public class MStream {
 
-    private final Collection<Integer> c;
+    private final ArrayList<Integer> c;
 
     public static void main(String[] args) {
         MStream m = new MStream();
-        m.test1();
-        m.test2();
+//        m.test1();
+//        m.test2();
+        m.test3();
     }
 
     public MStream() {
@@ -28,10 +30,22 @@ public class MStream {
     }
 
     private void test1() {
-        c.stream().map(Object::toString).forEach(System.out::println);
+        c.stream()
+                .map(e -> e * 10)
+                .filter(e -> e > 15)
+                .forEach(System.out::println);
     }
 
     private void test2() {
-        Set<String> list = c.stream().map(Object::toString).collect(Collectors.toSet());
+        Set<String> list = c.stream()
+                .map(Object::toString)
+                .collect(Collectors.toSet());
+    }
+
+    private void test3() {
+        Optional<String> first = c.stream()
+                .map(Object::toString)
+                .filter(e -> Objects.equals(e, ""))
+                .findFirst();
     }
 }
