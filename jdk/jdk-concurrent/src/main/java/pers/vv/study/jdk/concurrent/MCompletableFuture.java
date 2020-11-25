@@ -1,10 +1,9 @@
 package pers.vv.study.jdk.concurrent;
 
+import pers.vv.study.common.Utils;
+
 import java.util.Random;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.function.Supplier;
 
 public class MCompletableFuture {
@@ -14,6 +13,7 @@ public class MCompletableFuture {
         o.runAsync();
         o.supplyAsync();
         o.whenComplete();
+        o.example1();
     }
 
     public void example() {
@@ -77,4 +77,41 @@ public class MCompletableFuture {
         TimeUnit.SECONDS.sleep(2);
     }
 
+    /**
+     * 场景：多个独立io操作时可以使用cf
+     */
+    public void example1() {
+        CompletableFuture<Integer> f1 = CompletableFuture.supplyAsync(this::http1);
+        CompletableFuture<Integer> f2 = CompletableFuture.supplyAsync(this::http2);
+        CompletableFuture<Integer> f3 = CompletableFuture.supplyAsync(this::http2);
+        CompletableFuture<Void> f = CompletableFuture.allOf(f1, f2, f3);
+        try {
+            f.get();
+            deal(f1.get(), f2.get(), f3.get());
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private int http1() {
+        try {
+            Utils.sleep(1000 * 2);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return 1;
+    }
+
+    private int http2() {
+        try {
+            Utils.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        return 2;
+    }
+
+    private void deal(int r1, int r2, int r3) {
+        System.out.println("r1 = " + r1 + ", r2 = " + r2 + ", r3 = " + r3);
+    }
 }
