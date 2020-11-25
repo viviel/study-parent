@@ -1,18 +1,22 @@
 package pers.vv.study.jdk.concurrent;
 
+import com.google.common.base.Stopwatch;
 import pers.vv.study.common.Utils;
 
 import java.util.Random;
-import java.util.concurrent.*;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 public class MCompletableFuture {
 
     public static void main(String[] args) throws Exception {
         MCompletableFuture o = new MCompletableFuture();
-        o.runAsync();
-        o.supplyAsync();
-        o.whenComplete();
+//        o.runAsync();
+//        o.supplyAsync();
+//        o.whenComplete();
         o.example1();
     }
 
@@ -81,30 +85,46 @@ public class MCompletableFuture {
      * 场景：多个独立io操作时可以使用cf
      */
     public void example1() {
-        CompletableFuture<Integer> f1 = CompletableFuture.supplyAsync(this::http1);
+        Stopwatch sw = Stopwatch.createStarted();
+        doExample1();
+        System.out.println(sw.stop());
+    }
+
+    private void doExample1() {
+        CompletableFuture<Integer> f1 = CompletableFuture
+                .supplyAsync(this::http1)
+                .thenApplyAsync(this::dealHttp1Result);
         CompletableFuture<Integer> f2 = CompletableFuture.supplyAsync(this::http2);
         CompletableFuture<Integer> f3 = CompletableFuture.supplyAsync(this::http2);
-        CompletableFuture<Void> f = CompletableFuture.allOf(f1, f2, f3);
-        try {
-            f.get();
-            deal(f1.get(), f2.get(), f3.get());
-        } catch (InterruptedException | ExecutionException e) {
-            throw new RuntimeException(e);
-        }
+        CompletableFuture.allOf(f1, f2, f3).thenAccept(v -> {
+            int def = 0;
+            deal(f1.getNow(def), f2.getNow(def), f3.getNow(def));
+        });
     }
 
     private int http1() {
+//        try {
+//            Utils.sleep(1000 * 2);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+        System.out.println("http1 " + Thread.currentThread());
+        return 1;
+    }
+
+    private int dealHttp1Result(Integer i) {
         try {
             Utils.sleep(1000 * 2);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return 1;
+        System.out.println("dealHttp1Result " + Thread.currentThread());
+        return ++i;
     }
 
     private int http2() {
         try {
-            Utils.sleep(1000);
+            Utils.sleep(1000 * 2);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
