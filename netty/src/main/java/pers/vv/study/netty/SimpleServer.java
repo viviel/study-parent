@@ -2,12 +2,10 @@ package pers.vv.study.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.channel.ChannelInitializer;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 public final class SimpleServer {
@@ -19,12 +17,8 @@ public final class SimpleServer {
             ServerBootstrap b = new ServerBootstrap();
             b.group(bossGroup, workerGroup)
                     .channel(NioServerSocketChannel.class)
-                    .handler(new SimpleServerHandler())
-                    .childHandler(new ChannelInitializer<SocketChannel>() {
-                        @Override
-                        public void initChannel(SocketChannel ch) {
-                        }
-                    });
+                    .handler(new Handler())
+                    .childHandler(new ChildHandler());
             ChannelFuture f = b.bind(8888).sync();
             f.channel().closeFuture().sync();
         } finally {
@@ -33,23 +27,39 @@ public final class SimpleServer {
         }
     }
 
-    private static class SimpleServerHandler extends ChannelInboundHandlerAdapter {
+    private static class Handler implements ChannelHandler {
 
         @Override
-        public void channelActive(ChannelHandlerContext ctx) {
-            System.out.println("channelActive");
+        public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+            System.out.println("Handler.handlerAdded");
         }
 
         @Override
-        public void channelRegistered(ChannelHandlerContext ctx) {
-            System.out.println("channelRegistered");
+        public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+            System.out.println("Handler.handlerRemoved");
         }
 
         @Override
-        public void handlerAdded(ChannelHandlerContext ctx) {
-            System.out.println("handlerAdded");
+        public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+            System.out.println("Handler.exceptionCaught");
         }
-
     }
 
+    private static class ChildHandler implements ChannelHandler {
+
+        @Override
+        public void handlerAdded(ChannelHandlerContext ctx) throws Exception {
+            System.out.println("ChildHandler.handlerAdded");
+        }
+
+        @Override
+        public void handlerRemoved(ChannelHandlerContext ctx) throws Exception {
+            System.out.println("ChildHandler.handlerRemoved");
+        }
+
+        @Override
+        public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+            System.out.println("ChildHandler.exceptionCaught");
+        }
+    }
 }
