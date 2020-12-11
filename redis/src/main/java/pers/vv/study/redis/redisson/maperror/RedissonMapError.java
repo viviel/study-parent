@@ -4,7 +4,7 @@ import lombok.Data;
 import org.redisson.Redisson;
 import org.redisson.api.RMap;
 import org.redisson.api.RedissonClient;
-import org.redisson.codec.FstCodec;
+import org.redisson.codec.JsonJacksonCodec;
 import org.redisson.config.Config;
 
 import java.io.Serializable;
@@ -22,6 +22,9 @@ public class RedissonMapError {
         private Integer id;
         private String name;
         private String text;
+
+        RedisData() {
+        }
 
         RedisData(Integer id, String name) {
             this.id = id;
@@ -49,7 +52,7 @@ public class RedissonMapError {
     private void createRedisson() {
         Config config = new Config();
         config.useSingleServer().setAddress("redis://localhost:6379");
-        config.setCodec(new FstCodec());
+        config.setCodec(new JsonJacksonCodec());
         redisson = Redisson.create(config);
     }
 
