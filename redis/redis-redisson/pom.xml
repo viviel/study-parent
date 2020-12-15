@@ -4,23 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
-        <artifactId>study-parent</artifactId>
+        <artifactId>redis</artifactId>
         <groupId>pers.vv.study</groupId>
-        <version>${revision}</version>
+        <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>redis</artifactId>
-    <packaging>pom</packaging>
-    <modules>
-        <module>redis-redisson</module>
-        <module>redis-jedis</module>
-    </modules>
+    <artifactId>redis-redisson</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>pers.vv.study</groupId>
-            <artifactId>common</artifactId>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
         </dependency>
     </dependencies>
 
