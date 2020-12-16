@@ -1,7 +1,6 @@
 package pers.vv.study.socketio;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIONamespace;
 import com.corundumstudio.socketio.SocketIOServer;
@@ -44,14 +43,10 @@ public class NettySocketIOServer {
         server.addPingListener(client -> logger.info(
                 "[] {} -- {} -- {}", LocalDateTime.now(), client.getNamespace().getName(), client.getSessionId()
         ));
-        server.addEventListener("message", JSON.class, (client, data, ackSender) -> {
+        server.addEventListener("message", Object.class, (client, data, ackSender) -> {
             Object d = JSON.toJSON(data);
-            if (d instanceof JSONObject) {
-                JSONObject jsonData = (JSONObject) d;
-            }
-            logger.info(JSON.toJSONString(d));
+            logger.info(d.toString());
             ackSender.sendAckData(d);
         });
     }
-
 }

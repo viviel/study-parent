@@ -18,18 +18,13 @@
 </body>
 
 <script type="text/javascript">
-    let socket = io("http://localhost:8888/vv");
+    let url = 'http://localhost:8888/vv';
+    let socket = io(url);
     let connected = true;
 
     function connect() {
-        if (connected) {
-            //socket.on('reconnect', function(){ status_update("Reconnected to Server"); });
-            //socket.on('reconnecting', function( nextRetry ){ status_update("Reconnecting in "
-            //+ nextRetry + " seconds"); });
-            //socket.on('reconnect_failed', function(){ message("Reconnect Failed"); });
-            //connected = false;
-        } else {
-            socket = io("http://localhost:8888/vv");
+        if (!connected) {
+            socket = io(url);
             status_update('connected')
         }
     }
@@ -62,10 +57,6 @@
     function status_update(txt) {
         document.getElementById('status').innerHTML = txt;
     }
-
-    /*  function esc(msg) {
-          return msg.replace(/</g, '<').replace(/>/g, '>');
-      }*/
 
     //点击发送消息触发
     function send() {
