@@ -29,6 +29,7 @@
         <module>maven-plugin</module>
         <module>reactor</module>
         <module>bookkeeper</module>
+        <module>http</module>
     </modules>
 
     <properties>
@@ -68,6 +69,7 @@
         <rxjava.version>3.0.6</rxjava.version>
         <pulsar-client.version>2.6.1</pulsar-client.version>
         <bookkeeper.version>4.11.0</bookkeeper.version>
+        <commons-logging.version>1.2</commons-logging.version>
 
         <!-- plugins -->
         <maven-plugin-annotations.version>3.6.0</maven-plugin-annotations.version>
@@ -233,6 +235,11 @@
                 <groupId>org.apache.bookkeeper</groupId>
                 <artifactId>bookkeeper-server</artifactId>
                 <version>${bookkeeper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>${commons-logging.version}</version>
             </dependency>
 
             <!-- maven plugins -->
