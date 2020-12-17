@@ -9,6 +9,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 public class MHttpClient {
 
@@ -16,7 +17,7 @@ public class MHttpClient {
         // 获得Http客户端(可以理解为:你得先有一个浏览器;注意:实际上HttpClient与浏览器是不一样的)
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         // 创建Get请求
-        HttpGet httpGet = new HttpGet("https://www.baidu.com/");
+        HttpGet httpGet = new HttpGet("http://localhost:8081/test/get2");
 
         // 响应模型
         CloseableHttpResponse response = null;
@@ -28,7 +29,7 @@ public class MHttpClient {
             System.out.println("响应状态为:" + response.getStatusLine());
             if (responseEntity != null) {
                 System.out.println("响应内容长度为:" + responseEntity.getContentLength());
-                System.out.println("响应内容为:" + EntityUtils.toString(responseEntity));
+                System.out.println("响应内容为:" + EntityUtils.toString(responseEntity, Charset.defaultCharset()));
             }
         } catch (ParseException | IOException e) {
             e.printStackTrace();

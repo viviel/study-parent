@@ -9,10 +9,14 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/test")
 public class Controller {
-    
+
     @GetMapping("/get")
     public String get(LocalDateTime time) {
         return time.toString();
     }
-    
+
+    @GetMapping("/get2")
+    public String get2() {
+        return "success";
+    }
 }
