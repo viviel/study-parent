@@ -14,6 +14,8 @@ import java.util.Set;
 
 public class NioSocketServer implements Runnable {
 
+    public final static int PORT = 8001;
+
     private final int BUFFER_SIZE = 1024;
 
     //nioSocket是通过缓冲流进行读写操作的，这里先初始化好读写的缓冲流！
@@ -40,7 +42,7 @@ public class NioSocketServer implements Runnable {
         //设置其为非阻塞模式
         serverSocketChannel.configureBlocking(false);
         //绑定接收请求的端口
-        serverSocketChannel.bind(new InetSocketAddress(SocketOperator.PORT));
+        serverSocketChannel.bind(new InetSocketAddress(PORT));
 
         //获取一个selector对象
         Selector selector = Selector.open();
@@ -48,7 +50,6 @@ public class NioSocketServer implements Runnable {
         //注册selector，第二个参数设置了其操作类型
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
 
-        SocketOperator.latch.countDown();
         //循环接收请求
         while (!Thread.currentThread().isInterrupted()) {
             // 如果参数是0或没有参数的话就一直阻塞直到接收到请求
@@ -108,7 +109,8 @@ public class NioSocketServer implements Runnable {
         SocketChannel channel = (SocketChannel) key.channel();
         int num;
         if ((num = channel.read(read)) == -1) {
-            System.out.println("未读到信息");
+            System.out.println("close");
+            channel.close();
         } else {
 //                channel.register(key.selector(), SelectionKey.OP_WRITE);
             String getStr = new String(read.array(), 0, num);

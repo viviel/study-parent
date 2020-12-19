@@ -18,7 +18,6 @@ public class NioSocketClient implements Runnable {
     @Override
     public void run() {
         try {
-            SocketOperator.latch.await();
             process();
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
@@ -27,7 +26,7 @@ public class NioSocketClient implements Runnable {
 
     private void process() throws IOException, InterruptedException {
         SocketChannel socket = SocketChannel.open();
-        socket.connect(new InetSocketAddress("127.0.0.1", SocketOperator.PORT));
+        socket.connect(new InetSocketAddress("127.0.0.1", NioSocketServer.PORT));
         socket.configureBlocking(true);
         for (int i = 0; i < 10; i++) {
             String dateStr = LocalDateTime.now().toString();
@@ -38,5 +37,6 @@ public class NioSocketClient implements Runnable {
 //            ByteBuffer b = ByteBuffer.allocate(1024);
 //            socket.read(b);
 //            System.out.println(Arrays.toString(b.array()));
+        socket.close();
     }
 }
