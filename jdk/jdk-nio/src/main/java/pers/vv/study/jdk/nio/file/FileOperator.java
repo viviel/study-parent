@@ -1,4 +1,4 @@
-package pers.vv.study.jdk.nio;
+package pers.vv.study.jdk.nio.file;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
