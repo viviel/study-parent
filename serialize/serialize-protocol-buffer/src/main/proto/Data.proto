@@ -1,0 +1,11 @@
+
+option java_package = "pers.vv.study.serialize.proto";
+option java_generate_equals_and_hash = true;
+option java_generic_services = true;
+option optimize_for = SPEED;
+
+message user {
+    required int64 longId = 1;
+    required int32 intId = 2;
+    required bytes age = 3;
+}
