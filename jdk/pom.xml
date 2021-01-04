@@ -20,6 +20,7 @@
         <module>jdk-syntax</module>
         <module>jdk-map</module>
         <module>jdk-io</module>
+        <module>jdk-classloader</module>
     </modules>
 
     <dependencies>
