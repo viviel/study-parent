@@ -1,8 +1,6 @@
 package pers.algorithm.leetcode.stack;
 
 import org.junit.jupiter.api.Test;
-import pers.algorithm.leetcode.stack.BackspaceCompare;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -21,5 +19,4 @@ class BackspaceCompareTest {
         assertTrue(o.backspaceCompare2("ab#c", "ad#c"));
         assertFalse(o.backspaceCompare2("##a####", "b"));
     }
-
 }

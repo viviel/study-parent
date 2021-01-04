@@ -2,7 +2,6 @@ package pers.algorithm.leetcode.stack;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import pers.algorithm.leetcode.stack.NextGreaterElement;
 
 class NextGreaterElementTest {
 
@@ -28,5 +27,4 @@ class NextGreaterElementTest {
         int[] r = {3, -1};
         Assertions.assertArrayEquals(o.nextGreaterElement(p1, p2), r);
     }
-
 }

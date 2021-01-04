@@ -46,7 +46,6 @@ import java.util.Set;
 class RobotSim {
 
     public int robotSim(int[] commands, int[][] obstacles) {
-        int x = 0, y = 0;
         int d = 0;
         int result = 0;
         for (int e : commands) {
@@ -57,7 +56,6 @@ class RobotSim {
             } else {
                 switch (d) {
                     case 0: {
-                        y += e;
                         break;
                     }
                     case 1: {

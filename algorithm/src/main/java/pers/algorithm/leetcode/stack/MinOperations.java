@@ -1,7 +1,5 @@
 package pers.algorithm.leetcode.stack;
 
-import java.util.Stack;
-
 /**
  * https://leetcode-cn.com/problems/crawler-log-folder/
  */
@@ -27,5 +25,4 @@ public class MinOperations {
         }
         return r;
     }
-
 }

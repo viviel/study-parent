@@ -1,7 +1,6 @@
 package pers.algorithm.leetcode.stack;
 
 import org.junit.jupiter.api.Test;
-import pers.algorithm.leetcode.stack.RemoveOuterParentheses;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -26,5 +25,4 @@ class RemoveOuterParenthesesTest {
         assertEquals(o.removeOuterParentheses3("(()())(())"), "()()()");
         assertEquals(o.removeOuterParentheses3("(()())(())(()(()))"), "()()()()(())");
     }
-
 }
