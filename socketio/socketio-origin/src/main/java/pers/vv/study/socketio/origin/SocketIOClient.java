@@ -1,4 +1,4 @@
-package pers.vv.study.socketio;
+package pers.vv.study.socketio.origin;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;

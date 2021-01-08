@@ -1,4 +1,4 @@
-package pers.vv.study.socketio;
+package pers.vv.study.socketio.origin;
 
 import com.alibaba.fastjson.JSON;
 import com.corundumstudio.socketio.Configuration;
