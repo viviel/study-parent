@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIONamespace;
 import com.corundumstudio.socketio.SocketIOServer;
+import io.socket.client.Socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,8 +41,13 @@ public class NettySocketIOServer {
     private void addListener(SocketIOServer server) {
         server.addConnectListener(client -> logger.info("[] connected: {}", client.getSessionId()));
         server.addDisconnectListener(client -> logger.info("[] disconnect: {}", client.getSessionId()));
+        server.addEventListener(
+                Socket.EVENT_RECONNECT,
+                Object.class,
+                ((client, data, ackSender) -> logger.info("[] reconnect: {}", client.getSessionId()))
+        );
         server.addPingListener(client -> logger.info(
-                "[] {} -- {} -- {}", LocalDateTime.now(), client.getNamespace().getName(), client.getSessionId()
+                "[] ping: {} -- {} -- {}", LocalDateTime.now(), client.getNamespace().getName(), client.getSessionId()
         ));
         server.addEventListener("message", Object.class, (client, data, ackSender) -> {
             Object d = JSON.toJSON(data);
