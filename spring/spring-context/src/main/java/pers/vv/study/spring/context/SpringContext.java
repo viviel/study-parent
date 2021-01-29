@@ -13,5 +13,4 @@ public class SpringContext {
         Map<String, Converter> map = ac.getBeansOfType(Converter.class);
         System.out.println(map);
     }
-
 }
