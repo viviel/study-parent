@@ -44,9 +44,6 @@ class MajorityElement {
         return 0;
     }
 
-    /**
-     * 与 或 异或
-     */
     public int majorityElement2(int[] nums) {
         int result = 0, count = 0;
         for (int e : nums) {
