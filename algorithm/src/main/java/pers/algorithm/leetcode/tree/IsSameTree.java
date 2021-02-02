@@ -1,5 +1,7 @@
 package pers.algorithm.leetcode.tree;
 
+import pers.algorithm.leetcode.tree.common.TreeNode;
+
 /**
  * 给定两个二叉树，编写一个函数来检验它们是否相同。
  * <p>
