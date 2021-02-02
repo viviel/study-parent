@@ -1,5 +1,7 @@
 package pers.algorithm.leetcode.tree;
 
+import pers.algorithm.leetcode.tree.common.TreeNode;
+
 /**
  * 给定一个二叉树，检查它是否是镜像对称的。
  * <p>

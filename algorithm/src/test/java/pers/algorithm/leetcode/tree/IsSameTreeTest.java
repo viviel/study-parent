@@ -1,32 +1,15 @@
 package pers.algorithm.leetcode.tree;
 
 import org.junit.jupiter.api.Test;
+import pers.algorithm.leetcode.tree.common.TreeNode;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static pers.algorithm.leetcode.tree.common.AGTreeUtils.*;
 
 class IsSameTreeTest {
 
     private final IsSameTree o = new IsSameTree();
-
-    private TreeNode generateTree1() {
-        TreeNode result = new TreeNode(1);
-        result.left = new TreeNode(2);
-        result.right = new TreeNode(3);
-        return result;
-    }
-
-    private TreeNode generateTree2() {
-        TreeNode result = new TreeNode(1);
-        result.left = new TreeNode(2);
-        return result;
-    }
-
-    private TreeNode generateTree3() {
-        TreeNode result = new TreeNode(1);
-        result.right = new TreeNode(3);
-        return result;
-    }
 
     @Test
     void test() {
