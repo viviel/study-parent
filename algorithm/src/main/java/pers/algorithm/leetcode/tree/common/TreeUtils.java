@@ -1,6 +1,6 @@
 package pers.algorithm.leetcode.tree.common;
 
-public class AGTreeUtils {
+public class TreeUtils {
 
     /**
      * |    1

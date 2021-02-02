@@ -7,7 +7,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SCSchedule {
+public class Schedule {
 
     @Bean
     public TaskScheduler schedule() {

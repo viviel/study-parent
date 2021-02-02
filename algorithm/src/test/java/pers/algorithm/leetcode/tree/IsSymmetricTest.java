@@ -4,8 +4,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static pers.algorithm.leetcode.tree.common.AGTreeUtils.generateTree4;
-import static pers.algorithm.leetcode.tree.common.AGTreeUtils.generateTree5;
+import static pers.algorithm.leetcode.tree.common.TreeUtils.generateTree4;
+import static pers.algorithm.leetcode.tree.common.TreeUtils.generateTree5;
 
 class IsSymmetricTest {
 
