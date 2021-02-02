@@ -5,12 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SCComponent1 implements InitializingBean {
+public class Component2 implements InitializingBean {
 
     @Autowired
-    private SCComponent2 component;
+    private Component1 component;
 
-    public SCComponent1() {
+    public Component2() {
     }
 
     @Override

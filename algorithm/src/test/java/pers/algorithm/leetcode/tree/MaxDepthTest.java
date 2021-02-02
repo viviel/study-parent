@@ -3,11 +3,11 @@ package pers.algorithm.leetcode.tree;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static pers.algorithm.leetcode.tree.common.AGTreeUtils.generateTree6;
+import static pers.algorithm.leetcode.tree.common.TreeUtils.generateTree6;
 
-class AGMaxDepthTest {
+class MaxDepthTest {
 
-    private final AGMaxDepth o = new AGMaxDepth();
+    private final MaxDepth o = new MaxDepth();
 
     @Test
     void test1() {

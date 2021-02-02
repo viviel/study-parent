@@ -5,7 +5,7 @@ import pers.algorithm.leetcode.tree.common.TreeNode;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static pers.algorithm.leetcode.tree.common.AGTreeUtils.*;
+import static pers.algorithm.leetcode.tree.common.TreeUtils.*;
 
 class IsSameTreeTest {
 

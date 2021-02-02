@@ -3,9 +3,9 @@ package pers.vv.study.spring.context.autowire;
 import org.springframework.beans.factory.InitializingBean;
 
 //@Component
-public class SCComponent3 implements InitializingBean {
+public class Component4 implements InitializingBean {
 
-    public SCComponent3(SCComponent4 component) {
+    public Component4(Component3 component) {
     }
 
     @Override

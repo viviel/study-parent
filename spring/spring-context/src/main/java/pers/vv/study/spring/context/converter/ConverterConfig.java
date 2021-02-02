@@ -12,7 +12,7 @@ import org.springframework.lang.NonNull;
 import java.util.Map;
 
 @Configuration
-public class SCConverterConfig implements ApplicationContextAware, InitializingBean {
+public class ConverterConfig implements ApplicationContextAware, InitializingBean {
 
     private ApplicationContext ac;
 
