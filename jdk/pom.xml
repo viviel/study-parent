@@ -21,6 +21,7 @@
         <module>jdk-map</module>
         <module>jdk-io</module>
         <module>jdk-classloader</module>
+        <module>jdk-util</module>
     </modules>
 
     <dependencies>
