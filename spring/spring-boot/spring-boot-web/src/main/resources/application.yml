@@ -2,5 +2,6 @@ spring:
   mvc:
     format:
       date-time: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd HH:mm:ss
 server:
   port: 8081
