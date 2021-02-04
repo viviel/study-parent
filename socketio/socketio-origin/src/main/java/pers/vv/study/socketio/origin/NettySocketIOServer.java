@@ -9,10 +9,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class NettySocketIOServer {
 
     Logger logger = LoggerFactory.getLogger(NettySocketIOServer.class);
+
+    private final ScheduledExecutorService schedule = Executors.newScheduledThreadPool(1);
 
     public static void main(String[] args) {
         new NettySocketIOServer().start();
@@ -36,6 +41,10 @@ public class NettySocketIOServer {
         namespace.addPingListener(client -> logger.info(
                 "[vv] {} -- {} -- {}", LocalDateTime.now(), namespace.getName(), client.getSessionId()
         ));
+        schedule.scheduleAtFixedRate(() -> {
+            logger.info("schedule");
+            namespace.getBroadcastOperations().sendEvent("message", "message1", "message2");
+        }, 2, 2, TimeUnit.SECONDS);
     }
 
     private void addListener(SocketIOServer server) {
