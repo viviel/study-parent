@@ -159,4 +159,15 @@ public class TreeUtils {
         result.right.right.right.right = new TreeNode(6);
         return result;
     }
+
+    /**
+     * |    1
+     * |   /
+     * |  2
+     */
+    public static TreeNode generateTree11() {
+        TreeNode result = new TreeNode(1);
+        result.left = new TreeNode(2);
+        return result;
+    }
 }
