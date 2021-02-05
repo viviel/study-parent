@@ -85,4 +85,20 @@ public class TreeUtils {
         result.right.right = new TreeNode(7);
         return result;
     }
+
+    /**
+     * |       0
+     * |      / \
+     * |    -3   9
+     * |    /   /
+     * |  -10  5
+     */
+    public static TreeNode generateTree7() {
+        TreeNode result = new TreeNode(0);
+        result.left = new TreeNode(-3);
+        result.right = new TreeNode(9);
+        result.left.left = new TreeNode(-10);
+        result.right.left = new TreeNode(5);
+        return result;
+    }
 }
