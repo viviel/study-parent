@@ -101,4 +101,43 @@ public class TreeUtils {
         result.right.left = new TreeNode(5);
         return result;
     }
+
+    /**
+     * |       0
+     * |      / \
+     * |    -3   9
+     * |    /
+     * |  -10
+     * |     \
+     * |     -9
+     */
+    public static TreeNode generateTree8() {
+        TreeNode result = new TreeNode(0);
+        result.left = new TreeNode(-3);
+        result.right = new TreeNode(9);
+        result.left.left = new TreeNode(-10);
+        result.left.left.right = new TreeNode(-9);
+        return result;
+    }
+
+    /**
+     * [1,2,2,3,null,null,3,4,null,null,4]
+     * |        1
+     * |       / \
+     * |      2   2
+     * |     /     \
+     * |    3       3
+     * |   /         \
+     * |  4           4
+     */
+    public static TreeNode generateTree9() {
+        TreeNode result = new TreeNode(1);
+        result.left = new TreeNode(2);
+        result.right = new TreeNode(2);
+        result.left.left = new TreeNode(3);
+        result.right.right = new TreeNode(3);
+        result.left.left.left = new TreeNode(4);
+        result.right.right.right = new TreeNode(4);
+        return result;
+    }
 }
