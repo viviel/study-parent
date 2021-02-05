@@ -140,4 +140,23 @@ public class TreeUtils {
         result.right.right.right = new TreeNode(4);
         return result;
     }
+
+    /**
+     * [2,null,3,null,4,null,5,null,6]
+     * |        2
+     * |         \
+     * |          3
+     * |           \
+     * |            5
+     * |             \
+     * |              6
+     */
+    public static TreeNode generateTree10() {
+        TreeNode result = new TreeNode(2);
+        result.right = new TreeNode(2);
+        result.right.right = new TreeNode(4);
+        result.right.right.right = new TreeNode(5);
+        result.right.right.right.right = new TreeNode(6);
+        return result;
+    }
 }
