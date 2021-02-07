@@ -7,6 +7,7 @@ import com.corundumstudio.socketio.SocketIOServer;
 import io.socket.client.Socket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import pers.vv.study.common.Utils;
 
 import java.time.LocalDateTime;
 import java.util.concurrent.Executors;
@@ -36,14 +37,22 @@ public class NettySocketIOServer {
 
     private void addNamespace(SocketIOServer server) {
         SocketIONamespace namespace = server.addNamespace("/vv");
-        namespace.addConnectListener(client -> logger.info("[vv] connected: {}", client.getSessionId()));
+        namespace.addConnectListener(client -> {
+            logger.info("[vv] connected: {}", client.getSessionId());
+            client.sendEvent("message", "connected");
+            try {
+                Utils.sleep(1000 * 3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
         namespace.addDisconnectListener(client -> logger.info("[vv] disconnect: {}", client.getSessionId()));
         namespace.addPingListener(client -> logger.info(
                 "[vv] {} -- {} -- {}", LocalDateTime.now(), namespace.getName(), client.getSessionId()
         ));
         schedule.scheduleAtFixedRate(() -> {
             logger.info("schedule");
-            namespace.getBroadcastOperations().sendEvent("message", "message1", "message2");
+            namespace.getBroadcastOperations().sendEvent("schedule", "message1", "message2");
         }, 2, 2, TimeUnit.SECONDS);
     }
 
