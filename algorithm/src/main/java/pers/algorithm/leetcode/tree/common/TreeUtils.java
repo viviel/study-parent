@@ -170,4 +170,22 @@ public class TreeUtils {
         result.left = new TreeNode(2);
         return result;
     }
+
+    /**
+     * |       4
+     * |     /   \
+     * |    2     7
+     * |   / \   / \
+     * |  1   3 6   9
+     */
+    public static TreeNode generateTree12() {
+        TreeNode result = new TreeNode(4);
+        result.left = new TreeNode(2);
+        result.right = new TreeNode(7);
+        result.left.left = new TreeNode(1);
+        result.left.right = new TreeNode(3);
+        result.right.left = new TreeNode(6);
+        result.right.right = new TreeNode(9);
+        return result;
+    }
 }
