@@ -188,4 +188,19 @@ public class TreeUtils {
         result.right.right = new TreeNode(9);
         return result;
     }
+
+    /**
+     * |     1
+     * |   /   \
+     * |  2     3
+     * |   \
+     * |    5
+     */
+    public static TreeNode generateTree13() {
+        TreeNode result = new TreeNode(1);
+        result.left = new TreeNode(2);
+        result.right = new TreeNode(3);
+        result.left.right = new TreeNode(5);
+        return result;
+    }
 }
