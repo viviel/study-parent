@@ -43,10 +43,8 @@ function sendMsg() {
     let msg = {
         "msg_type": 1,
         "id": 'messageId-' + time,
-        "live_id": liveId,
         "role": 1,
         "action": 0,
-        "sender_id": openId,
         "sender_name": "vv",
         "msg": "弹幕test",
         "time": time
