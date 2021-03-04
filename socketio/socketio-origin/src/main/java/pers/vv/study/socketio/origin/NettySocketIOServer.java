@@ -12,7 +12,6 @@ import pers.vv.study.common.Utils;
 import java.time.LocalDateTime;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class NettySocketIOServer {
 
@@ -31,29 +30,9 @@ public class NettySocketIOServer {
         config.setPingInterval(1000 * 5);
         SocketIOServer server = new SocketIOServer(config);
         addListener(server);
-        addNamespace(server);
+        addNamespace1(server);
+        addNamespace2(server);
         server.start();
-    }
-
-    private void addNamespace(SocketIOServer server) {
-        SocketIONamespace namespace = server.addNamespace("/vv");
-        namespace.addConnectListener(client -> {
-            logger.info("[vv] connected: {}", client.getSessionId());
-            client.sendEvent("message", "connected");
-            try {
-                Utils.sleep(1000 * 3);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
-        namespace.addDisconnectListener(client -> logger.info("[vv] disconnect: {}", client.getSessionId()));
-        namespace.addPingListener(client -> logger.info(
-                "[vv] {} -- {} -- {}", LocalDateTime.now(), namespace.getName(), client.getSessionId()
-        ));
-        schedule.scheduleAtFixedRate(() -> {
-            logger.info("schedule");
-            namespace.getBroadcastOperations().sendEvent("schedule", "message1", "message2");
-        }, 2, 2, TimeUnit.SECONDS);
     }
 
     private void addListener(SocketIOServer server) {
@@ -72,5 +51,35 @@ public class NettySocketIOServer {
             logger.info(d.toString());
             ackSender.sendAckData(d);
         });
+    }
+
+    private void addNamespace1(SocketIOServer server) {
+        SocketIONamespace namespace = server.addNamespace("/vv");
+        namespace.addConnectListener(client -> {
+            logger.info("[vv] connected: {}", client.getSessionId());
+            System.out.println(client.getHandshakeData().getSingleUrlParam("open"));
+            client.sendEvent("message", "connected");
+            try {
+                Utils.sleep(1000 * 3);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+        namespace.addDisconnectListener(client -> logger.info("[vv] disconnect: {}", client.getSessionId()));
+        namespace.addPingListener(client -> logger.info(
+                "[vv] {} -- {} -- {}", LocalDateTime.now(), namespace.getName(), client.getSessionId()
+        ));
+    }
+
+    private void addNamespace2(SocketIOServer server) {
+        SocketIONamespace namespace = server.addNamespace("/ww");
+        namespace.addConnectListener(client -> {
+            logger.info("[ww] connected: {}", client.getSessionId());
+            System.out.println(client.getHandshakeData().getSingleUrlParam("open"));
+        });
+        namespace.addDisconnectListener(client -> logger.info("[ww] disconnect: {}", client.getSessionId()));
+        namespace.addPingListener(client -> logger.info(
+                "[ww] {} -- {} -- {}", LocalDateTime.now(), namespace.getName(), client.getSessionId()
+        ));
     }
 }

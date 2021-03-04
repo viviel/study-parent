@@ -14,13 +14,12 @@
 </body>
 
 <script type="text/javascript">
-    const host = 'http://127.0.0.1:9093';
+    const host = 'http://127.0.0.1:8888';
 
-    const liveId = 1;
-    const openId = 'oEx3O4kybPp396fYAXPwjeafli1g-local-1';
-    const id = 'af8364f7-d4be-4374-833c-df71b3030c37-local-2';
+    const nsName = 'vv';
+    const openId = 'open-id-local-1';
 
-    const socket = io(host + '/' + liveId + '?role=1&open=' + openId + '&id=' + id + '&EIO=3&transport=websocket');
+    const socket = io(host + '/' + nsName + '?role=1&open=' + openId + '&EIO=3&transport=websocket');
 
     addEvent();
 </script>
