@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>websocket-java-socket-io</title>
+    <script src="https://cdn.jsdelivr.net/npm/socket.io-client@2/dist/socket.io.js"></script>
+    <script src="./js/jquery-3.5.1.js"></script>
+    <script src="./js/socket-common.js"></script>
+</head>
+<body>
+<div id="sign">init</div>
+<pre id="content"></pre>
+</body>
+
+<script type="text/javascript">
+    const host = 'http://127.0.0.1:9093';
+
+    const liveId = 1;
+    const openId = 'oEx3O4kybPp396fYAXPwjeafli1g-local-1';
+    const id = 'af8364f7-d4be-4374-833c-df71b3030c37-local-2';
+
+    const socket = io(host + '/' + liveId + '?role=1&open=' + openId + '&id=' + id + '&EIO=3&transport=websocket');
+
+    addEvent();
+</script>
+</html>
