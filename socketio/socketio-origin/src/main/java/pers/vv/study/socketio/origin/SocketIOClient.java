@@ -15,6 +15,7 @@ public class SocketIOClient {
             System.out.println("connected");
             try {
                 Utils.sleep(1000 * 10);
+                socket.emit("message", "message");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -22,5 +23,4 @@ public class SocketIOClient {
         });
         socket.connect();
     }
-
 }
