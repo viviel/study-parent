@@ -1,13 +1,27 @@
 package pers.vv.study.spring.context.schedule;
 
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Component;
+import pers.vv.study.spring.context.SpringConfig;
 
 @Component
-public class MSchedule {
+public class MSchedule implements InitializingBean {
+
+    @Autowired
+    private Test test;
+
+    public MSchedule() {
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println(test.hashCode());
+    }
 
     @Bean
     public TaskScheduler schedule() {
