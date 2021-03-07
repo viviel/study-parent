@@ -34,6 +34,18 @@
         </profile>
 
         <profile>
+            <id>springboot-2.5</id>
+            <properties>
+                <springboot.version>2.5.0-SNAPSHOT</springboot.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>springboot-2.4</id>
+            <properties>
+                <springboot.version>2.4.0-SNAPSHOT</springboot.version>
+            </properties>
+        </profile>
+        <profile>
             <id>springboot-2.3</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
