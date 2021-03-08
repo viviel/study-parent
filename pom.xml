@@ -42,7 +42,7 @@
         <profile>
             <id>springboot-2.4</id>
             <properties>
-                <springboot.version>2.4.0-SNAPSHOT</springboot.version>
+                <springboot.version>2.4.3</springboot.version>
             </properties>
         </profile>
         <profile>
