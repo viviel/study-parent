@@ -41,15 +41,15 @@
         </profile>
         <profile>
             <id>springboot-2.4</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <springboot.version>2.4.3</springboot.version>
             </properties>
         </profile>
         <profile>
             <id>springboot-2.3</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <springboot.version>2.3.1.RELEASE</springboot.version>
             </properties>
@@ -144,6 +144,13 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter</artifactId>
+                <version>${springboot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
                 <version>${springboot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
