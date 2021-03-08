@@ -7,7 +7,7 @@ import org.springframework.core.convert.converter.Converter;
 @Configuration
 public class WebConfig {
 
-    @Bean
+//    @Bean
     public Converter<String, Integer> myConverter() {
         return Integer::valueOf;
     }
