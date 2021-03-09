@@ -1,9 +1,9 @@
-package pers.vv.study.jdk.syntax.datatype;
+package pers.vv.study.jdk.syntax;
 
 import lombok.Data;
 
 @Data
-public class Basic {
+public class BasicType {
 
     // 16
     private short s = 0;
