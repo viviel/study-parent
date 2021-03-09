@@ -219,4 +219,18 @@ public class TreeUtils {
         result.left.right = new TreeNode(5);
         return result;
     }
+
+    /**
+     * |  1
+     * |   \
+     * |    3
+     * |   /
+     * |  2
+     */
+    public static TreeNode generateTree15() {
+        TreeNode result = new TreeNode(1);
+        result.right = new TreeNode(3);
+        result.right.left = new TreeNode(2);
+        return result;
+    }
 }
