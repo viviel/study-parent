@@ -5,3 +5,6 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
 server:
   port: 8081
+logging:
+  file:
+    name: ./spring/spring-boot/spring-boot-web/target/spring.log
