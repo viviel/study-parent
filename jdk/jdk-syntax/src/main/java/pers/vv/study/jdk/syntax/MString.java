@@ -1,4 +1,4 @@
-package pers.vv.study.jdk.syntax.datatype;
+package pers.vv.study.jdk.syntax;
 
 import java.util.Random;
 
