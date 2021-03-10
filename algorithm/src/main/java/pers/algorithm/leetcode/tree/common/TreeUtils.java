@@ -233,4 +233,18 @@ public class TreeUtils {
         result.right.left = new TreeNode(2);
         return result;
     }
+
+    /**
+     * |        4
+     * |      /   \
+     * |     2     9
+     * |   /  \     \
+     * |  3    5     7
+     */
+    public static TreeNode generateTree16() {
+        TreeNode result = new TreeNode(1);
+        result.right = new TreeNode(3);
+        result.right.left = new TreeNode(2);
+        return result;
+    }
 }
