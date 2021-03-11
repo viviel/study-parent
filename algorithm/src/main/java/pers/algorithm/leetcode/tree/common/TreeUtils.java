@@ -242,9 +242,40 @@ public class TreeUtils {
      * |  3    5     7
      */
     public static TreeNode generateTree16() {
-        TreeNode result = new TreeNode(1);
-        result.right = new TreeNode(3);
-        result.right.left = new TreeNode(2);
+        TreeNode result = new TreeNode(4);
+        result.left = new TreeNode(2);
+        result.right = new TreeNode(9);
+        result.left.left = new TreeNode(3);
+        result.left.right = new TreeNode(5);
+        result.right.right = new TreeNode(7);
+        return result;
+    }
+
+    /**
+     * |      3
+     * |     / \
+     * |    4   5
+     * |   / \
+     * |  1   2
+     */
+    public static TreeNode generateTree17() {
+        TreeNode result = new TreeNode(3);
+        result.left = new TreeNode(4);
+        result.right = new TreeNode(5);
+        result.left.left = new TreeNode(1);
+        result.left.right = new TreeNode(2);
+        return result;
+    }
+
+    /**
+     * |    4
+     * |   / \
+     * |  1   2
+     */
+    public static TreeNode generateTree18() {
+        TreeNode result = new TreeNode(4);
+        result.left = new TreeNode(1);
+        result.right = new TreeNode(2);
         return result;
     }
 }
