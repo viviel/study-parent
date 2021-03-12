@@ -177,6 +177,10 @@ public class TreeUtils {
      * |    2     7
      * |   / \   / \
      * |  1   3 6   9
+     * <p>
+     * 先序：4 2 1 3 7 6 9
+     * 中序：1 2 3 4 6 7 9
+     * 后序：1 3 2 6 9 7 4
      */
     public static TreeNode generateTree12() {
         TreeNode result = new TreeNode(4);
