@@ -9,6 +9,24 @@
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>java-bookkeeper</module>
+        <module>java-jdk</module>
+        <module>java-log</module>
+        <module>java-maven-plugin</module>
+        <module>java-monitor</module>
+        <module>java-mq</module>
+        <module>java-reactor</module>
+        <module>java-netty</module>
+        <module>java-schedule</module>
+        <module>java-serialize</module>
+        <module>java-socketio</module>
+        <module>java-spring</module>
+        <module>java-test</module>
+        <module>java-zookeeper</module>
+    </modules>
 
     <artifactId>java</artifactId>
 

@@ -14,22 +14,22 @@ import java.util.Map;
 
 @Configuration
 public class JPAConfig extends JpaBaseConfiguration {
-    
+
     public static final String WEAVING = "static";
-    
+
     public static final String DDL = "create-or-extend-tables";
-    
+
     protected JPAConfig(DataSource dataSource,
                         JpaProperties properties,
                         ObjectProvider<JtaTransactionManager> jtaTransactionManager) {
         super(dataSource, properties, jtaTransactionManager);
     }
-    
+
     @Override
     protected AbstractJpaVendorAdapter createJpaVendorAdapter() {
         return new EclipseLinkJpaVendorAdapter();
     }
-    
+
     @Override
     protected Map<String, Object> getVendorProperties() {
         Map<String, Object> map = new HashMap<>();
@@ -37,5 +37,5 @@ public class JPAConfig extends JpaBaseConfiguration {
         map.put("eclipselink.ddl-generation", DDL);
         return map;
     }
-    
+
 }

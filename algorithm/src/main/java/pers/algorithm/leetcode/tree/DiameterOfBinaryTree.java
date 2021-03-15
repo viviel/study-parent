@@ -70,7 +70,7 @@ class DiameterOfBinaryTree {
             return 0;
         }
         int leftVal = null == root.left ? 0 : traversal(root.left) + 1;
-        int rightVal = null == root.right ? 0: traversal(root.right) + 1;
+        int rightVal = null == root.right ? 0 : traversal(root.right) + 1;
         max = Math.max(max, leftVal + rightVal);
         return Math.max(leftVal, rightVal);
     }

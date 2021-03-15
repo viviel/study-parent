@@ -17,6 +17,7 @@
         <module>db-jdbc</module>
         <module>db-mybatisplus</module>
         <module>db-jpa</module>
+        <module>db-redis</module>
     </modules>
 
 </project>

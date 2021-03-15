@@ -36,13 +36,13 @@ import javax.persistence.EntityManager;
 import java.sql.Connection;
 
 public class OpenJpaDialect extends DefaultJpaDialect {
-    
+
     @Override
     public Object beginTransaction(@Nonnull EntityManager entityManager, TransactionDefinition definition)
             throws PersistenceException, TransactionException {
-        
+
         OpenJPAEntityManager openJpaEntityManager = getOpenJPAEntityManager(entityManager);
-        
+
         if (definition.getIsolationLevel() != TransactionDefinition.ISOLATION_DEFAULT) {
             // Pass custom isolation level on to OpenJPA's JDBCFetchPlan configuration
             FetchPlan fetchPlan = openJpaEntityManager.getFetchPlan();
@@ -51,26 +51,26 @@ public class OpenJpaDialect extends DefaultJpaDialect {
                 ((JDBCFetchPlan) fetchPlan).setIsolation(isolation);
             }
         }
-        
+
         entityManager.getTransaction().begin();
-        
+
         if (!definition.isReadOnly()) {
             // Like with EclipseLink, make sure to start the logic transaction early so that other
             // participants using the connection (such as JdbcTemplate) run in a transaction.
             openJpaEntityManager.beginStore();
         }
-        
+
         // Custom implementation for OpenJPA savepoint handling
         return new OpenJpaTransactionData(openJpaEntityManager);
     }
-    
+
     @Override
     public ConnectionHandle getJdbcConnection(@Nonnull EntityManager entityManager, boolean readOnly)
             throws PersistenceException {
-        
+
         return new OpenJpaConnectionHandle(getOpenJPAEntityManager(entityManager));
     }
-    
+
     /**
      * Return the OpenJPA-specific variant of {@code EntityManager}.
      *
@@ -80,22 +80,22 @@ public class OpenJpaDialect extends DefaultJpaDialect {
     protected OpenJPAEntityManager getOpenJPAEntityManager(EntityManager em) {
         return OpenJPAPersistence.cast(em);
     }
-    
-    
+
+
     /**
      * Transaction data Object exposed from {@code beginTransaction},
      * implementing the {@link SavepointManager} interface.
      */
     private static class OpenJpaTransactionData implements SavepointManager {
-        
+
         private final OpenJPAEntityManager entityManager;
-        
+
         private int savepointCounter = 0;
-        
+
         public OpenJpaTransactionData(OpenJPAEntityManager entityManager) {
             this.entityManager = entityManager;
         }
-        
+
         @Override
         @Nonnull
         public Object createSavepoint() throws TransactionException {
@@ -104,12 +104,12 @@ public class OpenJpaDialect extends DefaultJpaDialect {
             this.entityManager.setSavepoint(savepointName);
             return savepointName;
         }
-        
+
         @Override
         public void rollbackToSavepoint(@Nonnull Object savepoint) throws TransactionException {
             this.entityManager.rollbackToSavepoint((String) savepoint);
         }
-        
+
         @Override
         public void releaseSavepoint(@Nonnull Object savepoint) throws TransactionException {
             try {
@@ -120,8 +120,8 @@ public class OpenJpaDialect extends DefaultJpaDialect {
             }
         }
     }
-    
-    
+
+
     /**
      * {@link ConnectionHandle} implementation that fetches a new OpenJPA-provided
      * Connection for every {@code getConnection} call and closes the Connection on
@@ -131,23 +131,23 @@ public class OpenJpaDialect extends DefaultJpaDialect {
      * @see OpenJPAEntityManager#getConnection()
      */
     private static class OpenJpaConnectionHandle implements ConnectionHandle {
-        
+
         private final OpenJPAEntityManager entityManager;
-        
+
         public OpenJpaConnectionHandle(OpenJPAEntityManager entityManager) {
             this.entityManager = entityManager;
         }
-        
+
         @Override
         @Nonnull
         public Connection getConnection() {
             return (Connection) this.entityManager.getConnection();
         }
-        
+
         @Override
         public void releaseConnection(@Nonnull Connection con) {
             JdbcUtils.closeConnection(con);
         }
     }
-    
+
 }

@@ -69,25 +69,9 @@
     </profiles>
 
     <modules>
-        <module>jdk</module>
         <module>algorithm</module>
         <module>db</module>
-        <module>redis</module>
-        <module>monitor</module>
-        <module>mq</module>
-        <module>log</module>
-        <module>serialize</module>
-        <module>netty</module>
         <module>common</module>
-        <module>schedule</module>
-        <module>test</module>
-        <module>zookeeper</module>
-        <module>spring</module>
-        <module>socketio</module>
-        <module>maven-plugin</module>
-        <module>reactor</module>
-        <module>bookkeeper</module>
-        <module>http</module>
         <module>network</module>
         <module>system</module>
         <module>java</module>

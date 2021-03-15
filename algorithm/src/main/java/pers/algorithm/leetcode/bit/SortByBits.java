@@ -1,4 +1,3 @@
-
 package pers.algorithm.leetcode.bit;
 
 import java.util.Arrays;
