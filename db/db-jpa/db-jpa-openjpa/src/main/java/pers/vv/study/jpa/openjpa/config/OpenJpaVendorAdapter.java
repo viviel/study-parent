@@ -30,27 +30,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class OpenJpaVendorAdapter extends AbstractJpaVendorAdapter {
-    
+
     private final PersistenceProvider persistenceProvider = new PersistenceProviderImpl();
-    
+
     private final OpenJpaDialect jpaDialect = new OpenJpaDialect();
-    
+
     @Override
     @Nonnull
     public PersistenceProvider getPersistenceProvider() {
         return this.persistenceProvider;
     }
-    
+
     @Override
     public String getPersistenceProviderRootPackage() {
         return "org.apache.openjpa";
     }
-    
+
     @Override
     @Nonnull
     public Map<String, Object> getJpaPropertyMap() {
         Map<String, Object> jpaProperties = new HashMap<>();
-        
+
         if (getDatabasePlatform() != null) {
             jpaProperties.put("openjpa.jdbc.DBDictionary", getDatabasePlatform());
         } else {
@@ -59,7 +59,7 @@ public class OpenJpaVendorAdapter extends AbstractJpaVendorAdapter {
                 jpaProperties.put("openjpa.jdbc.DBDictionary", databaseDictionary);
             }
         }
-        
+
         if (isGenerateDdl()) {
             jpaProperties.put("openjpa.jdbc.SynchronizeMappings", "buildSchema(ForeignKeys=true)");
         }
@@ -67,10 +67,10 @@ public class OpenJpaVendorAdapter extends AbstractJpaVendorAdapter {
             // Taken from the OpenJPA 0.9.6 docs ("Standard OpenJPA Log Configuration + All SQL Statements")
             jpaProperties.put("openjpa.Log", "DefaultLevel=WARN, Runtime=INFO, Tool=INFO, SQL=TRACE");
         }
-        
+
         return jpaProperties;
     }
-    
+
     /**
      * Determine the OpenJPA database dictionary name for the given database.
      *
@@ -101,22 +101,22 @@ public class OpenJpaVendorAdapter extends AbstractJpaVendorAdapter {
                 return null;
         }
     }
-    
+
     @Override
     public OpenJpaDialect getJpaDialect() {
         return this.jpaDialect;
     }
-    
+
     @Override
     @Nonnull
     public Class<? extends EntityManagerFactory> getEntityManagerFactoryInterface() {
         return OpenJPAEntityManagerFactorySPI.class;
     }
-    
+
     @Override
     @Nonnull
     public Class<? extends EntityManager> getEntityManagerInterface() {
         return OpenJPAEntityManagerSPI.class;
     }
-    
+
 }

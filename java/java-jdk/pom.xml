@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <artifactId>java</artifactId>
+        <groupId>pers.vv.study</groupId>
+        <version>${revision}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>java-jdk</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>jdk-nio</module>
+        <module>jdk-lock</module>
+        <module>jdk-concurrent</module>
+        <module>jdk-proxy</module>
+        <module>jdk-syntax</module>
+        <module>jdk-map</module>
+        <module>jdk-io</module>
+        <module>jdk-classloader</module>
+        <module>jdk-util</module>
+        <module>jdk-collection</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>pers.vv.study</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

@@ -9,7 +9,12 @@
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
 
     <artifactId>network</artifactId>
+
+    <modules>
+        <module>network-http</module>
+    </modules>
 
 </project>

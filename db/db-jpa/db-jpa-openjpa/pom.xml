@@ -30,32 +30,32 @@
 
     <build>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.openjpa</groupId>-->
-<!--                <artifactId>openjpa-maven-plugin</artifactId>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>enhancer</id>-->
-<!--                        <phase>process-classes</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>enhance</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <includes>**/domain/*.class</includes>-->
-<!--                    <addDefaultConstructor>true</addDefaultConstructor>-->
-<!--                    <enforcePropertyRestrictions>true</enforcePropertyRestrictions>-->
-<!--                </configuration>-->
-<!--                <dependencies>-->
-<!--                    <dependency>-->
-<!--                        <groupId>org.apache.openjpa</groupId>-->
-<!--                        <artifactId>openjpa</artifactId>-->
-<!--                        &lt;!&ndash; set the version to be the same as the level in your runtime &ndash;&gt;-->
-<!--                        <version>${openjpa.version}</version>-->
-<!--                    </dependency>-->
-<!--                </dependencies>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.openjpa</groupId>-->
+            <!--                <artifactId>openjpa-maven-plugin</artifactId>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <id>enhancer</id>-->
+            <!--                        <phase>process-classes</phase>-->
+            <!--                        <goals>-->
+            <!--                            <goal>enhance</goal>-->
+            <!--                        </goals>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--                <configuration>-->
+            <!--                    <includes>**/domain/*.class</includes>-->
+            <!--                    <addDefaultConstructor>true</addDefaultConstructor>-->
+            <!--                    <enforcePropertyRestrictions>true</enforcePropertyRestrictions>-->
+            <!--                </configuration>-->
+            <!--                <dependencies>-->
+            <!--                    <dependency>-->
+            <!--                        <groupId>org.apache.openjpa</groupId>-->
+            <!--                        <artifactId>openjpa</artifactId>-->
+            <!--                        &lt;!&ndash; set the version to be the same as the level in your runtime &ndash;&gt;-->
+            <!--                        <version>${openjpa.version}</version>-->
+            <!--                    </dependency>-->
+            <!--                </dependencies>-->
+            <!--            </plugin>-->
         </plugins>
     </build>
 

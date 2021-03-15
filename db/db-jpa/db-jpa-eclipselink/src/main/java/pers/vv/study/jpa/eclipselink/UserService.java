@@ -11,14 +11,14 @@ import java.util.List;
 
 @Service
 public class UserService implements InitializingBean {
-    
+
     private final UserRepository userRepository;
-    
+
     @Autowired
     public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         User user = new User();
@@ -26,9 +26,9 @@ public class UserService implements InitializingBean {
         user.setName("vv");
         user.setCreateTime(new Date());
         userRepository.save(user);
-        
+
         List<User> result = userRepository.findAll();
         System.out.println(result);
     }
-    
+
 }
