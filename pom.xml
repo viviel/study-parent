@@ -88,6 +88,8 @@
         <module>reactor</module>
         <module>bookkeeper</module>
         <module>http</module>
+        <module>network</module>
+        <module>system</module>
     </modules>
 
     <properties>
