@@ -90,6 +90,7 @@
         <module>http</module>
         <module>network</module>
         <module>system</module>
+        <module>java</module>
     </modules>
 
     <properties>
