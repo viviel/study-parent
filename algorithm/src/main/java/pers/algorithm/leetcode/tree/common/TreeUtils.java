@@ -282,4 +282,34 @@ public class TreeUtils {
         result.right = new TreeNode(2);
         return result;
     }
+
+    /**
+     * [1,2,null,3]
+     * |      1
+     * |     /
+     * |    2
+     * |   /
+     * |  3
+     */
+    public static TreeNode generateTree19() {
+        TreeNode result = new TreeNode(1);
+        result.left = new TreeNode(2);
+        result.left.left = new TreeNode(3);
+        return result;
+    }
+
+    /**
+     * [1,null,2,null,3]
+     * |  1
+     * |   \
+     * |    2
+     * |     \
+     * |      3
+     */
+    public static TreeNode generateTree20() {
+        TreeNode result = new TreeNode(1);
+        result.right = new TreeNode(2);
+        result.right.right = new TreeNode(3);
+        return result;
+    }
 }
