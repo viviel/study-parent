@@ -19,6 +19,33 @@
 - 成功将sizeCtl设置为-1后，需要再对table是否为空进行判断。防止上面抢占失败的线程重复进行初始化
 - 符合条件后，进行扩容操作
 
+```java
+private final Node<K,V>[] initTable() {
+    Node<K,V>[] tab; int sc;
+    while ((tab = table) == null || tab.length == 0) {
+        if ((sc = sizeCtl) < 0)
+            Thread.yield(); // lost initialization race; just spin
+        else if (U.compareAndSwapInt(this, SIZECTL, sc, -1)) {
+            try {
+                if ((tab = table) == null || tab.length == 0) {
+                    int n = (sc > 0) ? sc : DEFAULT_CAPACITY;
+                    @SuppressWarnings("unchecked")
+                    Node<K,V>[] nt = (Node<K,V>[])new Node<?,?>[n];
+                    table = tab = nt;
+                    sc = n - (n >>> 2);
+                }
+            } finally {
+                sizeCtl = sc;
+            }
+            break;
+        }
+    }
+    return tab;
+}
+```
+
+
+
 ## get
 
 ### 流程
@@ -29,6 +56,30 @@
 - 否则查看哈希值是否小于0
 - 若小于0则说明该节点是红黑树
 - 若不小于0，则顺着链表依次查找
+
+```java
+public V get(Object key) {
+    Node<K,V>[] tab; Node<K,V> e, p; int n, eh; K ek;
+    int h = spread(key.hashCode());
+    if ((tab = table) != null && (n = tab.length) > 0 &&
+        (e = tabAt(tab, (n - 1) & h)) != null) {
+        if ((eh = e.hash) == h) {
+            if ((ek = e.key) == key || (ek != null && key.equals(ek)))
+                return e.val;
+        }
+        else if (eh < 0)
+            return (p = e.find(h, key)) != null ? p.val : null;
+        while ((e = e.next) != null) {
+            if (e.hash == h &&
+                ((ek = e.key) == key || (ek != null && key.equals(ek))))
+                return e.val;
+        }
+    }
+    return null;
+}
+```
+
+
 
 ## put
 
@@ -52,32 +103,50 @@
 - 调用addCount增加数量/扩容
 
 ```java
+/**
+ * 索引节点：位于table上的节点
+ */
 final V putVal(K key, V value, boolean onlyIfAbsent) {
     if (key == null || value == null) throw new NullPointerException();
     //获取hash值
     int hash = spread(key.hashCode());
-    //记录当前table节点链表长度
+    //只记录当前table索引节点链表长度，不记录红黑树节点数
     int binCount = 0;
     for (Node<K,V>[] tab = table;;) {
+        //f：索引节点引用
+        //n：table length
+        //i：索引节点的下标
+        //fh：索引节点的hash值
         Node<K,V> f; int n, i, fh;
+        //table是否为空
         if (tab == null || (n = tab.length) == 0)
-            //如果table为空，进行初始化
+            //进行初始化
             tab = initTable();
+        //table索引节点是否为空
         else if ((f = tabAt(tab, i = (n - 1) & hash)) == null) {
+            //CAS插入，成功则bread循环，否则自旋直到成功插入
             if (casTabAt(tab, i, null,
                          new Node<K,V>(hash, key, value, null)))
                 break;                   // no lock when adding to empty bin
         }
+        //map是否正在扩容
         else if ((fh = f.hash) == MOVED)
+            //当前线程加入扩容任务中
             tab = helpTransfer(tab, f);
+        //执行插入操作。索引节点可能为链表，也可能为红黑树
         else {
             V oldVal = null;
+            //对索引节点加锁
             synchronized (f) {
+                //此处判断的原因存疑
                 if (tabAt(tab, i) == f) {
+                    //通过索引节点hash值判断是否为链表
                     if (fh >= 0) {
                         binCount = 1;
                         for (Node<K,V> e = f;; ++binCount) {
+                            //e：遍历链表时的临时引用
                             K ek;
+                            //是否为更新操作
                             if (e.hash == hash &&
                                 ((ek = e.key) == key ||
                                  (ek != null && key.equals(ek)))) {
@@ -87,6 +156,7 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
                                 break;
                             }
                             Node<K,V> pred = e;
+                            //将value插入到链表尾部
                             if ((e = e.next) == null) {
                                 pred.next = new Node<K,V>(hash, key,
                                                           value, null);
@@ -94,6 +164,7 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
                             }
                         }
                     }
+                    //是否为红黑树
                     else if (f instanceof TreeBin) {
                         Node<K,V> p;
                         binCount = 2;
@@ -107,16 +178,63 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
                 }
             }
             if (binCount != 0) {
+                //链表是否应该转换为红黑树
                 if (binCount >= TREEIFY_THRESHOLD)
                     treeifyBin(tab, i);
+                //判断是更新还是插入操作
                 if (oldVal != null)
                     return oldVal;
                 break;
             }
         }
     }
+    //增加map数量/执行扩容操作
     addCount(1L, binCount);
     return null;
+}
+```
+
+## addCount
+
+### 流程
+
+```java
+private final void addCount(long x, int check) {
+    CounterCell[] as; long b, s;
+    if ((as = counterCells) != null ||
+        !U.compareAndSwapLong(this, BASECOUNT, b = baseCount, s = b + x)) {
+        CounterCell a; long v; int m;
+        boolean uncontended = true;
+        if (as == null || (m = as.length - 1) < 0 ||
+            (a = as[ThreadLocalRandom.getProbe() & m]) == null ||
+            !(uncontended =
+              U.compareAndSwapLong(a, CELLVALUE, v = a.value, v + x))) {
+            fullAddCount(x, uncontended);
+            return;
+        }
+        if (check <= 1)
+            return;
+        s = sumCount();
+    }
+    if (check >= 0) {
+        Node<K,V>[] tab, nt; int n, sc;
+        while (s >= (long)(sc = sizeCtl) && (tab = table) != null &&
+               (n = tab.length) < MAXIMUM_CAPACITY) {
+            int rs = resizeStamp(n);
+            if (sc < 0) {
+                if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||
+                    sc == rs + MAX_RESIZERS || (nt = nextTable) == null ||
+                    transferIndex <= 0)
+                    break;
+                if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1))
+                    transfer(tab, nt);
+            }
+            else if (U.compareAndSwapInt(this, SIZECTL, sc,
+                                         (rs << RESIZE_STAMP_SHIFT) + 2))
+                transfer(tab, null);
+            s = sumCount();
+        }
+    }
 }
 ```
 
