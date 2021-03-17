@@ -2,10 +2,15 @@
 
 - CAS操作
 - synchronized锁
+- 通过baseCount和CounterCells数组节点两个属性来记录map元素数量
 
 # 属性
 
-`sizeCtl` 用于标识map是否初始化或扩容（小于0）
+`sizeCtl` 用于标识map是否初始化（-1）或扩容（仅限低16位，-n，n - 1：扩容线程数量），阈值（table.length * 0.75）。
+
+`baseCount` 正常统计map元素数量时使用这个属性，如果多个线程竞争，则会启用CounterCell数组来分散线程竞争，提高效率。
+
+`CounterCells` 计数器单元数组。节点和线程关联，可减少记录元素增加时的冲突
 
 # 方法
 
@@ -83,46 +88,32 @@ public V get(Object key) {
 
 ## put
 
-### 说明
+### 作用
 
-`binCount` 链表长度
+- 存储元素。如果table节点为空，则CAS插入，否则对该节点加锁，插入节点上的链表或红黑树
+- 增加元素数量
+- table扩容
 
 ### 流程
 
-- 获取hash值
-- 如果table为空，则进行初始化
-- 计算key的index
-- 如果index处节点为空，则使用CAS操作赋值
-- 如果正在扩容，则当前线程加入扩容任务中
-- 准备执行赋值或更新操作
-- 对当前index节点加锁
-- 如果index节点为链表（hash>=0），则遍历查找符合条件的位置并赋值
-- 如果节点为红黑树，则通过putTreeVal方法进行赋值操作
-- 赋值结束后，如果链表应该转换为红黑树，则调用treeifyBin方法
-- 如果是更新操作，则return
-- 调用addCount增加数量/扩容
-
 ```java
-/**
- * 索引节点：位于table上的节点
- */
 final V putVal(K key, V value, boolean onlyIfAbsent) {
     if (key == null || value == null) throw new NullPointerException();
     //获取hash值
     int hash = spread(key.hashCode());
-    //只记录当前table索引节点链表长度，不记录红黑树节点数
+    //只记录当前table节点链表长度，不记录红黑树节点数
     int binCount = 0;
     for (Node<K,V>[] tab = table;;) {
-        //f：索引节点引用
+        //f：table节点引用
         //n：table length
-        //i：索引节点的下标
-        //fh：索引节点的hash值
+        //i：table节点的下标
+        //fh：table节点的hash值
         Node<K,V> f; int n, i, fh;
         //table是否为空
         if (tab == null || (n = tab.length) == 0)
             //进行初始化
             tab = initTable();
-        //table索引节点是否为空
+        //table节点是否为空
         else if ((f = tabAt(tab, i = (n - 1) & hash)) == null) {
             //CAS插入，成功则bread循环，否则自旋直到成功插入
             if (casTabAt(tab, i, null,
@@ -133,14 +124,14 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
         else if ((fh = f.hash) == MOVED)
             //当前线程加入扩容任务中
             tab = helpTransfer(tab, f);
-        //执行插入操作。索引节点可能为链表，也可能为红黑树
+        //执行插入操作。table节点可能为链表，也可能为红黑树
         else {
             V oldVal = null;
-            //对索引节点加锁
+            //对table节点加锁
             synchronized (f) {
                 //此处判断的原因存疑
                 if (tabAt(tab, i) == f) {
-                    //通过索引节点hash值判断是否为链表
+                    //通过table节点hash值判断是否为链表
                     if (fh >= 0) {
                         binCount = 1;
                         for (Node<K,V> e = f;; ++binCount) {
@@ -196,19 +187,46 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
 
 ## addCount
 
+### 作用
+
+- 增加map元素数量。根据情况增加counterCells或baseCount的值
+- table扩容。检查是否需要扩容，如果需要扩容，则调用扩容方法，如果正在扩容，则帮助扩容
+
+### 注意点
+
+- 第一次调用扩容方法前，sizeCtl 的低 16 位是加 2 的，不是加一。所以 sc == rs + 1 的判断是表示是否完成任务了。因为完成扩容后，sizeCtl == rs + 1
+
+- 扩容线程最大数量是 65535，是由于低 16 位的位数限制
+
+- 这里也是可以帮助扩容的，类似 helpTransfer 方法
+
 ### 流程
 
 ```java
 private final void addCount(long x, int check) {
+    //as：计数器单元数组，如果baseCount CAS增加失败，则会增加as某个节点的数量
+    //b：baseCount
+    //s：baseCount + x
     CounterCell[] as; long b, s;
+    //增加元素数量
+    //as不等于空
+    //baseCount CAS赋值失败
     if ((as = counterCells) != null ||
         !U.compareAndSwapLong(this, BASECOUNT, b = baseCount, s = b + x)) {
+        //a：计数器单元节点
+        //v：a节点值
+        //m：a节点下标
         CounterCell a; long v; int m;
         boolean uncontended = true;
+        //as为空
+        //as length等于0
+        //计数器单元节点a为空
+        //计数器单元节点a CAS赋值失败
         if (as == null || (m = as.length - 1) < 0 ||
             (a = as[ThreadLocalRandom.getProbe() & m]) == null ||
             !(uncontended =
               U.compareAndSwapLong(a, CELLVALUE, v = a.value, v + x))) {
+            //自旋增加元素数量/计数器单元扩容（*2）
             fullAddCount(x, uncontended);
             return;
         }
@@ -216,19 +234,33 @@ private final void addCount(long x, int check) {
             return;
         s = sumCount();
     }
+    //检查是否需要扩容
     if (check >= 0) {
+        //tab：table
+        //nt：nextTable
+        //n：tab.length
+        //sc：sizeCtl
         Node<K,V>[] tab, nt; int n, sc;
+        //增加数量后大于等于阈值
         while (s >= (long)(sc = sizeCtl) && (tab = table) != null &&
                (n = tab.length) < MAXIMUM_CAPACITY) {
             int rs = resizeStamp(n);
+            //是否正在初始化或扩容
             if (sc < 0) {
+                //扩容任务结束，break
                 if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||
                     sc == rs + MAX_RESIZERS || (nt = nextTable) == null ||
                     transferIndex <= 0)
                     break;
+                //帮助扩容，参与扩容的线程数+1
+                //二进制表示：0b10000000_00011011_00000000_00000011
+                //低16位：00000000_00000011
                 if (U.compareAndSwapInt(this, SIZECTL, sc, sc + 1))
                     transfer(tab, nt);
             }
+            //进行扩容，sizeCtl高16位保存rs信息，低16位保存参与扩容的线程数量信息
+            //二进制表示：0b10000000_00011011_00000000_00000010
+            //低16位：00000000_00000010
             else if (U.compareAndSwapInt(this, SIZECTL, sc,
                                          (rs << RESIZE_STAMP_SHIFT) + 2))
                 transfer(tab, null);
@@ -237,4 +269,251 @@ private final void addCount(long x, int check) {
     }
 }
 ```
+
+## fullAddCount
+
+### 作用
+
+- 自旋增加map元素数量值
+- 初始化/扩容counterCells
+
+### 流程
+
+```java
+private final void fullAddCount(long x, boolean wasUncontended) {
+    int h;
+    if ((h = ThreadLocalRandom.getProbe()) == 0) {
+        ThreadLocalRandom.localInit();      // force initialization
+        h = ThreadLocalRandom.getProbe();
+        wasUncontended = true;
+    }
+    boolean collide = false;                // True if last slot nonempty
+    for (;;) {
+        CounterCell[] as; CounterCell a; int n; long v;
+        //counterCells可用
+        if ((as = counterCells) != null && (n = as.length) > 0) {
+            //当前节点为空
+            if ((a = as[(n - 1) & h]) == null) {
+                //counterCells没有被使用
+                if (cellsBusy == 0) {            // Try to attach new Cell
+                    CounterCell r = new CounterCell(x); // Optimistic create
+                    //加锁
+                    if (cellsBusy == 0 &&
+                        U.compareAndSwapInt(this, CELLSBUSY, 0, 1)) {
+                        boolean created = false;
+                        try {               // Recheck under lock
+                            CounterCell[] rs; int m, j;
+                            //再次当前检查节点是否为空
+                            if ((rs = counterCells) != null &&
+                                (m = rs.length) > 0 &&
+                                rs[j = (m - 1) & h] == null) {
+                                rs[j] = r;
+                                created = true;
+                            }
+                        } finally {
+                            cellsBusy = 0;
+                        }
+                        if (created)
+                            break;
+                        continue;           // Slot is now non-empty
+                    }
+                }
+                collide = false;
+            }
+            else if (!wasUncontended)       // CAS already known to fail
+                wasUncontended = true;      // Continue after rehash
+            //直接增加已存在节点的值
+            else if (U.compareAndSwapLong(a, CELLVALUE, v = a.value, v + x))
+                break;
+            else if (counterCells != as || n >= NCPU)
+                collide = false;            // At max size or stale
+            else if (!collide)
+                collide = true;
+            //尝试扩容counterCells
+            else if (cellsBusy == 0 &&
+                     U.compareAndSwapInt(this, CELLSBUSY, 0, 1)) {
+                try {
+                    if (counterCells == as) {// Expand table unless stale
+                        CounterCell[] rs = new CounterCell[n << 1];
+                        for (int i = 0; i < n; ++i)
+                            rs[i] = as[i];
+                        counterCells = rs;
+                    }
+                } finally {
+                    cellsBusy = 0;
+                }
+                collide = false;
+                continue;                   // Retry with expanded table
+            }
+            //都不符合条件时，重新生成线程探针
+            h = ThreadLocalRandom.advanceProbe(h);
+        }
+        //cellsBusy：counterCells初始化/扩容标识
+        //准备初始化counterCells
+        else if (cellsBusy == 0 && counterCells == as &&
+                 U.compareAndSwapInt(this, CELLSBUSY, 0, 1)) {
+            boolean init = false;
+            try {                           // Initialize table
+                if (counterCells == as) {
+                    CounterCell[] rs = new CounterCell[2];
+                    //将数量保存到counterCells节点中
+                    rs[h & 1] = new CounterCell(x);
+                    counterCells = rs;
+                    init = true;
+                }
+            } finally {
+                cellsBusy = 0;
+            }
+            if (init)
+                break;
+        }
+        //尝试将数量添加到baseCount，避免再次循环
+        else if (U.compareAndSwapLong(this, BASECOUNT, v = baseCount, v + x))
+            break;                          // Fall back on using base
+    }
+}
+```
+
+
+
+## transfer
+
+### 流程
+
+```java
+private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
+    int n = tab.length, stride;
+    if ((stride = (NCPU > 1) ? (n >>> 3) / NCPU : n) < MIN_TRANSFER_STRIDE)
+        stride = MIN_TRANSFER_STRIDE; // subdivide range
+    if (nextTab == null) {            // initiating
+        try {
+            @SuppressWarnings("unchecked")
+            Node<K,V>[] nt = (Node<K,V>[])new Node<?,?>[n << 1];
+            nextTab = nt;
+        } catch (Throwable ex) {      // try to cope with OOME
+            sizeCtl = Integer.MAX_VALUE;
+            return;
+        }
+        nextTable = nextTab;
+        transferIndex = n;
+    }
+    int nextn = nextTab.length;
+    ForwardingNode<K,V> fwd = new ForwardingNode<K,V>(nextTab);
+    boolean advance = true;
+    boolean finishing = false; // to ensure sweep before committing nextTab
+    for (int i = 0, bound = 0;;) {
+        Node<K,V> f; int fh;
+        while (advance) {
+            int nextIndex, nextBound;
+            if (--i >= bound || finishing)
+                advance = false;
+            else if ((nextIndex = transferIndex) <= 0) {
+                i = -1;
+                advance = false;
+            }
+            else if (U.compareAndSwapInt
+                     (this, TRANSFERINDEX, nextIndex,
+                      nextBound = (nextIndex > stride ?
+                                   nextIndex - stride : 0))) {
+                bound = nextBound;
+                i = nextIndex - 1;
+                advance = false;
+            }
+        }
+        if (i < 0 || i >= n || i + n >= nextn) {
+            int sc;
+            if (finishing) {
+                nextTable = null;
+                table = nextTab;
+                sizeCtl = (n << 1) - (n >>> 1);
+                return;
+            }
+            if (U.compareAndSwapInt(this, SIZECTL, sc = sizeCtl, sc - 1)) {
+                if ((sc - 2) != resizeStamp(n) << RESIZE_STAMP_SHIFT)
+                    return;
+                finishing = advance = true;
+                i = n; // recheck before commit
+            }
+        }
+        else if ((f = tabAt(tab, i)) == null)
+            advance = casTabAt(tab, i, null, fwd);
+        else if ((fh = f.hash) == MOVED)
+            advance = true; // already processed
+        else {
+            synchronized (f) {
+                if (tabAt(tab, i) == f) {
+                    Node<K,V> ln, hn;
+                    if (fh >= 0) {
+                        int runBit = fh & n;
+                        Node<K,V> lastRun = f;
+                        for (Node<K,V> p = f.next; p != null; p = p.next) {
+                            int b = p.hash & n;
+                            if (b != runBit) {
+                                runBit = b;
+                                lastRun = p;
+                            }
+                        }
+                        if (runBit == 0) {
+                            ln = lastRun;
+                            hn = null;
+                        }
+                        else {
+                            hn = lastRun;
+                            ln = null;
+                        }
+                        for (Node<K,V> p = f; p != lastRun; p = p.next) {
+                            int ph = p.hash; K pk = p.key; V pv = p.val;
+                            if ((ph & n) == 0)
+                                ln = new Node<K,V>(ph, pk, pv, ln);
+                            else
+                                hn = new Node<K,V>(ph, pk, pv, hn);
+                        }
+                        setTabAt(nextTab, i, ln);
+                        setTabAt(nextTab, i + n, hn);
+                        setTabAt(tab, i, fwd);
+                        advance = true;
+                    }
+                    else if (f instanceof TreeBin) {
+                        TreeBin<K,V> t = (TreeBin<K,V>)f;
+                        TreeNode<K,V> lo = null, loTail = null;
+                        TreeNode<K,V> hi = null, hiTail = null;
+                        int lc = 0, hc = 0;
+                        for (Node<K,V> e = t.first; e != null; e = e.next) {
+                            int h = e.hash;
+                            TreeNode<K,V> p = new TreeNode<K,V>
+                                (h, e.key, e.val, null, null);
+                            if ((h & n) == 0) {
+                                if ((p.prev = loTail) == null)
+                                    lo = p;
+                                else
+                                    loTail.next = p;
+                                loTail = p;
+                                ++lc;
+                            }
+                            else {
+                                if ((p.prev = hiTail) == null)
+                                    hi = p;
+                                else
+                                    hiTail.next = p;
+                                hiTail = p;
+                                ++hc;
+                            }
+                        }
+                        ln = (lc <= UNTREEIFY_THRESHOLD) ? untreeify(lo) :
+                        (hc != 0) ? new TreeBin<K,V>(lo) : t;
+                        hn = (hc <= UNTREEIFY_THRESHOLD) ? untreeify(hi) :
+                        (lc != 0) ? new TreeBin<K,V>(hi) : t;
+                        setTabAt(nextTab, i, ln);
+                        setTabAt(nextTab, i + n, hn);
+                        setTabAt(tab, i, fwd);
+                        advance = true;
+                    }
+                }
+            }
+        }
+    }
+}
+```
+
+
 
