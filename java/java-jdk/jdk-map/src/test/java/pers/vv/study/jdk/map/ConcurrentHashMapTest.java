@@ -37,10 +37,4 @@ class ConcurrentHashMapTest {
             System.out.println(size);
         };
     }
-
-    @Test
-    void test2() {
-        int i = -2;
-        int j = -1;
-    }
 }
