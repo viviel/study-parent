@@ -23,13 +23,13 @@ class ConcurrentHashMapTest {
     void test1() throws InterruptedException {
         ConcurrentHashMap<Key, String> map = new ConcurrentHashMap<>();
         Utils.cachedThreadPool().submit(runnable(map));
-        Utils.cachedThreadPool().submit(runnable(map));
+//        Utils.cachedThreadPool().submit(runnable(map));
         Utils.sleep(Integer.MAX_VALUE);
     }
 
     private Runnable runnable(ConcurrentHashMap<Key, String> map) {
         return () -> {
-            for (int i = 0; i < 64; i++) {
+            for (int i = 0; i < 16 << 10; i++) {
                 map.put(new Key(1), "vv");
                 map.put(new Key(i), "vv");
             }

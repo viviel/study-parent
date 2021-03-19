@@ -6,11 +6,25 @@
 
 # 属性
 
-`sizeCtl` 用于标识map是否初始化（-1）或扩容（仅限低16位，-n，n - 1：扩容线程数量），阈值（table.length * 0.75）。
+注意：位运算均使用补码计算
 
-`baseCount` 正常统计map元素数量时使用这个属性，如果多个线程竞争，则会启用CounterCell数组来分散线程竞争，提高效率。
+- `sizeCtl` 用于标识
 
-`CounterCells` 计数器单元数组。节点和线程关联，可减少记录元素增加时的冲突
+  初始化：-1
+
+  扩容：负数。低16位，参与扩容线程数 = 低16位的值 - 1。高16位，可扩容次数 = 高16位无符号值 - 1
+
+  阈值：正数。table.length * 0.75
+
+- `baseCount` 正常统计map元素数量时使用这个属性，如果多个线程竞争，则会启用CounterCell数组来分散线程竞争，提高效率。
+
+- `CounterCells` 计数器单元数组。节点和线程关联，可减少记录元素增加时的冲突
+
+- `transferIndex` 扩容时用于界定未分配给线程的节点和已分配给线程的节点
+
+  未分配给线程的节点：table[0] 至 table[transferIndex]
+
+  已分配给线程的节点：table[transferIndex] 至 table[table.length - 1]
 
 # 方法
 
@@ -247,7 +261,19 @@ private final void addCount(long x, int check) {
             int rs = resizeStamp(n);
             //是否正在初始化或扩容
             if (sc < 0) {
-                //扩容任务结束，break
+                //验证是否需要帮助执行扩容操作
+                //此处有bug，jdk12已修复
+                //
+                //
+                //(sc >>> RESIZE_STAMP_SHIFT) != rs
+                //
+                //已经没有线程在扩容
+                //sc == rs + 1 改为：
+                //sc == (rs << RESIZE_STAMP_SHIFT) + 1
+                //
+                //参与扩容的线程数量已到达最大值
+                //sc == rs + MAX_RESIZERS 改为：
+                //sc == (rs << RESIZE_STAMP_SHIFT) + MAX_RESIZERS
                 if ((sc >>> RESIZE_STAMP_SHIFT) != rs || sc == rs + 1 ||
                     sc == rs + MAX_RESIZERS || (nt = nextTable) == null ||
                     transferIndex <= 0)
@@ -383,6 +409,7 @@ private final void fullAddCount(long x, boolean wasUncontended) {
 ```java
 private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
     int n = tab.length, stride;
+    //stride：每次扩容处理的元素个数
     if ((stride = (NCPU > 1) ? (n >>> 3) / NCPU : n) < MIN_TRANSFER_STRIDE)
         stride = MIN_TRANSFER_STRIDE; // subdivide range
     if (nextTab == null) {            // initiating
@@ -398,19 +425,27 @@ private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
         transferIndex = n;
     }
     int nextn = nextTab.length;
+    //占位节点，表示节点迁移完成或正在迁移
     ForwardingNode<K,V> fwd = new ForwardingNode<K,V>(nextTab);
+    //控制扩容下标移动，步进
     boolean advance = true;
+    //扩容是否完成
     boolean finishing = false; // to ensure sweep before committing nextTab
+    //逆序处理table元素
     for (int i = 0, bound = 0;;) {
         Node<K,V> f; int fh;
+        //控制扩容下标移动的相关代码
         while (advance) {
             int nextIndex, nextBound;
+            //步进逆序处理下一个元素
             if (--i >= bound || finishing)
                 advance = false;
+            //已经没有未分配的节点，准备退出扩容任务
             else if ((nextIndex = transferIndex) <= 0) {
                 i = -1;
                 advance = false;
             }
+            //给当前线程分配需要扩容节点的上界（i）和下界（bound）
             else if (U.compareAndSwapInt
                      (this, TRANSFERINDEX, nextIndex,
                       nextBound = (nextIndex > stride ?
@@ -420,6 +455,7 @@ private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
                 advance = false;
             }
         }
+        //扩容结束，准备退出扩容任务
         if (i < 0 || i >= n || i + n >= nextn) {
             int sc;
             if (finishing) {
@@ -428,7 +464,10 @@ private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
                 sizeCtl = (n << 1) - (n >>> 1);
                 return;
             }
+            //CAS执行当前扩容线程数-1
             if (U.compareAndSwapInt(this, SIZECTL, sc = sizeCtl, sc - 1)) {
+                //从尾到头再检查一遍每个哈希桶是否都完成了转移，但这没有必要的
+            	//Doug Lea回复这个sweep扫查机制是之前版本遗留下来的，是可以删除掉的
                 if ((sc - 2) != resizeStamp(n) << RESIZE_STAMP_SHIFT)
                     return;
                 finishing = advance = true;
