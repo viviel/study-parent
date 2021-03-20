@@ -389,7 +389,6 @@ public class TreeUtils {
         return result;
     }
 
-
     /**
      * [2,2,5,null,null,5,7]
      * |    1
@@ -404,6 +403,24 @@ public class TreeUtils {
         result.right = new TreeNode(3);
         result.left.right = new TreeNode(4);
         result.right.right = new TreeNode(5);
+        return result;
+    }
+
+    /**
+     * |       1
+     * |     /   \
+     * |    0     1
+     * |   / \   / \
+     * |  0   1 0   1
+     */
+    public static TreeNode generateTree26() {
+        TreeNode result = new TreeNode(1);
+        result.left = new TreeNode(0);
+        result.right = new TreeNode(1);
+        result.left.left = new TreeNode(0);
+        result.left.right = new TreeNode(1);
+        result.right.left = new TreeNode(0);
+        result.right.right = new TreeNode(1);
         return result;
     }
 }
