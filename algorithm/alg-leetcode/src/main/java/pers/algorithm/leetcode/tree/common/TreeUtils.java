@@ -388,4 +388,22 @@ public class TreeUtils {
         result.right.right.right = new TreeNode(8);
         return result;
     }
+
+
+    /**
+     * [2,2,5,null,null,5,7]
+     * |    1
+     * |   / \
+     * |  2   3
+     * |   \   \
+     * |   4    5
+     */
+    public static TreeNode generateTree25() {
+        TreeNode result = new TreeNode(1);
+        result.left = new TreeNode(2);
+        result.right = new TreeNode(3);
+        result.left.right = new TreeNode(4);
+        result.right.right = new TreeNode(5);
+        return result;
+    }
 }
