@@ -15,4 +15,14 @@ public class IsBalancedTest {
         assertFalse(o.isBalanced(TreeUtils.generateTree9()));
         assertTrue(o.isBalanced(TreeUtils.generateTree7()));
     }
+
+    @Test
+    void test2() {
+        assertFalse(o.isBalanced2(TreeUtils.generateTree9()));
+    }
+
+    @Test
+    void test3() {
+        assertTrue(o.isBalanced2(TreeUtils.generateTree7()));
+    }
 }
