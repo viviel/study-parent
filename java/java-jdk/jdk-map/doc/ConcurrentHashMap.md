@@ -474,14 +474,17 @@ private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
                 i = n; // recheck before commit
             }
         }
+        //占位符，将节点置为已扩容
         else if ((f = tabAt(tab, i)) == null)
             advance = casTabAt(tab, i, null, fwd);
+        //节点已扩容
         else if ((fh = f.hash) == MOVED)
             advance = true; // already processed
         else {
             synchronized (f) {
                 if (tabAt(tab, i) == f) {
                     Node<K,V> ln, hn;
+                    //重新计算链表索引
                     if (fh >= 0) {
                         int runBit = fh & n;
                         Node<K,V> lastRun = f;
@@ -512,6 +515,7 @@ private final void transfer(Node<K,V>[] tab, Node<K,V>[] nextTab) {
                         setTabAt(tab, i, fwd);
                         advance = true;
                     }
+                    //重新计算红黑树索引
                     else if (f instanceof TreeBin) {
                         TreeBin<K,V> t = (TreeBin<K,V>)f;
                         TreeNode<K,V> lo = null, loTail = null;
