@@ -18,10 +18,10 @@ public class PulsarProducer {
         Producer<String> producer = client.newProducer(Schema.STRING)
                 .topic("my-topic")
                 .create();
+
         while (!Thread.currentThread().isInterrupted()) {
             producer.send(LocalDateTime.now().toString());
             TimeUnit.SECONDS.sleep(5);
         }
     }
-
 }

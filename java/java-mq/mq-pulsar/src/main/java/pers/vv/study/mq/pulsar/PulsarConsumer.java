@@ -15,6 +15,7 @@ public class PulsarConsumer {
                 .topic("my-topic")
                 .subscriptionName("my-subscription")
                 .subscribe();
+
         while (!mainThread.isInterrupted()) {
             // Wait for a message
             Message<String> msg = consumer.receive();
@@ -29,5 +30,4 @@ public class PulsarConsumer {
             }
         }
     }
-
 }
