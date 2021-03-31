@@ -106,7 +106,7 @@
         <fastjson.version>1.2.69</fastjson.version>
         <tomcat-servlet-api.version>9.0.26</tomcat-servlet-api.version>
         <rxjava.version>3.0.6</rxjava.version>
-        <pulsar-client.version>2.6.1</pulsar-client.version>
+        <pulsar-client.version>2.7.1</pulsar-client.version>
         <bookkeeper.version>4.11.0</bookkeeper.version>
         <commons-logging.version>1.2</commons-logging.version>
 
@@ -275,6 +275,21 @@
             <dependency>
                 <groupId>org.apache.pulsar</groupId>
                 <artifactId>pulsar-client</artifactId>
+                <version>${pulsar-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.pulsar</groupId>
+                <artifactId>pulsar-client-api</artifactId>
+                <version>${pulsar-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.pulsar</groupId>
+                <artifactId>pulsar-client-original</artifactId>
+                <version>${pulsar-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.pulsar</groupId>
+                <artifactId>pulsar-client-messagecrypto-bc</artifactId>
                 <version>${pulsar-client.version}</version>
             </dependency>
             <dependency>
