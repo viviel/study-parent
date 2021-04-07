@@ -119,6 +119,7 @@
         <eclipselink-plugin.version>2.7.5.1</eclipselink-plugin.version>
         <protobuf-plugin.version>0.6.1</protobuf-plugin.version>
         <maven-war-plugin.version>3.2.3</maven-war-plugin.version>
+        <executable-packer-maven-plugin.version>1.0.1</executable-packer-maven-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -332,6 +333,12 @@
                 <groupId>org.apache.openjpa</groupId>
                 <artifactId>openjpa-maven-plugin</artifactId>
                 <version>${openjpa-plugin.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>de.ntcomputer</groupId>
+                <artifactId>executable-packer-maven-plugin</artifactId>
+                <version>${executable-packer-maven-plugin.version}</version>
                 <scope>provided</scope>
             </dependency>
         </dependencies>
