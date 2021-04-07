@@ -33,6 +33,10 @@
             <groupId>org.apache.openjpa</groupId>
             <artifactId>openjpa-maven-plugin</artifactId>
         </dependency>
+        <dependency>
+            <groupId>de.ntcomputer</groupId>
+            <artifactId>executable-packer-maven-plugin</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
