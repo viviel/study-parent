@@ -7,6 +7,17 @@ import java.util.concurrent.TimeUnit;
 
 public class PulsarConsumerTest extends PulsarTest {
 
+    @Test
+    void test1() throws PulsarClientException {
+        Consumer<String> consumer = client.newConsumer(Schema.STRING)
+                .topic("my-topic")
+                .subscriptionName("my-subscription1")
+                .subscriptionType(SubscriptionType.Shared)
+                .negativeAckRedeliveryDelay(1, TimeUnit.SECONDS)
+                .subscribe();
+        consume(consumer);
+    }
+
     private <T> void consume(Consumer<T> consumer) throws PulsarClientException {
         while (!Thread.currentThread().isInterrupted()) {
             // Wait for a message
@@ -21,17 +32,6 @@ public class PulsarConsumerTest extends PulsarTest {
                 consumer.negativeAcknowledge(msg);
             }
         }
-    }
-
-    @Test
-    void test1() throws PulsarClientException {
-        Consumer<String> consumer = client.newConsumer(Schema.STRING)
-                .topic("my-topic")
-                .subscriptionName("my-subscription1")
-                .subscriptionType(SubscriptionType.Shared)
-                .negativeAckRedeliveryDelay(1, TimeUnit.SECONDS)
-                .subscribe();
-        consume(consumer);
     }
 
     @Test
