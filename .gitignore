@@ -16,6 +16,9 @@ target/
 .project
 .classpath
 
-#vscode
+# vscode
 .factorypath
 .vscode
+
+# common
+*.log
