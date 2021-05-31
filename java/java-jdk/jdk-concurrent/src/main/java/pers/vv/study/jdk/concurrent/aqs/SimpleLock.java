@@ -1,4 +1,4 @@
-package pers.vv.study.jdk.concurrent.juc;
+package pers.vv.study.jdk.concurrent.aqs;
 
 import javax.annotation.Nonnull;
 import java.util.concurrent.TimeUnit;

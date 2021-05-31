@@ -1,4 +1,4 @@
-package pers.vv.study.jdk.concurrent.juc;
+package pers.vv.study.jdk.concurrent.aqs;
 
 import org.junit.jupiter.api.Test;
 import pers.vv.study.common.Utils;
