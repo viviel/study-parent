@@ -11,6 +11,8 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
+    <artifactId>java</artifactId>
+
     <modules>
         <module>java-bookkeeper</module>
         <module>java-jdk</module>
@@ -28,6 +30,11 @@
         <module>java-zookeeper</module>
     </modules>
 
-    <artifactId>java</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>pers.vv.study</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
