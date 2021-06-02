@@ -1,4 +1,4 @@
-package pers.vv.study.spring.context.executor;
+package pers.vv.study.spring.context.async;
 
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.annotation.Bean;
@@ -13,7 +13,7 @@ public class ExecutorConfig implements DisposableBean {
     @Bean
     public ThreadPoolTaskExecutor taskExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setThreadNamePrefix("messageManager-Executor");
+        executor.setThreadNamePrefix("my-executor");
         executor.setMaxPoolSize(8);
         executor.setCorePoolSize(4);
         executor.setQueueCapacity(8000);

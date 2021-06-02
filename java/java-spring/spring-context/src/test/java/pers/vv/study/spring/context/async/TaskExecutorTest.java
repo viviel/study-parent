@@ -1,4 +1,4 @@
-package pers.vv.study.spring.context.executor;
+package pers.vv.study.spring.context.async;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
