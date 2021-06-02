@@ -18,5 +18,4 @@ public class ProxyHandler implements InvocationHandler {
         System.out.println("After invoke " + method.getName());
         return null;
     }
-
 }

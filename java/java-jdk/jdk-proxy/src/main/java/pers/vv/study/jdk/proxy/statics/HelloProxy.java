@@ -1,11 +1,14 @@
 package pers.vv.study.jdk.proxy.statics;
 
 import pers.vv.study.jdk.proxy.Hello;
-import pers.vv.study.jdk.proxy.HelloImpl;
 
 public class HelloProxy implements Hello {
 
-    private final Hello hello = new HelloImpl();
+    private Hello hello;
+
+    public HelloProxy(Hello arg) {
+        this.hello = arg;
+    }
 
     @Override
     public void sayHello() {
@@ -13,5 +16,4 @@ public class HelloProxy implements Hello {
         hello.sayHello();
         System.out.println("After invoke sayHello");
     }
-
 }
