@@ -20,5 +20,4 @@ public class ProxyObject implements Hello {
             throwable.printStackTrace();
         }
     }
-
 }
