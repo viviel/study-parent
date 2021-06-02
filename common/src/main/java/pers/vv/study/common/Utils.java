@@ -16,4 +16,11 @@ public class Utils {
         return executor;
     }
 
+    public static void block() {
+        try {
+            TimeUnit.SECONDS.sleep(Integer.MAX_VALUE);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
