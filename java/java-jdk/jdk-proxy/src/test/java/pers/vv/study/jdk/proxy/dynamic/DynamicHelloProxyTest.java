@@ -18,7 +18,7 @@ class DynamicHelloProxyTest {
     }
 
     private Hello upstream() {
-        return new HelloImpl();
+        return new HelloImpl(3);
     }
 
     private Hello proxy(Hello hello) {
