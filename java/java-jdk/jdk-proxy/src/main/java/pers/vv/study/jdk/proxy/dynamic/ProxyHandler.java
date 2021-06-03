@@ -1,5 +1,7 @@
 package pers.vv.study.jdk.proxy.dynamic;
 
+import com.google.common.base.Stopwatch;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
@@ -13,9 +15,10 @@ public class ProxyHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        System.out.println("Before invoke " + method.getName());
-        method.invoke(object, args);
-        System.out.println("After invoke " + method.getName());
-        return null;
+        Stopwatch sw = Stopwatch.createStarted();
+        Object r = method.invoke(object, args);
+        sw.stop();
+        System.out.printf("%s: %s\n", method.getName(), sw);
+        return r;
     }
 }

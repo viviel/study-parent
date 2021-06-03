@@ -8,8 +8,12 @@ public class Utils {
 
     private final static ExecutorService executor = Executors.newCachedThreadPool();
 
-    public static void sleep(long milliseconds) throws InterruptedException {
-        TimeUnit.MILLISECONDS.sleep(milliseconds);
+    public static void sleep(long milliseconds) {
+        try {
+            TimeUnit.MILLISECONDS.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static ExecutorService cachedThreadPool() {
@@ -17,10 +21,6 @@ public class Utils {
     }
 
     public static void block() {
-        try {
-            TimeUnit.SECONDS.sleep(Integer.MAX_VALUE);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        sleep(Integer.MAX_VALUE);
     }
 }
