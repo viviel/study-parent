@@ -15,6 +15,5 @@
 
     <modules>
         <module>socketio-origin</module>
-        <module>socketio-x</module>
     </modules>
 </project>
