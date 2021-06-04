@@ -4,7 +4,6 @@ import org.springframework.cglib.core.DebuggingClassWriter;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import pers.vv.study.spring.context.aop.MathCalculator;
 import pers.vv.study.spring.context.async.AsyncProcessor;
 
