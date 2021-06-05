@@ -17,6 +17,7 @@
         <module>reactor-rxjava</module>
         <module>reactor-vertx</module>
         <module>reactor-netty</module>
+        <module>reactor-project</module>
     </modules>
 
 </project>
