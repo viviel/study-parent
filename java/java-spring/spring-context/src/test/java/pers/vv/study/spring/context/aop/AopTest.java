@@ -1,7 +1,9 @@
 package pers.vv.study.spring.context.aop;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.DebuggingClassWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
@@ -25,6 +27,11 @@ class AopTest {
 
     @Autowired
     private MathCalculator mathCalculator;
+
+    @BeforeAll
+    static void beforeAll() {
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "target/cglib");
+    }
 
     @Test
     void test1() {
