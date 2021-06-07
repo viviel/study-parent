@@ -10,7 +10,7 @@ import pers.vv.study.spring.context.async.AsyncProcessor;
 public class SpringContext {
 
     public static void main(String[] args) {
-        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "spring/spring-context/target/cglib");
+        System.setProperty(DebuggingClassWriter.DEBUG_LOCATION_PROPERTY, "java/java-spring/spring-context/target/cglib");
         ConfigurableApplicationContext ac = new AnnotationConfigApplicationContext("pers.vv.study.spring.context");
         ac.registerShutdownHook();
         SpringContext sc = new SpringContext();
