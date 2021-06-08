@@ -2,5 +2,7 @@ package pers.vv.study.jdk.proxy;
 
 public interface Hello {
 
-    void sayHello();
+    void m1();
+
+    void m2();
 }

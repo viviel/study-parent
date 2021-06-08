@@ -30,6 +30,6 @@ class CglibProxyTest {
     }
 
     private void downstream(HelloImpl arg) {
-        arg.sayHello();
+        arg.m1();
     }
 }

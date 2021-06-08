@@ -4,16 +4,23 @@ import pers.vv.study.jdk.proxy.Hello;
 
 public class HelloProxy implements Hello {
 
-    private Hello hello;
+    private final Hello hello;
 
     public HelloProxy(Hello arg) {
         this.hello = arg;
     }
 
     @Override
-    public void sayHello() {
-        System.out.println("Before invoke sayHello");
-        hello.sayHello();
-        System.out.println("After invoke sayHello");
+    public void m1() {
+        System.out.println("[Before] HelloProxy.m1");
+        hello.m1();
+        System.out.println("[After] HelloProxy.m1");
+    }
+
+    @Override
+    public void m2() {
+        System.out.println("[Before] HelloProxy.m2");
+        hello.m2();
+        System.out.println("[After] HelloProxy.m2");
     }
 }

@@ -15,10 +15,11 @@ public class ProxyHandler implements InvocationHandler {
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        System.out.printf("[proxy] %s\n", method.getName());
         Stopwatch sw = Stopwatch.createStarted();
         Object r = method.invoke(object, args);
         sw.stop();
-        System.out.printf("%s: %s\n", method.getName(), sw);
+        System.out.printf("[proxy] %s: %s\n", method.getName(), sw);
         return r;
     }
 }
