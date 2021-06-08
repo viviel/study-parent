@@ -22,6 +22,6 @@ class HelloProxyTest {
     }
 
     private void downstream(Hello arg) {
-        arg.sayHello();
+        arg.m1();
     }
 }
