@@ -1,6 +1,7 @@
-package pers.algorithm.leetcode.bit;
+package pers.algorithm.leetcode.divide;
 
 import org.junit.jupiter.api.Test;
+import pers.algorithm.leetcode.divide.MajorityElement;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
