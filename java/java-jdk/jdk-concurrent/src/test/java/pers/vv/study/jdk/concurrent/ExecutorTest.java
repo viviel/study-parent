@@ -11,11 +11,7 @@ public class ExecutorTest {
     void test1() throws InterruptedException {
         ExecutorService es = Executors.newCachedThreadPool();
         es.submit(() -> {
-            try {
-                Utils.sleep(1000 * 10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Utils.sleep(1000 * 10);
             System.out.println("done");
         });
         es.shutdown();
@@ -30,11 +26,7 @@ public class ExecutorTest {
                 new SynchronousQueue<>()
         );
         es.execute(() -> {
-            try {
-                Utils.sleep(1000 * 10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Utils.sleep(1000 * 10);
             System.out.println("done");
         });
         es.shutdown();

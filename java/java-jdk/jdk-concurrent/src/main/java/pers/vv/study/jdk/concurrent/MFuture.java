@@ -13,13 +13,7 @@ public class MFuture {
     }
 
     private void run() throws ExecutionException, InterruptedException {
-        Future<?> future = Utils.cachedThreadPool().submit(() -> {
-            try {
-                Utils.sleep(Integer.MAX_VALUE);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        });
+        Future<?> future = Utils.cachedThreadPool().submit(() -> Utils.sleep(Integer.MAX_VALUE));
         future.get();
     }
 }

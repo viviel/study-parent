@@ -113,21 +113,13 @@ public class MCompletableFuture {
     }
 
     private int dealHttp1Result(Integer i) {
-        try {
-            Utils.sleep(1000 * 2);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Utils.sleep(1000 * 2);
         System.out.println("dealHttp1Result " + Thread.currentThread());
         return ++i;
     }
 
     private int http2() {
-        try {
-            Utils.sleep(1000 * 2);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        Utils.sleep(1000 * 2);
         return 2;
     }
 
