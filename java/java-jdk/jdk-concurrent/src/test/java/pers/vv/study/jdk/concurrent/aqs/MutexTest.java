@@ -23,8 +23,6 @@ class MutexTest {
             o.lock();
             try {
                 Utils.sleep(Integer.MAX_VALUE);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
             } finally {
                 o.unlock();
             }

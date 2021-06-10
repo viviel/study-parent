@@ -13,12 +13,8 @@ public class SocketIOClient {
         Socket socket = IO.socket("http://localhost:8888/vv");
         socket.on(Socket.EVENT_CONNECT, args1 -> {
             System.out.println("connected");
-            try {
-                Utils.sleep(1000 * 10);
-                socket.emit("message", "message");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Utils.sleep(1000 * 10);
+            socket.emit("message", "message");
             socket.close();
         });
         socket.connect();

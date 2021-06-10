@@ -59,11 +59,7 @@ public class NettySocketIOServer {
             logger.info("[vv] connected: {}", client.getSessionId());
             System.out.println(client.getHandshakeData().getSingleUrlParam("open"));
             client.sendEvent("message", "connected");
-            try {
-                Utils.sleep(1000 * 3);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            Utils.sleep(1000 * 3);
         });
         namespace.addDisconnectListener(client -> logger.info("[vv] disconnect: {}", client.getSessionId()));
         namespace.addPingListener(client -> logger.info(
