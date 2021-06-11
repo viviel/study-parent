@@ -1,6 +1,7 @@
-package pers.algorithm.leetcode.queue;
+package pers.algorithm.leetcode.divide;
 
 import org.junit.jupiter.api.Test;
+import pers.algorithm.leetcode.divide.GetLeastNumbers;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
