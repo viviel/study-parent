@@ -47,4 +47,14 @@ public class CountDownLatchTest {
         startSignal.countDown();      // let all threads proceed
         doneSignal.await();           // wait for all to finish
     }
+
+    @Test
+    void test2() throws InterruptedException {
+        CountDownLatch cd = new CountDownLatch(1);
+        Utils.cachedThreadPool().execute(() -> {
+            cd.countDown();
+            System.out.println("count down");
+        });
+        cd.await();
+    }
 }
