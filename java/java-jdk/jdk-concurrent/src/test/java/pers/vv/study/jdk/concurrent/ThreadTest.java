@@ -1,7 +1,7 @@
 package pers.vv.study.jdk.concurrent;
 
-import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
+import pers.vv.study.common.Utils;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.FutureTask;
@@ -76,5 +76,12 @@ public class ThreadTest {
         System.out.println(t.getState());
         t.join();
         System.out.println(t.getState());
+    }
+
+    @Test
+    void test6() throws InterruptedException {
+        Thread t = new Thread(() -> Utils.sleep(1000 * 2));
+        t.start();
+        t.join();
     }
 }
