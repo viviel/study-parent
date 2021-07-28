@@ -4,18 +4,19 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
-        <artifactId>java</artifactId>
+        <artifactId>java-socketio</artifactId>
         <groupId>pers.vv.study</groupId>
         <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>java-socketio</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>socket.io-server</artifactId>
 
-    <modules>
-        <module>socketio-origin</module>
-        <module>socket.io-server</module>
-    </modules>
+    <dependencies>
+        <dependency>
+            <groupId>io.socket</groupId>
+            <artifactId>socket.io-server</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
