@@ -38,7 +38,7 @@ public class NettySocketIOServer {
         ss.addConnectListener(client -> logger.info("[] connected: {}", client.getSessionId()));
         ss.addDisconnectListener(client -> logger.info("[] disconnect: {}", client.getSessionId()));
         ss.addEventListener(
-                Socket.EVENT_RECONNECT,
+                Socket.EVENT_CONNECT,
                 Object.class,
                 ((client, data, ackSender) -> logger.info("[] reconnect: {}", client.getSessionId()))
         );
