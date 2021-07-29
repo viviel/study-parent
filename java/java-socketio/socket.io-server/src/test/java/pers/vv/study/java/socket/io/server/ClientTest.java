@@ -10,12 +10,19 @@ public class ClientTest {
 
     @Test
     void test() throws URISyntaxException {
-        Socket socket = new Socket("ws://localhost:8080/");
+        Socket.Options options = getOptions();
+        Socket socket = new Socket("ws://localhost:8080/", options);
         socket.on(Socket.EVENT_OPEN, args -> {
             System.out.println("open");
             socket.send("hi");
         });
         socket.open();
         Utils.block();
+    }
+
+    private Socket.Options getOptions() {
+        Socket.Options op = new Socket.Options();
+        op.transports = new String[]{"websocket"};
+        return op;
     }
 }
