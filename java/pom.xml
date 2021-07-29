@@ -28,6 +28,7 @@
         <module>java-spring</module>
         <module>java-test</module>
         <module>java-zookeeper</module>
+        <module>java-servlet</module>
     </modules>
 
     <dependencies>
