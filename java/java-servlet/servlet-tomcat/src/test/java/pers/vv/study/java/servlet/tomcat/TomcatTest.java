@@ -15,6 +15,7 @@ public class TomcatTest {
     @Test
     void test() throws LifecycleException {
         Tomcat tomcat = new Tomcat();
+        tomcat.setBaseDir("target/tomcat");
         Context context = tomcat.addContext("", null);
         Tomcat.addServlet(context, "dispatch", getServlet());
         context.addServletMappingDecoded("/uri", "dispatch");
