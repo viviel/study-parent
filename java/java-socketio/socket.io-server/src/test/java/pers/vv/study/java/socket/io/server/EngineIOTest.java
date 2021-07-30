@@ -7,17 +7,15 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.websocket.server.WsSci;
 import org.junit.jupiter.api.Test;
+import pers.vv.study.java.socket.io.server.polling.EngineIOServlet;
 import pers.vv.study.java.socket.io.server.ws.ApplicationServerConfig;
 
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Collections;
 
 public class EngineIOTest {
 
-    private final EngineIoServer engineIOServer = new EngineIoServer();
+    public static EngineIoServer ENGINE_IO_SERVER = new EngineIoServer();
 
     @Test
     void test1() {
@@ -26,7 +24,7 @@ public class EngineIOTest {
     }
 
     private void prepareEngineIO() {
-        engineIOServer.on("connection", args -> {
+        ENGINE_IO_SERVER.on("connection", args -> {
             EngineIoSocket socket = (EngineIoSocket) args[0];
             System.out.println(socket.getId());
         });
@@ -50,16 +48,7 @@ public class EngineIOTest {
         }
     }
 
-    private void prepareServlet(Context context) {
-
-    }
-
     private HttpServlet getServlet() {
-        return new HttpServlet() {
-            @Override
-            protected void service(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-                engineIOServer.handleRequest(req, resp);
-            }
-        };
+        return new EngineIOServlet();
     }
 }

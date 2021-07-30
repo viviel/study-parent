@@ -3,6 +3,7 @@ package pers.vv.study.java.socket.io.server.ws;
 import io.socket.engineio.server.EngineIoServer;
 import io.socket.engineio.server.EngineIoWebSocket;
 import io.socket.parseqs.ParseQS;
+import pers.vv.study.java.socket.io.server.EngineIOTest;
 
 import javax.websocket.*;
 import java.io.IOException;
@@ -17,7 +18,7 @@ public final class EngineIoEndpoint extends Endpoint {
     private Map<String, String> mQuery;
     private EngineIoWebSocket mEngineIoWebSocket;
 
-    private EngineIoServer engineIOServer; // The engine.io server instance
+    private final EngineIoServer engineIOServer = EngineIOTest.ENGINE_IO_SERVER; // The engine.io server instance
 
     @Override
     public void onOpen(Session session, EndpointConfig endpointConfig) {
