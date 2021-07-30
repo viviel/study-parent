@@ -6,7 +6,7 @@ import pers.vv.study.common.Utils;
 
 import java.net.URISyntaxException;
 
-public class ClientTest {
+public class EngineIOClientTest {
 
     @Test
     void test() throws URISyntaxException {
@@ -22,7 +22,7 @@ public class ClientTest {
 
     private Socket.Options getOptions() {
         Socket.Options op = new Socket.Options();
-        op.transports = new String[]{"websocket"};
+//        op.transports = new String[]{"websocket"};
         return op;
     }
 }
