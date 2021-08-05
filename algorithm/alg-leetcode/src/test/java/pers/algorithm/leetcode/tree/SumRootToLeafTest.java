@@ -3,7 +3,7 @@ package pers.algorithm.leetcode.tree;
 import org.junit.jupiter.api.Test;
 import pers.algorithm.leetcode.tree.common.TreeUtils;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SumRootToLeafTest {
 

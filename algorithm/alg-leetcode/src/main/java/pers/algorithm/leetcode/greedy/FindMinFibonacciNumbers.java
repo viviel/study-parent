@@ -1,7 +1,5 @@
 package pers.algorithm.leetcode.greedy;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Stack;
 
 /**

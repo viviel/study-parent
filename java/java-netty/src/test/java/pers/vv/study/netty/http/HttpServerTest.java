@@ -2,7 +2,6 @@ package pers.vv.study.netty.http;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import pers.vv.study.common.Utils;
 
 class HttpServerTest {
 

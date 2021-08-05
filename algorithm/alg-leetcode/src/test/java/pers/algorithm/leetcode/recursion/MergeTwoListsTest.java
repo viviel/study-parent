@@ -1,7 +1,6 @@
 package pers.algorithm.leetcode.recursion;
 
 import org.junit.jupiter.api.Test;
-import pers.algorithm.leetcode.recursion.MergeTwoLists;
 import pers.algorithm.leetcode.tree.search.ListNode;
 
 class MergeTwoListsTest {

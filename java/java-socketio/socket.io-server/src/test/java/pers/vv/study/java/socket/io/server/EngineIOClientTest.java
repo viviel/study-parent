@@ -19,6 +19,7 @@ public class EngineIOClientTest {
 
     private Socket.Options getOptions() {
         Socket.Options op = new Socket.Options();
+//        op.transports = new String[]{"polling"};
 //        op.transports = new String[]{"websocket"};
         return op;
     }
