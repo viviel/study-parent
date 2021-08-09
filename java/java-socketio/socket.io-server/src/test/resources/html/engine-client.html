@@ -13,7 +13,7 @@
 
 <script type="text/javascript">
     const opt = {
-        transports: ['polling']
+        // transports: ['polling']
         // transports: ['websocket']
     }
     const socket = eio('http://localhost:8080', opt);
@@ -24,5 +24,13 @@
         socket.on('close', () => {
         });
     });
+
+    function send() {
+        socket.send('vv');
+    }
+
+    function status() {
+        console.log(socket.connected)
+    }
 </script>
 </html>
