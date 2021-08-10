@@ -8,10 +8,12 @@ import java.util.Set;
 
 public final class ApplicationServerConfig implements ServerApplicationConfig {
 
+    public static String uri = "engine.io";
+
     @Override
     public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> scanned) {
         ServerEndpointConfig endpointConfig = ServerEndpointConfig.Builder
-                .create(EngineIoEndpoint.class, "/engine.io/")
+                .create(EngineIoEndpoint.class, "/" + uri + "/")
                 .build();
         HashSet<ServerEndpointConfig> result = new HashSet<>();
         result.add(endpointConfig);

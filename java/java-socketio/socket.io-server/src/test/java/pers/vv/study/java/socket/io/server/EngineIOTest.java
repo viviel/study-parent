@@ -7,6 +7,7 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.websocket.server.WsSci;
 import org.junit.jupiter.api.Test;
+import pers.vv.study.common.Utils;
 import pers.vv.study.java.socket.io.server.polling.EngineIOServlet;
 import pers.vv.study.java.socket.io.server.ws.ApplicationServerConfig;
 
@@ -18,13 +19,17 @@ public class EngineIOTest {
 
     public static EngineIoServer ENGINE_IO_SERVER = new EngineIoServer();
 
+    public static String uri = "engine.io";
+
     @Test
     void test1() {
         prepareEngineIO();
         startEngineIO();
+        Utils.block();
     }
 
-    private void prepareEngineIO() {
+    protected void prepareEngineIO() {
+        ApplicationServerConfig.uri = uri;
         ENGINE_IO_SERVER.on("connection", args -> {
             EngineIoSocket socket = (EngineIoSocket) args[0];
             System.out.println(socket.getId());
@@ -35,19 +40,18 @@ public class EngineIOTest {
         });
     }
 
-    private void startEngineIO() {
+    protected void startEngineIO() {
         Tomcat tomcat = new Tomcat();
         tomcat.setBaseDir("target/tomcat");
         HttpServlet servlet = getServlet();
         Context context = tomcat.addContext("", null);
         context.addServletContainerInitializer(new WsSci(), Collections.singleton(ApplicationServerConfig.class));
         Tomcat.addServlet(context, "dispatch", servlet);
-        context.addServletMappingDecoded("/engine.io/*", "dispatch");
+        context.addServletMappingDecoded("/" + uri + "/*", "dispatch");
         try {
             tomcat.getConnector();
             tomcat.init();
             tomcat.start();
-            tomcat.getServer().await();
         } catch (LifecycleException e) {
             e.printStackTrace();
         }
