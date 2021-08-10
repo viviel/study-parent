@@ -11,6 +11,7 @@ import pers.vv.study.java.socket.io.server.polling.EngineIOServlet;
 import pers.vv.study.java.socket.io.server.ws.ApplicationServerConfig;
 
 import javax.servlet.http.HttpServlet;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class EngineIOTest {
@@ -27,6 +28,10 @@ public class EngineIOTest {
         ENGINE_IO_SERVER.on("connection", args -> {
             EngineIoSocket socket = (EngineIoSocket) args[0];
             System.out.println(socket.getId());
+        });
+        ENGINE_IO_SERVER.on("message", args -> {
+            String s = Arrays.toString(args);
+            System.out.println(s);
         });
     }
 

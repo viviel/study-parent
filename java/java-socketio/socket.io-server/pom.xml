@@ -12,6 +12,10 @@
 
     <artifactId>socket.io-server</artifactId>
 
+    <properties>
+<!--        <engine.io-server.version>4.0.3</engine.io-server.version>-->
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>io.socket</groupId>
