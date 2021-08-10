@@ -102,6 +102,7 @@
         <mybatis-spring.version>2.0.5</mybatis-spring.version>
         <elasticjob.version>3.0.0-alpha</elasticjob.version>
         <netty-socketio.version>1.7.18</netty-socketio.version>
+        <engine.io-server.version>5.0.0</engine.io-server.version>
         <socket.io-server.version>3.0.1</socket.io-server.version>
         <fastjson.version>1.2.69</fastjson.version>
         <tomcat-servlet-api.version>9.0.26</tomcat-servlet-api.version>
@@ -252,6 +253,11 @@
                 <groupId>com.corundumstudio.socketio</groupId>
                 <artifactId>netty-socketio</artifactId>
                 <version>${netty-socketio.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.socket</groupId>
+                <artifactId>engine.io-server</artifactId>
+                <version>${engine.io-server.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.socket</groupId>
