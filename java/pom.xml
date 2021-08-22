@@ -29,6 +29,7 @@
         <module>java-test</module>
         <module>java-zookeeper</module>
         <module>java-tomcat</module>
+        <module>java-jvm</module>
     </modules>
 
     <dependencies>
