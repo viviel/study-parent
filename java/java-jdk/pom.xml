@@ -24,6 +24,7 @@
         <module>jdk-classloader</module>
         <module>jdk-util</module>
         <module>jdk-collection</module>
+        <module>jdk-lang</module>
     </modules>
 
 </project>
