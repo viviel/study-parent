@@ -20,17 +20,18 @@
     socket.on('open', () => {
         console.log('open');
         socket.on('message', (data) => {
+            console.log(data);
         });
+        for (let i = 0; i < 5000; i++) {
+            socket.send('vv' + i);
+        }
         socket.on('close', () => {
+            console.log('close');
         });
     });
 
     function send() {
         socket.send('vv');
-    }
-
-    function status() {
-        console.log(socket.connected)
     }
 </script>
 </html>
