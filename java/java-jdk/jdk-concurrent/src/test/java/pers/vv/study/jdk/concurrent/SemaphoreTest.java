@@ -3,6 +3,9 @@ package pers.vv.study.jdk.concurrent;
 import org.junit.jupiter.api.Test;
 import pers.vv.study.common.Utils;
 
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 public class SemaphoreTest {
@@ -23,5 +26,35 @@ public class SemaphoreTest {
             });
         }
         s.acquire();
+    }
+
+    @Test
+    void test2() {
+        Queue<Integer> q = new LinkedList<>();
+        Semaphore mutex = new Semaphore(1);
+        Semaphore empty = new Semaphore(100);
+        Semaphore full = new Semaphore(0);
+        Utils.cachedThreadPool().execute(() -> {
+            while (!Thread.interrupted()) {
+                Random random = new Random();
+                int i = random.nextInt(1000);
+                empty.acquireUninterruptibly();
+                mutex.acquireUninterruptibly();
+                q.add(i);
+                mutex.release();
+                full.release();
+            }
+        });
+        Utils.cachedThreadPool().execute(() -> {
+            while (!Thread.interrupted()) {
+                full.acquireUninterruptibly();
+                mutex.acquireUninterruptibly();
+                Integer poll = q.poll();
+                System.out.println(poll);
+                mutex.release();
+                empty.release();
+            }
+        });
+        Utils.block();
     }
 }
