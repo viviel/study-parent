@@ -1,4 +1,4 @@
-package pers.algorithm.leetcode.division;
+package pers.algorithm.leetcode.division.search;
 
 /**
  * 实现int sqrt(int x)函数。

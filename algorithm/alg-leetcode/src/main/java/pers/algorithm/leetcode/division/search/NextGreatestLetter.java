@@ -1,4 +1,4 @@
-package pers.algorithm.leetcode.division;
+package pers.algorithm.leetcode.division.search;
 
 /**
  * 给你一个排序后的字符列表 letters ，列表中只包含小写英文字母。另给出一个目标字母target，请你寻找在这一有序列表里比目标字母大的最小字母。

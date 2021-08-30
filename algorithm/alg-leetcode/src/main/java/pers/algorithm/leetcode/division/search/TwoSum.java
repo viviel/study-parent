@@ -1,4 +1,4 @@
-package pers.algorithm.leetcode.division;
+package pers.algorithm.leetcode.division.search;
 
 /**
  * 给定一个已按照 升序排列 的整数数组numbers ，请你从数组中找出两个数满足相加之和等于目标数target 。

@@ -1,6 +1,6 @@
-package pers.algorithm.leetcode.division;
+package pers.algorithm.leetcode.division.search;
 
-import pers.algorithm.leetcode.division.common.GuessGame;
+import pers.algorithm.leetcode.division.search.common.GuessGame;
 
 /**
  * 猜数字游戏的规则如下：

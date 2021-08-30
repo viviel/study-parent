@@ -1,4 +1,4 @@
-package pers.algorithm.leetcode.division;
+package pers.algorithm.leetcode.division.search;
 
 import org.junit.jupiter.api.Test;
 

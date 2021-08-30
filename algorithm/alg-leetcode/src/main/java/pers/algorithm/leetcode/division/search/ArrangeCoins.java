@@ -1,4 +1,4 @@
-package pers.algorithm.leetcode.division;
+package pers.algorithm.leetcode.division.search;
 
 /**
  * 你总共有n枚硬币，你需要将它们摆成一个阶梯形状，第k行就必须正好有k枚硬币。

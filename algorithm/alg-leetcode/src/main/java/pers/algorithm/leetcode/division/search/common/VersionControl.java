@@ -1,4 +1,4 @@
-package pers.algorithm.leetcode.division.common;
+package pers.algorithm.leetcode.division.search.common;
 
 public class VersionControl {
 
