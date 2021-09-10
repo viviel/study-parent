@@ -30,6 +30,7 @@
         <module>java-zookeeper</module>
         <module>java-tomcat</module>
         <module>java-jvm</module>
+        <module>java-design-pattern</module>
     </modules>
 
     <dependencies>
