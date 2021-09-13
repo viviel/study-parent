@@ -21,7 +21,6 @@
         <module>jdk-syntax</module>
         <module>jdk-map</module>
         <module>jdk-io</module>
-        <module>jdk-classloader</module>
         <module>jdk-util</module>
         <module>jdk-collection</module>
         <module>jdk-lang</module>
