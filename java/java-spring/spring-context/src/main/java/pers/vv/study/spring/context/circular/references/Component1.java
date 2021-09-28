@@ -8,4 +8,8 @@ public class Component1 {
 
     @Autowired
     private Component2 component2;
+
+    public void m1() {
+        System.out.println("Component1.m1");
+    }
 }
