@@ -111,6 +111,7 @@
         <bookkeeper.version>4.11.0</bookkeeper.version>
         <commons-logging.version>1.2</commons-logging.version>
         <json.version>20190722</json.version>
+        <mqtt.version>1.16</mqtt.version>
 
         <!-- plugins -->
         <maven-plugin-annotations.version>3.6.0</maven-plugin-annotations.version>
@@ -314,6 +315,11 @@
                 <groupId>org.json</groupId>
                 <artifactId>json</artifactId>
                 <version>${json.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.fusesource.mqtt-client</groupId>
+                <artifactId>mqtt-client</artifactId>
+                <version>${mqtt.version}</version>
             </dependency>
 
             <!-- maven plugins -->
