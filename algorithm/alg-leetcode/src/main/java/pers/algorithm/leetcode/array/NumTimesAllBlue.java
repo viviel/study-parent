@@ -1,8 +1,5 @@
 package pers.algorithm.leetcode.array;
 
-import java.util.HashSet;
-import java.util.Set;
-
 /**
  * https://leetcode-cn.com/problems/bulb-switcher-iii/
  */

@@ -74,7 +74,23 @@
         <module>common</module>
         <module>network</module>
         <module>system</module>
-        <module>java</module>
+        <module>bookkeepr</module>
+        <module>design-pattern</module>
+        <module>jdk</module>
+        <module>jvm</module>
+        <module>log</module>
+        <module>maven-plugin</module>
+        <module>monitor</module>
+        <module>mq</module>
+        <module>netty</module>
+        <module>reactor</module>
+        <module>schedule</module>
+        <module>serialize</module>
+        <module>socketio</module>
+        <module>spring</module>
+        <module>test</module>
+        <module>tomcat</module>
+        <module>zookeeper</module>
     </modules>
 
     <properties>

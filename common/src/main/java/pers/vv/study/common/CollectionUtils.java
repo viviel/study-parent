@@ -16,7 +16,6 @@
 
 package pers.vv.study.common;
 
-import java.io.Serializable;
 import java.util.*;
 
 /**
