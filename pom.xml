@@ -110,7 +110,7 @@
         <common.version>1.14</common.version>
         <openjpa.version>3.1.2</openjpa.version>
         <eclipselink.version>2.7.7</eclipselink.version>
-        <shardingsphere.version>4.0.1</shardingsphere.version>
+        <shardingsphere.version>4.1.1</shardingsphere.version>
         <rocketmq.version>4.7.0</rocketmq.version>
         <redission.version>3.12.5</redission.version>
         <log4j.version>2.13.3</log4j.version>
