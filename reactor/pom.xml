@@ -20,4 +20,11 @@
         <module>reactor-project</module>
     </modules>
 
+    <dependencies>
+        <dependency>
+            <groupId>pers.vv.study</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>
