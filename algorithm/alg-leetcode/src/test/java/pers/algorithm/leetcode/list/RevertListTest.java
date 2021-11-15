@@ -9,7 +9,7 @@ class RevertListTest {
 
     @BeforeEach
     void setUp() {
-        o = new RevertList();
+        o = new RevertList2();
     }
 
     @Test
