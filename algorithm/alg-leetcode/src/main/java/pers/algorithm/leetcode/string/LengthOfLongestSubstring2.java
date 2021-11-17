@@ -3,6 +3,9 @@ package pers.algorithm.leetcode.string;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * 滑动窗口
+ */
 class LengthOfLongestSubstring2 extends LengthOfLongestSubstring {
 
     @Override
