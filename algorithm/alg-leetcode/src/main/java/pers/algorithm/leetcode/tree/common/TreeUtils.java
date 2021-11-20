@@ -423,4 +423,28 @@ public class TreeUtils {
         result.right.right = new TreeNode(1);
         return result;
     }
+
+    /**
+     * [0,2,4,1,null,3,-1,5,1,null,6,null,8]
+     * |             0
+     * |         /       \
+     * |       2          4
+     * |     /          /   \
+     * |   1          3      -1
+     * |  / \          \       \
+     * | 5   1          6       8
+     */
+    public static TreeNode generateTree27() {
+        TreeNode r = new TreeNode(0);
+        r.left = new TreeNode(2);
+        r.right = new TreeNode(4);
+        r.left.left = new TreeNode(1);
+        r.right.left = new TreeNode(3);
+        r.right.right = new TreeNode(-1);
+        r.left.left.left = new TreeNode(5);
+        r.left.left.right = new TreeNode(1);
+        r.right.left.right = new TreeNode(6);
+        r.right.right.right = new TreeNode(8);
+        return r;
+    }
 }
