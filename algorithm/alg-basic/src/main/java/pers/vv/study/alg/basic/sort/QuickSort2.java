@@ -1,6 +1,8 @@
 package pers.vv.study.alg.basic.sort;
 
-public class QuickSort implements Sort {
+import java.util.Random;
+
+public class QuickSort2 extends QuickSort implements Sort {
 
     @Override
     public void sort(int[] nums) {
@@ -17,23 +19,22 @@ public class QuickSort implements Sort {
     }
 
     protected int partition(int[] nums, int l, int r) {
-        int split = l;
-        int i = l + 1;
-        int j = r;
-        while (i < j) {
-            while (i < j && nums[split] <= nums[j]) {
-                j--;
+        randomPivot(nums, l, r);
+        int pivot = nums[r];
+        int i = l - 1;
+        for (int j = l; j <= r - 1; ++j) {
+            if (nums[j] <= pivot) {
+                i = i + 1;
+                swap(nums, i, j);
             }
-            while (i < j && nums[split] >= nums[i]) {
-                i++;
-            }
-            swap(nums, i, j);
         }
-        if (nums[split] > nums[i]) {
-            swap(nums, l, i);
-            split = i;
-        }
-        return split;
+        swap(nums, i + 1, r);
+        return i + 1;
+    }
+
+    private void randomPivot(int[] nums, int l, int r) {
+        int i = new Random().nextInt(r - l + 1) + l;
+        swap(nums, i, r);
     }
 
     private void swap(int[] nums, int i, int j) {

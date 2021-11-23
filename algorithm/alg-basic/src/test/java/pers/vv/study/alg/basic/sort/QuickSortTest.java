@@ -9,7 +9,7 @@ class QuickSortTest {
 
     @BeforeEach
     void setUp() {
-        o = new QuickSort();
+        o = new QuickSort2();
     }
 
     /**
@@ -38,6 +38,12 @@ class QuickSortTest {
     @Test
     void t3() {
         int[] nums = new int[]{6, 5, 4, 3, 2, 1};
+        o.sort(nums);
+    }
+
+    @Test
+    void t4() {
+        int[] nums = new int[]{5, 2, 3, 1};
         o.sort(nums);
     }
 }
