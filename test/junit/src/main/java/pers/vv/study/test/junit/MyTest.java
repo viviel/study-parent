@@ -1,4 +1,4 @@
-package pers.vv.study.test;
+package pers.vv.study.test.junit;
 
 public class MyTest {
 

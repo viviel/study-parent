@@ -1,4 +1,4 @@
-package pers.vv.study.test;
+package pers.vv.study.test.junit;
 
 import org.junit.jupiter.api.Test;
 
