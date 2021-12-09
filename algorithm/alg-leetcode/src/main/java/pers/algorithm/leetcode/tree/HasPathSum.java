@@ -18,7 +18,7 @@ class HasPathSum {
             return hasPathSum(root.left, targetSum - root.val);
         }
         return hasPathSum(root.left, targetSum - root.val) ||
-               hasPathSum(root.right, targetSum - root.val);
+                hasPathSum(root.right, targetSum - root.val);
     }
 
     public boolean hasPathSum2(TreeNode root, int sum) {
@@ -29,6 +29,6 @@ class HasPathSum {
             return sum - root.val == 0;
         }
         return hasPathSum2(root.left, sum - root.val)
-               || hasPathSum2(root.right, sum - root.val);
+                || hasPathSum2(root.right, sum - root.val);
     }
 }

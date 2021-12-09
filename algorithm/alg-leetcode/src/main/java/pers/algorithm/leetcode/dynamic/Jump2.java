@@ -1,7 +1,5 @@
 package pers.algorithm.leetcode.dynamic;
 
-import java.util.Arrays;
-
 class Jump2 extends Jump {
 
     @Override

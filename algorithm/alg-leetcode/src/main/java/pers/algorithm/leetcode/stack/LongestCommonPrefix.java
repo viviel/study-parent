@@ -68,8 +68,8 @@ public class LongestCommonPrefix {
             for (int j = 0; j < s2.length(); j++) {
                 for (int offset = 0;
                      i + offset < s1.length() &&
-                     j + offset < s2.length() &&
-                     s1.charAt(i + offset) == s2.charAt(j + offset);
+                             j + offset < s2.length() &&
+                             s1.charAt(i + offset) == s2.charAt(j + offset);
                      offset++
                 ) {
                     String temp = s1.substring(i, i + offset + 1);

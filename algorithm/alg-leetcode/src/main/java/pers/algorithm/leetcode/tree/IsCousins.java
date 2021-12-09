@@ -39,6 +39,7 @@ class IsCousins {
     }
 
     int xp, xd, yp, yd;
+
     private void traversal(TreeNode t, int x, int y, int d, int p) {
         if (null == t) {
             return;

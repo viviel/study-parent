@@ -16,7 +16,7 @@ class CountAndSayTest {
 
     /**
      * f(n) = desc(f(n - 1))
-     *
+     * <p>
      * f(1) = "1"
      * f(2) = desc("1") = "11"
      * f(3) = desc("11") = "21"

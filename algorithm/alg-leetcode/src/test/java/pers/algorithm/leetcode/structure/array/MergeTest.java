@@ -1,4 +1,4 @@
-package pers.algorithm.leetcode.pointer;
+package pers.algorithm.leetcode.structure.array;
 
 import org.junit.jupiter.api.Test;
 

@@ -25,7 +25,7 @@ class MaxProfitTest {
 
     @Test
     void test2() {
-        int[] inventory = {3,5};
+        int[] inventory = {3, 5};
         int orders = 6;
         int r = o.maxProfit(inventory, orders);
         Assertions.assertEquals(19, r);
@@ -33,7 +33,7 @@ class MaxProfitTest {
 
     @Test
     void test3() {
-        int[] inventory = {2,8,4,10,6};
+        int[] inventory = {2, 8, 4, 10, 6};
         int orders = 20;
         int r = o.maxProfit(inventory, orders);
         Assertions.assertEquals(110, r);
@@ -49,7 +49,7 @@ class MaxProfitTest {
 
     @Test
     void test5() {
-        int[] inventory = {2,8,4,10,6};
+        int[] inventory = {2, 8, 4, 10, 6};
         Integer[] array = Arrays.stream(inventory).boxed().toArray(value -> {
             System.out.println(value);
             return new Integer[value];

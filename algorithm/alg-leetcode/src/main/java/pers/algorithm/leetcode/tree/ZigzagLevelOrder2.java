@@ -2,7 +2,12 @@ package pers.algorithm.leetcode.tree;
 
 import pers.algorithm.leetcode.tree.common.TreeNode;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 class ZigzagLevelOrder2 extends ZigzagLevelOrder {
 

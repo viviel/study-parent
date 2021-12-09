@@ -17,7 +17,7 @@ class IsInterleaveTest {
 
     /**
      * aa      bc   c
-     *    dbbc    a
+     * dbbc    a
      * aa dbbc bc a c
      */
     @Test
@@ -31,7 +31,7 @@ class IsInterleaveTest {
 
     /**
      * aa     b cc
-     *    dbb ca
+     * dbb ca
      * aa dbb b accc
      */
     @Test

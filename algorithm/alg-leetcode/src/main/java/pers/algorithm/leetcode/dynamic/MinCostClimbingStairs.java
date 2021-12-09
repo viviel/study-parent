@@ -43,12 +43,12 @@ class MinCostClimbingStairs {
      * <p>
      * [1, 100]       f(2) = 1
      * [1, 100, 1]    f(3) = 2
-     *
+     * <p>
      * []             f(0) = 0
      * [10]           f(1) = 0
      * [10, 15]       f(2) = 10
      * [10, 15, 20]   f(3) = 15   max(f(2) + 20, f(1) + 15)
-     *
+     * <p>
      * f(n) = max(f(n - 1) + array[n - 1], f(n - 2) + array[n - 2])
      */
     public int minCostClimbingStairs(int[] cost) {

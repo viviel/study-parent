@@ -70,11 +70,10 @@ class NumDecodingsTest {
 
     /**
      * 1234
-     *
+     * <p>
      * 1 2 3 4
      * 12 3 4
      * 1 23 4
-     *
      */
     @Test
     void t5() {

@@ -22,7 +22,7 @@ class AllPathsSourceTargetTest {
 
     @Test
     void test2() {
-        int[][] graph = new int[][]{{4,3,1}, {3,2,4}, {3}, {4}, {}};
+        int[][] graph = new int[][]{{4, 3, 1}, {3, 2, 4}, {3}, {4}, {}};
         List<List<Integer>> ans = o.allPathsSourceTarget(graph);
     }
 }

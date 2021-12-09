@@ -5,8 +5,8 @@ import pers.algorithm.leetcode.list.ListNode;
 /**
  * https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
  * 确定思路
- *  初始化快指针边界
- *
+ * 初始化快指针边界
+ * <p>
  * 解题步骤
  * 再次梳理思路和步骤
  * 测试

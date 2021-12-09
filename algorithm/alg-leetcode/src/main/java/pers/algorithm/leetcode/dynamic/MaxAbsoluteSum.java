@@ -1,6 +1,8 @@
 package pers.algorithm.leetcode.dynamic;
 
-import static java.lang.Math.*;
+import static java.lang.Math.abs;
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 /**
  * 给你一个整数数组nums。一个子数组[nums_l, nums_l+1, ..., nums_r-1, nums_r]的

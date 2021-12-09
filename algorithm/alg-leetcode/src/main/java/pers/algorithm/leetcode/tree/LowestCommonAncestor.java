@@ -15,7 +15,7 @@ class LowestCommonAncestor {
             return root;
         } else {
             if ((hasNode(root.left, p) || hasNode(root.left, q))
-                && (hasNode(root.right, p) || hasNode(root.right, q))) {
+                    && (hasNode(root.right, p) || hasNode(root.right, q))) {
                 return root;
             } else if (hasNode(root.left, p)) {
                 return lowestCommonAncestor(root.left, p, q);
